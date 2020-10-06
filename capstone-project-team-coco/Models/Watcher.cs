@@ -25,7 +25,7 @@ namespace we_watch.Models
         public string Name { get; set; }
 
 
-        [InverseProperty(nameof(Models.Show_Card.Watcher))]
+        [InverseProperty(nameof(Models.Show_Card.Watcher))] // One watcher to many show cards
         public virtual ICollection<Show_Card> Show_Cards { get; set; } // Watcher can have a collection of multiple show cards (one watcher to many show cards)
 
     }

@@ -21,15 +21,15 @@ namespace we_watch.Models
        
         [Column("Show_ID", TypeName = "int(10)")]
         [Required]
-        public string Show_ID { get; set; }
+        public int Show_ID { get; set; }
 
         [Column("Ind_Season", TypeName = "smallint(2)")]
         [Required]
-        public string Ind_Season { get; set; }
+        public int Ind_Season { get; set; }
         
         [Column("Total_Episodes", TypeName = "smallint(2)")]
         [Required]
-        public string Total_Episodes { get; set; }
+        public int Total_Episodes { get; set; }
 
         [ForeignKey(nameof(Show_ID))]
 

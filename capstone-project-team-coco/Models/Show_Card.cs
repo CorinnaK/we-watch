@@ -22,22 +22,22 @@ namespace we_watch.Models
 
         [Column("Show_ID", TypeName = "int(10)")]
         [Required]
-        public string Show_ID { get; set; }
+        public int Show_ID { get; set; }
 
         [Column("Watcher_ID", TypeName = "int(10)")]
         [Required]
-        public string Watcher_ID { get; set; }        
+        public int Watcher_ID { get; set; }        
 
         [Column("Platform", TypeName = "varchar(20)")]        
         public string Platform { get; set; }
 
         [Column("Current_Season", TypeName = "smallint(2)")]
         [Required]
-        public string Current_Season { get; set; }
+        public int Current_Season { get; set; }
         
         [Column("Current_Episode", TypeName = "smallint(2)")]
         [Required]
-        public string Current_Episode { get; set; }
+        public int Current_Episode { get; set; }
 
         [Column("Status", TypeName = "varchar(20)")]
         [Required]
@@ -56,6 +56,12 @@ namespace we_watch.Models
         [InverseProperty(nameof(Models.Watcher.Show_Cards))]
         public virtual Watcher Watcher { get; set; }
 
+        
+        // Inverse property for the Season_Num foreign key from the Watch_History Table
+        [InverseProperty(nameof(Models.Watch_History.Show_Cards))]
+        public virtual Watch_History Watch_History { get; set; }
+
+       
 
 
 

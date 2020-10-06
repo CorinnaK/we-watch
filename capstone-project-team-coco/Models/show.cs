@@ -33,7 +33,7 @@ namespace we_watch.Models
 
         [Column(TypeName = "smallint(2)")]
         [Required]
-        public string Total_Seasons { get; set; }
+        public int Total_Seasons { get; set; }
 
         [InverseProperty(nameof(Models.Show_Season.Show))]
         public virtual ICollection<Show_Season> Show_Seasons { get; set; } // ICollection is an object with lists within it
