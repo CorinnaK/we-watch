@@ -16,6 +16,7 @@ namespace we_watch.Models
         public Show()
         {
             Show_Seasons = new HashSet<Show_Season>();
+            Show_Cards = new HashSet<Show_Card>();
         }
 
         [Key]
@@ -37,5 +38,7 @@ namespace we_watch.Models
         [InverseProperty(nameof(Models.Show_Season.Show))]
         public virtual ICollection<Show_Season> Show_Seasons { get; set; } // ICollection is an object with lists within it
 
+        [InverseProperty(nameof(Models.Show_Card.Show))]
+        public virtual ICollection<Show_Card> Show_Cards { get; set; }
     }
 }

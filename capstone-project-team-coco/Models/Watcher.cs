@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace we_watch.Models
 {
-    [Table("buddy")]
-    public partial class Buddy
+    [Table("watcher")]
+    public partial class Watcher
     {
 
         [Key]
@@ -23,6 +23,10 @@ namespace we_watch.Models
         [Column(TypeName = "varchar(30)")]
         [Required]
         public string Name { get; set; }
+
+
+        [InverseProperty(nameof(Models.Show_Card.Watcher))]
+        public virtual ICollection<Show_Card> Show_Cards { get; set; } // Watcher can have a collection of multiple show cards (one watcher to many show cards)
 
     }
 }
