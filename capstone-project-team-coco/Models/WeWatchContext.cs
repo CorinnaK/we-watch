@@ -188,5 +188,7 @@ namespace we_watch.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<we_watch.Models.Show> Show { get; set; }
     }
 }
