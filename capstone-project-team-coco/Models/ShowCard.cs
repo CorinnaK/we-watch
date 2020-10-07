@@ -16,7 +16,7 @@ namespace we_watch.Models
 
 
         [Key]
-        [Column("ShowCardID", TypeName = "int(10)")] // Composite ID
+        [Column("ShowCardID", TypeName = "int(10)")] 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
         public int ShowCardID { get; set; }
@@ -42,8 +42,8 @@ namespace we_watch.Models
 
         [Column("Status", TypeName = "varchar(20)")]
         [Required]
-        [DefaultValue("Current")] // To set a default value of "current" for Status column
-        public string Status { get; set; }
+        // To set a default value of "current" for Status column
+        public string Status { get; set; } = "Current";
 
         [ForeignKey(nameof(ShowID))]
         // InverseProperty links the two virtual properties together.
@@ -56,7 +56,7 @@ namespace we_watch.Models
         public virtual Watcher Watcher { get; set; }
 
 
-        [InverseProperty(nameof(Models.WatchHistory.ShowCard))]
+        [InverseProperty(nameof(Models.WatchHistory.ShowCardID))]
         public virtual ICollection<WatchHistory> WatchHistories { get; set; }
 
     }

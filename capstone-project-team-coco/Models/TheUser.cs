@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace we_watch.Models
 {
     [Table("User")]
-    public partial class User
+    public partial class TheUser
     {
-        public User()
+        public TheUser()
         {
             Watchers = new HashSet<Watcher>();
             Shows = new HashSet<Show>();
@@ -28,10 +28,15 @@ namespace we_watch.Models
         [Column("Email", TypeName = "varchar(30)")]
         [Required]
         public string Email { get; set; }
-        
-        [Column("Password", TypeName = "varchar(30)")]
+
+        [Column("Salt", TypeName = "varchar(32)")]
         [Required]
-        public string Password { get; set; }
+        public string Salt { get; set; }
+
+
+        [Column("HashPassword", TypeName = "char(64)")]
+        [Required]
+        public string HashPassword { get; set; }
 
 
         [InverseProperty(nameof(Models.Watcher.UserID))]

@@ -29,8 +29,8 @@ namespace we_watch.Models
 
         [ForeignKey(nameof(UserID))]
 
-        [InverseProperty(nameof(Models.User.Watchers))]   
-        public virtual User User { get; set; } 
+        [InverseProperty(nameof(Models.TheUser.Watchers))]   
+        public virtual TheUser TheUser { get; set; } 
 
 
         [InverseProperty(nameof(Models.ShowCard.Watcher))]

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using capstone_project_team_coco.Models;
+using we_watch.Models;
 
-namespace capstone_project_team_coco.Controllers
+namespace we_watch.Controllers
 {
     public class HomeController : Controller
     {
