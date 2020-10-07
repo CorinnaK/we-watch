@@ -56,7 +56,7 @@ namespace we_watch.Models
         public virtual Watcher Watcher { get; set; }
 
 
-        [InverseProperty(nameof(Models.WatchHistory.ShowCardID))]
+        [InverseProperty(nameof(Models.WatchHistory.ShowCard))]
         public virtual ICollection<WatchHistory> WatchHistories { get; set; }
 
     }

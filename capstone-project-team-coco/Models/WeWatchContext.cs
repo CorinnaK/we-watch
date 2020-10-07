@@ -7,13 +7,13 @@ using we_watch.Models;
 
 namespace we_watch.Models
 {
-    public partial class We_WatchContext : DbContext
+    public partial class WeWatchContext : DbContext
     {
-        public We_WatchContext()
+        public WeWatchContext()
         {
         }
 
-        public We_WatchContext(DbContextOptions<We_WatchContext> options)
+        public WeWatchContext(DbContextOptions<WeWatchContext> options)
             : base(options)
         {
         }
