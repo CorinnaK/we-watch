@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 
+
 namespace we_watch.Models
 {
     [Table("watch_history")]
