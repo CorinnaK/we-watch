@@ -9,24 +9,32 @@ using System.Threading.Tasks;
 
 namespace we_watch.Models
 {
-    [Table("watcher")]
+    [Table("WatcherID")]
     public partial class Watcher
     {
 
         [Key]
-        [Column("ID", TypeName = "int(10)")]
+        [Column("WatcherID", TypeName = "int(10)")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
-        public int ID { get; set; }
+        public int WatcherID { get; set; }
 
+        [Column("UserID", TypeName = "int(10)")]
+        [Required]
+        public int UserID { get; set; }
 
-        [Column(TypeName = "varchar(30)")]
+        [Column("Name", TypeName = "varchar(30)")]
         [Required]
         public string Name { get; set; }
 
+        [ForeignKey(nameof(UserID))]
 
-        [InverseProperty(nameof(Models.Show_Card.Watcher))] // One watcher to many show cards
-        public virtual ICollection<Show_Card> Show_Cards { get; set; } // Watcher can have a collection of multiple show cards (one watcher to many show cards)
+        [InverseProperty(nameof(Models.User.Watchers))]   
+        public virtual User User { get; set; } 
+
+
+        [InverseProperty(nameof(Models.ShowCard.Watcher))]
+        public virtual ICollection<ShowCard> ShowCards { get; set; } // Watcher can have a collection of multiple show cards (one watcher to many show cards)
 
     }
 }

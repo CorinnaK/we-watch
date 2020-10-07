@@ -15,30 +15,39 @@ namespace we_watch.Models
         // This initializes an empty list so we don't get null reference exceptions for our list when program checkes for ICollection later down.
         public Show()
         {
-            Show_Seasons = new HashSet<Show_Season>();
-            Show_Cards = new HashSet<Show_Card>();
+            ShowSeasons = new HashSet<ShowSeason>();
+            ShowCards = new HashSet<ShowCard>();
         }
 
         [Key]
-        [Column("ID", TypeName = "int(10)")]
+        [Column("ShowID", TypeName = "int(10)")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
-        public int Show_ID { get; set; }
+        public int ShowID { get; set; }
 
+        [Column("UserID", TypeName = "int(10)")]
+        [Required]
+        public int UserID { get; set; }
     
-        [Column(TypeName = "varchar(50)")]
+        [Column("Title", TypeName = "varchar(50)")]
         [Required]
         public string Title { get; set; }
 
 
-        [Column(TypeName = "smallint(2)")]
+        [Column("TotalSeasons", TypeName = "smallint(2)")]
         [Required]
-        public int Total_Seasons { get; set; }
+        public int TotalSeasons { get; set; }
 
-        [InverseProperty(nameof(Models.Show_Season.Show))]
-        public virtual ICollection<Show_Season> Show_Seasons { get; set; } // ICollection is an object with lists within it
 
-        [InverseProperty(nameof(Models.Show_Card.Show))]
-        public virtual ICollection<Show_Card> Show_Cards { get; set; }
+        [ForeignKey(nameof(UserID))]
+        [InverseProperty(nameof(Models.User.Shows))]
+        public virtual User User { get; set; }
+
+
+        [InverseProperty(nameof(Models.ShowSeason.Show))]
+        public virtual ICollection<ShowSeason> ShowSeasons { get; set; } // ICollection is an object with lists within it
+
+        [InverseProperty(nameof(Models.ShowCard.Show))]
+        public virtual ICollection<ShowCard> ShowCards { get; set; }
     }
 }
