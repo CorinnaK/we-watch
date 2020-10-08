@@ -44,7 +44,7 @@ namespace we_watch.Migrations
                 {
                     table.PrimaryKey("PK_show", x => x.ShowID);
                     table.ForeignKey(
-                        name: "FK_Show_TheUser",
+                        name: "FK_Show_User",
                         column: x => x.UserID,
                         principalTable: "User",
                         principalColumn: "UserID",
@@ -52,7 +52,7 @@ namespace we_watch.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WatcherID",
+                name: "Watcher",
                 columns: table => new
                 {
                     WatcherID = table.Column<int>(type: "int(10)", nullable: false)
@@ -64,9 +64,9 @@ namespace we_watch.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WatcherID", x => x.WatcherID);
+                    table.PrimaryKey("PK_Watcher", x => x.WatcherID);
                     table.ForeignKey(
-                        name: "FK_Watcher_TheUser",
+                        name: "FK_Watcher_User",
                         column: x => x.UserID,
                         principalTable: "User",
                         principalColumn: "UserID",
@@ -121,13 +121,13 @@ namespace we_watch.Migrations
                     table.ForeignKey(
                         name: "FK_ShowCard_Watcher",
                         column: x => x.WatcherID,
-                        principalTable: "WatcherID",
+                        principalTable: "Watcher",
                         principalColumn: "WatcherID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "watch_history",
+                name: "WatchHistory",
                 columns: table => new
                 {
                     WatchHistoryID = table.Column<int>(type: "int(10)", nullable: false)
@@ -139,9 +139,9 @@ namespace we_watch.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_watch_history", x => x.WatchHistoryID);
+                    table.PrimaryKey("PK_WatchHistory", x => x.WatchHistoryID);
                     table.ForeignKey(
-                        name: "FK_ShowSeason_Show",
+                        name: "FK_WatchHistory_ShowCard",
                         column: x => x.ShowCardID,
                         principalTable: "ShowCard",
                         principalColumn: "ShowCardID",
@@ -149,7 +149,7 @@ namespace we_watch.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "FK_Show_TheUser",
+                name: "FK_Show_User",
                 table: "show",
                 column: "UserID");
 
@@ -169,14 +169,14 @@ namespace we_watch.Migrations
                 column: "ShowID");
 
             migrationBuilder.CreateIndex(
-                name: "FK_WatchHistory_ShowCard",
-                table: "watch_history",
-                column: "ShowCardID");
+                name: "FK_Watcher_User",
+                table: "Watcher",
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "FK_Watcher_TheUser",
-                table: "WatcherID",
-                column: "UserID");
+                name: "FK_WatchHistory_ShowCard",
+                table: "WatchHistory",
+                column: "ShowCardID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -185,7 +185,7 @@ namespace we_watch.Migrations
                 name: "ShowSeason");
 
             migrationBuilder.DropTable(
-                name: "watch_history");
+                name: "WatchHistory");
 
             migrationBuilder.DropTable(
                 name: "ShowCard");
@@ -194,7 +194,7 @@ namespace we_watch.Migrations
                 name: "show");
 
             migrationBuilder.DropTable(
-                name: "WatcherID");
+                name: "Watcher");
 
             migrationBuilder.DropTable(
                 name: "User");

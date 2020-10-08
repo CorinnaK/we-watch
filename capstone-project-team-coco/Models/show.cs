@@ -36,8 +36,8 @@ namespace we_watch.Models
 
 
         [ForeignKey(nameof(UserID))]
-        [InverseProperty(nameof(Models.TheUser.Shows))]
-        public virtual TheUser TheUser { get; set; }
+        [InverseProperty(nameof(Models.User.Shows))]
+        public virtual User User { get; set; }
 
 
         [InverseProperty(nameof(Models.ShowSeason.Show))]

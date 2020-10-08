@@ -8,8 +8,8 @@ using we_watch.Models;
 namespace we_watch.Migrations
 {
     [DbContext(typeof(WeWatchContext))]
-    [Migration("20201007221117_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201008210301_UserSeed")]
+    partial class UserSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,7 +43,7 @@ namespace we_watch.Migrations
                     b.HasKey("ShowID");
 
                     b.HasIndex("UserID")
-                        .HasName("FK_Show_TheUser");
+                        .HasName("FK_Show_User");
 
                     b.ToTable("show");
                 });
@@ -120,7 +120,7 @@ namespace we_watch.Migrations
                     b.ToTable("ShowSeason");
                 });
 
-            modelBuilder.Entity("we_watch.Models.TheUser", b =>
+            modelBuilder.Entity("we_watch.Models.User", b =>
                 {
                     b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
@@ -151,6 +151,29 @@ namespace we_watch.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            UserID = -1,
+                            Email = "someone@somewhere.something",
+                            HashPassword = "2334814362998297759587574090140267323532918138392977707124924545",
+                            Salt = "wherew"
+                        },
+                        new
+                        {
+                            UserID = -2,
+                            Email = "aspin@go.com",
+                            HashPassword = "2334814362998297759587574090140267323532918138392977707124924545",
+                            Salt = "Yes"
+                        },
+                        new
+                        {
+                            UserID = -3,
+                            Email = "goaspin@gmail.com",
+                            HashPassword = "2334814362998297759587574090140267323532918138392977707124924545",
+                            Salt = "Yes"
+                        });
                 });
 
             modelBuilder.Entity("we_watch.Models.WatchHistory", b =>
@@ -181,7 +204,7 @@ namespace we_watch.Migrations
                     b.HasIndex("ShowCardID")
                         .HasName("FK_WatchHistory_ShowCard");
 
-                    b.ToTable("watch_history");
+                    b.ToTable("WatchHistory");
                 });
 
             modelBuilder.Entity("we_watch.Models.Watcher", b =>
@@ -205,17 +228,17 @@ namespace we_watch.Migrations
                     b.HasKey("WatcherID");
 
                     b.HasIndex("UserID")
-                        .HasName("FK_Watcher_TheUser");
+                        .HasName("FK_Watcher_User");
 
-                    b.ToTable("WatcherID");
+                    b.ToTable("Watcher");
                 });
 
             modelBuilder.Entity("we_watch.Models.Show", b =>
                 {
-                    b.HasOne("we_watch.Models.TheUser", "TheUser")
+                    b.HasOne("we_watch.Models.User", "User")
                         .WithMany("Shows")
                         .HasForeignKey("UserID")
-                        .HasConstraintName("FK_Show_TheUser")
+                        .HasConstraintName("FK_Show_User")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -252,17 +275,17 @@ namespace we_watch.Migrations
                     b.HasOne("we_watch.Models.ShowCard", "ShowCard")
                         .WithMany("WatchHistories")
                         .HasForeignKey("ShowCardID")
-                        .HasConstraintName("FK_ShowSeason_Show")
+                        .HasConstraintName("FK_WatchHistory_ShowCard")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("we_watch.Models.Watcher", b =>
                 {
-                    b.HasOne("we_watch.Models.TheUser", "TheUser")
+                    b.HasOne("we_watch.Models.User", "User")
                         .WithMany("Watchers")
                         .HasForeignKey("UserID")
-                        .HasConstraintName("FK_Watcher_TheUser")
+                        .HasConstraintName("FK_Watcher_User")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace we_watch.Models
 {
-    [Table("WatcherID")]
+    [Table("Watcher")]
     public partial class Watcher
     {
 
@@ -29,8 +29,8 @@ namespace we_watch.Models
 
         [ForeignKey(nameof(UserID))]
 
-        [InverseProperty(nameof(Models.TheUser.Watchers))]   
-        public virtual TheUser TheUser { get; set; } 
+        [InverseProperty(nameof(Models.User.Watchers))]   
+        public virtual User User { get; set; } 
 
 
         [InverseProperty(nameof(Models.ShowCard.Watcher))]

@@ -18,7 +18,11 @@ namespace we_watch.Models
         {
         }
 
-        public virtual DbSet<TheUser> TheUser { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Show> Show { get; set; }
+        public virtual DbSet<ShowCard> ShowCard { get; set; }
+        public virtual DbSet<ShowSeason> ShowSeason { get; set; }
+        public virtual DbSet<Watcher> Watcher { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -40,17 +44,17 @@ namespace we_watch.Models
                     .HasCollation("utf8mb4_general_ci");
 
                 entity.HasIndex(e => e.UserID)
-                    .HasName("FK_" + nameof(Show) + "_" + nameof(TheUser));
+                    .HasName("FK_" + nameof(Show) + "_" + nameof(User));
 
 
                 // Always in the one with the foreign key.
-                entity.HasOne(child => child.TheUser)
+                entity.HasOne(child => child.User)
                     .WithMany(parent => parent.Shows)
                     .HasForeignKey(child => child.UserID)
 
                     // Currently set to restrict until CRUD functionality on USER page
                     .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_" + nameof(Show) + "_" + nameof(TheUser));
+                    .HasConstraintName("FK_" + nameof(Show) + "_" + nameof(User));
             });
 
 
@@ -108,7 +112,7 @@ namespace we_watch.Models
             });
 
 
-            modelBuilder.Entity<TheUser>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.Email)
                     .HasCharSet("utf8mb4")
@@ -122,6 +126,32 @@ namespace we_watch.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
 
+                entity.HasData(
+                    new User()
+                    {
+                        UserID = -1,
+                        Email = "someone@somewhere.something",
+                        Salt= "wherew",
+                        HashPassword = "2334814362998297759587574090140267323532918138392977707124924545"
+                    },
+                    new User()
+                    {
+                        UserID = -2,
+                        Email = "aspin@go.com",
+                        Salt= "Yes",
+                        HashPassword = "2334814362998297759587574090140267323532918138392977707124924545"
+                    },
+                    new User()
+                    {
+                        UserID = -3,
+                        Email = "goaspin@gmail.com",
+                        Salt= "Yes",
+                        HashPassword = "2334814362998297759587574090140267323532918138392977707124924545"
+                    }
+
+                    );
+
+
             });
 
             modelBuilder.Entity<Watcher>(entity =>
@@ -132,16 +162,16 @@ namespace we_watch.Models
 
                 entity.HasIndex(e => e.UserID)
                 // FK Child (many) + Parent (one)
-                    .HasName("FK_" + nameof(Watcher) + "_" + nameof(TheUser));
+                    .HasName("FK_" + nameof(Watcher) + "_" + nameof(User));
 
                 // Always in the one with the foreign key.
-                entity.HasOne(child => child.TheUser)
+                entity.HasOne(child => child.User)
                     .WithMany(parent => parent.Watchers)
                     .HasForeignKey(child => child.UserID)
                     
                     // Currently set to restrict until CRUD functionality on USER page
                     .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_" + nameof(Watcher) + "_" + nameof(TheUser));
+                    .HasConstraintName("FK_" + nameof(Watcher) + "_" + nameof(User));
 
             });
 
@@ -158,37 +188,12 @@ namespace we_watch.Models
 
                     // Currently set to restrict until CRUD functionality on USER page
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_" + nameof(ShowSeason) + "_" + nameof(Show));
+                    .HasConstraintName("FK_" + nameof(WatchHistory) + "_" + nameof(ShowCard));
             });
-
-            /* modelBuilder.Entity<PhoneNumber>(entity =>
-             {
-                 entity.HasIndex(e => e.PersonID)
-                     .HasName("FK_" + nameof(PhoneNumber) + "_" + nameof(Person));
-
-                 entity.Property(e => e.Number)
-                     .HasCharSet("utf8mb4")
-                     .HasCollation("utf8mb4_general_ci");
-
-                 // Always in the one with the foreign key.
-                 entity.HasOne(child => child.Person)
-                     .WithMany(parent => parent.PhoneNumbers)
-                     .HasForeignKey(child => child.PersonID)
-                     // When we delete a record, we can modify the behaviour of the case where there are child records.
-                     // Restrict: Throw an exception if we try to orphan a child record.
-                     // Cascade: Remove any child records that would be orphaned by a removed parent.
-                     // SetNull: Set the foreign key field to null on any orphaned child records.
-                     // NoAction: Don't commit any deletions of parents which would orphan a child.
-                     .OnDelete(DeleteBehavior.Cascade)
-                     .HasConstraintName("FK_" + nameof(PhoneNumber) + "_" + nameof(Person));
-
-             });*/
 
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public DbSet<we_watch.Models.Show> Show { get; set; }
     }
 }

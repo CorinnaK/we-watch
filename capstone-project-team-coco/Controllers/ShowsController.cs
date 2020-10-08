@@ -21,7 +21,7 @@ namespace we_watch
         // GET: Shows
         public async Task<IActionResult> Index()
         {
-            var weWatchContext = _context.Show.Include(s => s.TheUser);
+            var weWatchContext = _context.Show.Include(s => s.User);
             return View(await weWatchContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace we_watch
             }
 
             var show = await _context.Show
-                .Include(s => s.TheUser)
+                .Include(s => s.User)
                 .FirstOrDefaultAsync(m => m.ShowID == id);
             if (show == null)
             {
@@ -47,7 +47,7 @@ namespace we_watch
         // GET: Shows/Create
         public IActionResult Create()
         {
-            ViewData["UserID"] = new SelectList(_context.TheUser, "UserID", "Email");
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "Email");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace we_watch
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.TheUser, "UserID", "Email", show.UserID);
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "Email", show.UserID);
             return View(show);
         }
 
@@ -81,7 +81,7 @@ namespace we_watch
             {
                 return NotFound();
             }
-            ViewData["UserID"] = new SelectList(_context.TheUser, "UserID", "Email", show.UserID);
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "Email", show.UserID);
             return View(show);
         }
 
@@ -117,7 +117,7 @@ namespace we_watch
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.TheUser, "UserID", "Email", show.UserID);
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "Email", show.UserID);
             return View(show);
         }
 
@@ -130,7 +130,7 @@ namespace we_watch
             }
 
             var show = await _context.Show
-                .Include(s => s.TheUser)
+                .Include(s => s.User)
                 .FirstOrDefaultAsync(m => m.ShowID == id);
             if (show == null)
             {

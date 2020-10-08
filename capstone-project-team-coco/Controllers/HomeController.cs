@@ -18,9 +18,15 @@ namespace we_watch.Controllers
             _logger = logger;
         }
 
+     /*
+      
+      ***** Research and add here how to check if someone is logged in or not  --- variable bool isLoggedIn 
+      
+      */
+
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/User/Login");
         }
 
         public IActionResult Privacy()
