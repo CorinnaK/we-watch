@@ -34,12 +34,6 @@ namespace we_watch.Models
         [Required]
         public int TotalSeasons { get; set; }
 
-
-        [ForeignKey(nameof(UserID))]
-        [InverseProperty(nameof(Models.User.Shows))]
-        public virtual User User { get; set; }
-
-
         [InverseProperty(nameof(Models.ShowSeason.Show))]
         public virtual ICollection<ShowSeason> ShowSeasons { get; set; } // ICollection is an object with lists within it
 

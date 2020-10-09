@@ -36,10 +36,5 @@ namespace we_watch.Models
         [Required]
         public string HashPassword { get; set; }
 
-
-        [InverseProperty(nameof(Models.Watcher.User))]
-        public virtual ICollection<Watcher> Watchers { get; set; } // User can have a collection of multiple Watchers (one user to many watchers)
-        
-
     }
 }

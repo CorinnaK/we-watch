@@ -27,13 +27,7 @@ namespace we_watch.Models
         [Required]
         public string Name { get; set; }
 
-        [ForeignKey(nameof(UserID))]
-
-        [InverseProperty(nameof(Models.User.Watchers))]   
-        public virtual User User { get; set; } 
-
-
-        [InverseProperty(nameof(Models.ShowCard.Watcher))]
+       [InverseProperty(nameof(Models.ShowCard.Watcher))]
         public virtual ICollection<ShowCard> ShowCards { get; set; } // Watcher can have a collection of multiple show cards (one watcher to many show cards)
 
     }
