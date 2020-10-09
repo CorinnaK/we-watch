@@ -35,10 +35,47 @@ namespace we_watch.Controllers
                         ViewBag.Password = "Please Try Again";
                     }
                     else
-                    { 
+                    {
                         ViewBag.Email = email;
                         ViewBag.Password = password;
-                    
+
+                    }
+
+                }
+            }
+
+
+            // default view
+            return View();
+        }
+
+        public IActionResult SignUp()
+        {
+            using (WeWatchContext context = new WeWatchContext())
+            {
+                int count = context.User.Count();
+                ViewBag.Count = count;
+
+            }
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SignUp(string email, string password)
+        {
+            if (ModelState.IsValid)
+            {
+                using (WeWatchContext context = new WeWatchContext())
+                {
+                    if (context.User.Where(x => x.Email == email).Count() != 1)
+                    {
+                        ViewBag.Email = "An incorrect Email and/or Password";
+                        ViewBag.Password = "Please Try Again";
+                    }
+                    else
+                    {
+                        ViewBag.Email = email;
+                        ViewBag.Password = password;
+
                     }
 
                 }
@@ -52,6 +89,10 @@ namespace we_watch.Controllers
 
     }
 }
+
+
+
+
 
 // GET: Shows/Create
 /*public IActionResult Create()
