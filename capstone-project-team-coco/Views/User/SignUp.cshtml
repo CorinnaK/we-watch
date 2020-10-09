@@ -2,30 +2,34 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>
-        This is the splash page for We Watch if the isloggedIn is false;
-    </p>
-    <form action="SignUp" method="post">
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" />
-        <label for="confirmedemail">Confirm Email</label>
-        <input type="text" id="confirmedemail" name="email" />
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" />
-        <label for="confirmedpassword">Confirm Password</label>
-        <input type="password" id="confirmedpassword" name="password" />
-        <input type="submit" />
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>
+            This is the splash page for We Watch if the isloggedIn is false;
+        </p>
+        <form action="SignUp" method="post">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" />
+            <label for="confirmedemail">Confirm Email</label>
+            <input type="text" id="confirmedemail" name="confirmedemail" />
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" />
+            <label for="confirmedpassword">Confirm Password</label>
+            <input type="password" id="confirmedpassword" name="confirmedpassword" />
+            <input type="submit" />
 
-    </form>
+        </form>
 
-    <p>@ViewBag.Count</p>
+        <p>@ViewBag.Count</p>
 
-    @if (ViewBag.email != null || ViewBag.password != null)
-    {<h3>You have entered:</h3>}
-    <p>@ViewBag.email</p>
-    <p>@ViewBag.password</p>
+        @if (ViewBag.email != null || ViewBag.password != null)
+            
+        {<h3>You have entered:</h3>}
+        <p>@ViewBag.email</p>
+        <p>@ViewBag.confirmedemail</p>
+        <p>@ViewBag.matchingemail</p>
+        <p>@ViewBag.password</p>
+        <p>@ViewBag.confirmedpassword</p>
 
 
-</div>
+    </div>
