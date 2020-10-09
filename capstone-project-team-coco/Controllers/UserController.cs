@@ -63,27 +63,27 @@ namespace we_watch.Controllers
                 ViewBag.email = "Please enter an email address.";
             }
 
-            else if (confirmedemail == null)
+            if (confirmedemail == null)
             {
                 ViewBag.confirmedemail = "Please confirm your email.";
             }
 
-            else if (email != confirmedemail)
+            if (email != confirmedemail)
             {
                 ViewBag.matchingemail = "These emails do not match. Please try again.";
             }
 
-            else if(password == null)
+            if(password == null)
             {
                 ViewBag.password = "Please enter a password.";
             }
 
-            else if(confirmedpassword == null)
+            if(confirmedpassword == null)
             {
                 ViewBag.confirmedemail = "Please confirm your password.";
             }
 
-            else if (password != confirmedpassword)
+            if (password != confirmedpassword)
             {
                 ViewBag.confirmedpassword = "These passwords do not match. Please try again.";
             }
