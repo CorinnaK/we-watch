@@ -1,11 +1,9 @@
 ﻿
-using System;
+
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+
 
 namespace we_watch.Models
 {
@@ -28,16 +26,21 @@ namespace we_watch.Models
         [Column("Email", TypeName = "varchar(30)")]
         [Required]
         public string Email { get; set; }
-        
-        [Column("Password", TypeName = "varchar(30)")]
+
+        [Column("Salt", TypeName = "varchar(32)")]
         [Required]
-        public string Password { get; set; }
+        public string Salt { get; set; }
 
 
-        [InverseProperty(nameof(Models.Watcher.UserID))]
+        [Column("HashPassword", TypeName = "char(64)")]
+        [Required]
+        public string HashPassword { get; set; }
+
+
+        [InverseProperty(nameof(Models.Watcher.User))]
         public virtual ICollection<Watcher> Watchers { get; set; } // User can have a collection of multiple Watchers (one user to many watchers)
         
-        [InverseProperty(nameof(Models.Show.UserID))]
+        [InverseProperty(nameof(Models.Show.User))]
         public virtual ICollection<Show> Shows { get; set; } // User can have a collection of multiple Shows (one User to many Shows)
 
     }

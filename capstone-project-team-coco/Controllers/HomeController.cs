@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using capstone_project_team_coco.Models;
+using we_watch.Models;
 
-namespace capstone_project_team_coco.Controllers
+namespace we_watch.Controllers
 {
     public class HomeController : Controller
     {
@@ -18,9 +18,15 @@ namespace capstone_project_team_coco.Controllers
             _logger = logger;
         }
 
+     /*
+      
+      ***** Research and add here how to check if someone is logged in or not  --- variable bool isLoggedIn 
+      
+      */
+
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/User/Login");
         }
 
         public IActionResult Privacy()

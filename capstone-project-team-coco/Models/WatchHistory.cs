@@ -2,9 +2,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 
+
 namespace we_watch.Models
 {
-    [Table("watch_history")]
+    [Table("WatchHistory")]
     public partial class WatchHistory
     {
 
@@ -14,21 +15,25 @@ namespace we_watch.Models
         [Required]
         public int WatchHistoryID { get; set; }
 
-  
-        [Column("SeasonNum", TypeName = "smallint(2)")]
+        [Column("ShowCardID", TypeName = "int(10)")]
+        [Required]
+        public int ShowCardID { get; set; }
+
+        [Column("SeasonNum", TypeName = "tinyint(2)")]
         [Required]
         public int SeasonNum { get; set; }
 
-
-        [Column("EpisodeNum", TypeName = "smallint(2)")]
+        [Column("EpisodeNum", TypeName = "tinyint(2)")]
         [Required]
         public int Episode_Num { get; set; }
 
+        [Column("Platform", TypeName = "varchar(20)")]
         public string Platform { get; set; }
 
-       
+        [ForeignKey(nameof(ShowCardID))]
         [InverseProperty(nameof(Models.ShowCard.WatchHistories))]
-        public virtual ShowCard ShowCard { get; set; } // Watcher_History has one show card)
+        public virtual ShowCard ShowCard { get; set; }
+
 
     }
 }

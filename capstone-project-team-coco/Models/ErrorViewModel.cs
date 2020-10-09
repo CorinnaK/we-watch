@@ -1,6 +1,6 @@
 using System;
 
-namespace capstone_project_team_coco.Models
+namespace we_watch.Models
 {
     public class ErrorViewModel
     {

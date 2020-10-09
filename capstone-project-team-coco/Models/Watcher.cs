@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace we_watch.Models
 {
-    [Table("WatcherID")]
+    [Table("Watcher")]
     public partial class Watcher
     {
 
