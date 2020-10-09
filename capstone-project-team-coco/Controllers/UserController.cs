@@ -38,7 +38,7 @@ namespace we_watch.Controllers
                     {
                         ViewBag.Email = email;
                         ViewBag.Password = password;
-
+                        
                     }
 
                 }
