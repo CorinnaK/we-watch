@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Add a Watcher";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Here is the add a Watcher page</h1>
+
+    <h3>@ViewBag.Success </h3>
+
+    <form action="AddWatcher" method="post">
+        <label for="title">Watcher Name</label>
+        <input type="text" id="name" name="name" required />
+        @ViewBag.nameError
+
+        <input type="submit" value="Add a Watcher" />
+    </form>
+
+
+
+
+</div>
