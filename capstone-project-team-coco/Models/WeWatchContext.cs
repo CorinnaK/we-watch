@@ -47,14 +47,7 @@ namespace we_watch.Models
                     .HasName("FK_" + nameof(Show) + "_" + nameof(User));
 
 
-                // Always in the one with the foreign key.
-                entity.HasOne(child => child.User)
-                    .WithMany(parent => parent.Shows)
-                    .HasForeignKey(child => child.UserID)
-
-                    // Currently set to restrict until CRUD functionality on USER page
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_" + nameof(Show) + "_" + nameof(User));
+             
             });
 
 
@@ -92,6 +85,15 @@ namespace we_watch.Models
                     // Currently set to restrict until CRUD functionality on USER page
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_" + nameof(ShowCard) + "_" + nameof(Watcher));
+
+                // Always in the one with the foreign key.
+                entity.HasOne(child => child.User)
+                    .WithMany(parent => parent.ShowCards)
+                    .HasForeignKey(child => child.UserID)
+
+                    // Currently set to restrict until CRUD functionality on USER page
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_" + nameof(ShowCard) + "_" + nameof(User));
             });
 
 
@@ -163,16 +165,7 @@ namespace we_watch.Models
                 entity.HasIndex(e => e.UserID)
                 // FK Child (many) + Parent (one)
                     .HasName("FK_" + nameof(Watcher) + "_" + nameof(User));
-
-                // Always in the one with the foreign key.
-                entity.HasOne(child => child.User)
-                    .WithMany(parent => parent.Watchers)
-                    .HasForeignKey(child => child.UserID)
-                    
-                    // Currently set to restrict until CRUD functionality on USER page
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_" + nameof(Watcher) + "_" + nameof(User));
-
+                       
             });
 
             modelBuilder.Entity<WatchHistory>(entity =>
