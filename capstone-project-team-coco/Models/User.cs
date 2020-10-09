@@ -40,8 +40,6 @@ namespace we_watch.Models
         [InverseProperty(nameof(Models.Watcher.User))]
         public virtual ICollection<Watcher> Watchers { get; set; } // User can have a collection of multiple Watchers (one user to many watchers)
         
-        [InverseProperty(nameof(Models.Show.User))]
-        public virtual ICollection<Show> Shows { get; set; } // User can have a collection of multiple Shows (one User to many Shows)
 
     }
 }
