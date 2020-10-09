@@ -40,8 +40,9 @@ namespace we_watch.Controllers
                     Show newShow = new Show() { Title = title, TotalSeasons = 1 };
                     context.Show.Add(newShow);
                     context.SaveChanges();
-
-                    ShowSeason newSeason = new ShowSeason() { ShowID = context.Show.Where(x => x.Title == title).Single().ShowID, IndividualSeason = indSeason, SeasonEpisodes = episodes};
+                   int showID = context.Show.Where(x => x.Title == title).Single().ShowID;
+                    ShowSeason newSeason = new ShowSeason() { ShowID = showID, IndividualSeason = indSeason, SeasonEpisodes = episodes};
+                    context.ShowSeason.Add(newSeason);
                     context.SaveChanges();
                     ViewBag.Success = "Successfully added Program";
                 }
