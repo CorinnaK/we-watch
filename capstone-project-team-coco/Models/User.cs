@@ -12,8 +12,7 @@ namespace we_watch.Models
     {
         public User()
         {
-            Watchers = new HashSet<Watcher>();
-            Shows = new HashSet<Show>();
+            ShowCards = new HashSet<ShowCard>();
         }
 
         [Key]
@@ -35,6 +34,10 @@ namespace we_watch.Models
         [Column("HashPassword", TypeName = "char(64)")]
         [Required]
         public string HashPassword { get; set; }
+
+        [InverseProperty(nameof(Models.ShowCard.User))]
+        public virtual ICollection<ShowCard> ShowCards { get; set; }
+
 
     }
 }

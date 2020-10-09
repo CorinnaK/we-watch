@@ -21,6 +21,10 @@ namespace we_watch.Models
         [Required]
         public int ShowCardID { get; set; }
 
+        [Column("UserID", TypeName = "int(10)")]
+        [Required]
+        public int UserID { get; set; }
+
         [Column("ShowID", TypeName = "int(10)")]
         [Required]
         public int ShowID { get; set; }
@@ -54,6 +58,10 @@ namespace we_watch.Models
         [ForeignKey(nameof(WatcherID))]
         [InverseProperty(nameof(Models.Watcher.ShowCards))]
         public virtual Watcher Watcher { get; set; }
+
+        [ForeignKey(nameof(UserID))]
+        [InverseProperty(nameof(Models.User.ShowCards))]
+        public virtual User User { get; set; }
 
 
         [InverseProperty(nameof(Models.WatchHistory.ShowCard))]
