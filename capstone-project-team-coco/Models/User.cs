@@ -21,7 +21,6 @@ namespace we_watch.Models
         [Required]
         public int UserID { get; set; }
 
-
         [Column("Email", TypeName = "varchar(30)")]
         [Required]
         public string Email { get; set; }

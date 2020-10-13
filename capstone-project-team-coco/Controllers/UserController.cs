@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
 using we_watch.Models;
+using System.Text.RegularExpressions;
+
 
 namespace we_watch.Controllers
 {
@@ -31,17 +34,21 @@ namespace we_watch.Controllers
                 {
                     if (context.User.Where(x => x.Email == email).Count() != 1)
                     {
-                        ViewBag.Email = "An incorrect Email and/or Password";
+                        ViewBag.Email = "An incorrect Email and/or password";
                         ViewBag.Password = "Please Try Again";
                     }
                     else
                     {
                         ViewBag.Email = email;
                         ViewBag.Password = password;
-                        
+
                     }
 
                 }
+            }
+            if (email == null)
+            {
+                ViewBag.email = "Please enter an email address.";
             }
 
 
@@ -56,8 +63,28 @@ namespace we_watch.Controllers
         }
 
         [HttpPost] //method runs on submit
+
         public IActionResult SignUp(string email, string confirmedemail, string password, string confirmedpassword)
         {
+
+/*            using (WeWatchContext context = new WeWatchContext())
+            {
+                if (context.User.Where(x => x.Email.ToUpper() == email.Trim().ToUpper()).Count() > 0)
+                {
+                    ViewBag.usedemail = "This email has already been used. Please log in.";
+                }
+
+                else
+                {
+                    User newUser = new User() { Email = email };
+
+                    context.User.Add(newUser);
+                    context.SaveChanges();
+                    ViewBag.signupsuccess = $"Welcome to WeWatch! You can now " <a href="">log in!</a>";
+
+                }
+            }*/
+
             if (email == null)
             {
                 ViewBag.email = "Please enter an email address.";
@@ -73,55 +100,107 @@ namespace we_watch.Controllers
                 ViewBag.matchingemail = "These emails do not match. Please try again.";
             }
 
-            else if(password == null)
+            if (password.Length < 8 && password.All(char.IsLower) && password.All(char.IsLetter))
+            {
+                ViewBag.passworderror = "Please choose a password with at least 8 characters, one capital letter, and one digit.";
+            }
+
+            else if (password == null)
             {
                 ViewBag.password = "Please enter a password.";
             }
 
-            else if(confirmedpassword == null)
+            else if (confirmedpassword == null)
             {
                 ViewBag.confirmedemail = "Please confirm your password.";
             }
-
+          
             else if (password != confirmedpassword)
             {
                 ViewBag.confirmedpassword = "These passwords do not match. Please try again.";
             }
 
             return View();
+
+
         }
-            
+        /* //source: https://www.codeproject.com/Tips/222203/Customizable-password-Policy-Csharp
+         public class PasswordPolicy
+         {
+             private static int Minimum_Length = 7;
+             private static int Upper_Case_length = 1;
+             private static int Lower_Case_length = 1;
+             private static int NonAlpha_length = 1;
+             private static int Numeric_length = 1;
 
-
-            /* if (ViewBag.email != ViewBag.confirmedemail)
+             public static bool IsValid(string password)
              {
+                 if (password.Length < Minimum_Length)
+                     return false;
+                 if (UpperCaseCount(password) < Upper_Case_length)
+                     return false;
+                 if (LowerCaseCount(password) < Lower_Case_length)
+                     return false;
+                 if (NumericCount(password) < 1)
+                     return false;
+                 if (NonAlphaCount(password) < NonAlpha_length)
+                     return false;
+                 return true;
+             }
+
+             private static int UpperCaseCount(string password)
+             {
+                 return Regex.Matches(password, "[A-Z]").Count;
+             }
+
+             private static int LowerCaseCount(string password)
+             {
+                 return Regex.Matches(password, "[a-z]").Count;
+             }
+             private static int NumericCount(string password)
+             {
+                 return Regex.Matches(password, "[0-9]").Count;
+             }
+             private static int NonAlphaCount(string password)
+             {
+                 return Regex.Matches(password, @"[^0-9a-zA-Z\._]").Count;
+             }
+         }
+ */
+
+        /* if (ViewBag.email != ViewBag.confirmedemail)
+         {
 
 
 
-                 using (WeWatchContext context = new WeWatchContext())
+             using (WeWatchContext context = new WeWatchContext())
+             {
+                 if (context.User.Where(x => x.Email == email).Count() != 1)
                  {
-                     if (context.User.Where(x => x.Email == email).Count() != 1)
-                     {
-                         ViewBag.Email = "An incorrect Email and/or Password";
-                         ViewBag.Password = "Please Try Again";
-                     }
-                     else
-                     {
-                         ViewBag.Email = email;
-                         ViewBag.Password = password;
+                     ViewBag.Email = "An incorrect Email and/or password";
+                     ViewBag.password = "Please Try Again";
+                 }
+                 else
+                 {
+                     ViewBag.Email = email;
+                     ViewBag.password = password;
 
-                     }*/
+                 }
 
-        //}
-           // }
-
-
-            // default view
-           // return View();
+    }
         }
+
+
+        // default view
+        return View();
+       */
+
 
 
     }
+
+
+}
 
 
 
