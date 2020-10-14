@@ -10,6 +10,16 @@ namespace we_watch.Controllers
 {
     public class WatcherController : Controller
     {
+        public IActionResult Index()
+        {
+            List<Watcher> watchers;
+            using (WeWatchContext context = new WeWatchContext())
+            {
+                watchers = context.Watcher.ToList();
+            }
+            ViewBag.AllWatchers = watchers;
+            return View();
+        }
         public IActionResult ManageWatcher(string message)
         {
             List<Watcher> watchers;

@@ -73,12 +73,12 @@ namespace we_watch.Controllers
                 ViewBag.matchingemail = "These emails do not match. Please try again.";
             }
 
-            if(password == null)
+            if (password == null)
             {
                 ViewBag.password = "Please enter a password.";
             }
 
-            if(confirmedpassword == null)
+            if (confirmedpassword == null)
             {
                 ViewBag.confirmedemail = "Please confirm your password.";
             }
@@ -90,64 +90,6 @@ namespace we_watch.Controllers
 
             return View();
         }
-            
-
-
-            /* if (ViewBag.email != ViewBag.confirmedemail)
-             {
-
-
-
-                 using (WeWatchContext context = new WeWatchContext())
-                 {
-                     if (context.User.Where(x => x.Email == email).Count() != 1)
-                     {
-                         ViewBag.Email = "An incorrect Email and/or Password";
-                         ViewBag.Password = "Please Try Again";
-                     }
-                     else
-                     {
-                         ViewBag.Email = email;
-                         ViewBag.Password = password;
-
-                     }*/
-
-        //}
-           // }
-
-
-            // default view
-           // return View();
-        }
-
-
     }
-
-
-
-
-
-
-// GET: Shows/Create
-/*public IActionResult Create()
-{
-    ViewData["UserID"] = new SelectList(_context.User, "UserID", "Email");
-    return View();
 }
-
-// POST: Shows/Create
-// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Create([Bind("ShowID,UserID,Title,TotalSeasons")] Show show)
-{
-    if (ModelState.IsValid)
-    {
-        _context.Add(show);
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
-    }
-    ViewData["UserID"] = new SelectList(_context.User, "UserID", "Email", show.UserID);
-    return View(show);
-}*/
+            
