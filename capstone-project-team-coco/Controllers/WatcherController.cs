@@ -11,6 +11,13 @@ namespace we_watch.Controllers
     {
         public IActionResult AddWatcher()
         {
+          List<Watcher> watchers;
+            using (WeWatchContext context = new WeWatchContext())
+            {
+                watchers = context.Watcher.ToList();
+            }
+            ViewBag.AllWatchers = watchers;
+
             return View();
         }
 
@@ -31,8 +38,8 @@ namespace we_watch.Controllers
                 }
 
                 else
-                { 
-                Watcher newWatcher = new Watcher() { Name = name};
+                {
+                    Watcher newWatcher = new Watcher() { Name = name };
 
                     context.Watcher.Add(newWatcher);
                     context.SaveChanges();
@@ -40,7 +47,7 @@ namespace we_watch.Controllers
 
                 }
             }
-               return View();
+            return View();
         }
     }
 }
