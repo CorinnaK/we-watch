@@ -15,3 +15,12 @@ Our solution is a one-stop, platform agnostic sidekick application that will sol
 	- Quickly identify which platform the program was viewed on;
 	- Keep track of friends and family a user has watched with;
 
+Trello Link
+
+Keep an eye on our future features at
+https://trello.com/b/IE59VJK5/we-watch
+
+Contact
+
+Have a suggestion or want to collabrate on future projects contact us at hotcocoapps@gmail.com
+
