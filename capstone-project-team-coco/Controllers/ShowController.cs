@@ -23,7 +23,7 @@ namespace we_watch.Controllers
                 allShows = context.Show.OrderBy(x => x.Title).ToList();
                 foreach (Show show in allShows)
                 {
-                    Seasons = context.ShowSeason.Where(x => x.ShowID == show.ShowID).ToList();
+                    Seasons = context.ShowSeason.Where(x => x.ShowID == show.ShowID).OrderBy(x=> x.IndividualSeason).ToList();
                 }
                 ViewBag.AllShows = allShows;
 
