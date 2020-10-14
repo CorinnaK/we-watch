@@ -92,3 +92,12 @@ Test Case 2
 **[| Please click here to view our Trello Board |](https://trello.com/b/IE59VJK5/we-watch)**
 
 
+Trello Link
+
+Keep an eye on our future features at
+https://trello.com/b/IE59VJK5/we-watch
+
+Contact
+
+Have a suggestion or want to collabrate on future projects contact us at hotcocoapps@gmail.com
+

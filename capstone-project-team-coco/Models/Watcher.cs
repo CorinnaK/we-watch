@@ -19,10 +19,6 @@ namespace we_watch.Models
         [Required]
         public int WatcherID { get; set; }
 
-        [Column("UserID", TypeName = "int(10)")]
-        [Required]
-        public int UserID { get; set; }
-
         [Column("Name", TypeName = "varchar(30)")]
         [Required]
         public string Name { get; set; }

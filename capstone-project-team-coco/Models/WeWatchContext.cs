@@ -43,10 +43,6 @@ namespace we_watch.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
 
-                entity.HasIndex(e => e.UserID)
-                    .HasName("FK_" + nameof(Show) + "_" + nameof(User));
-
-
              
             });
 
@@ -85,6 +81,8 @@ namespace we_watch.Models
                     // Currently set to restrict until CRUD functionality on USER page
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_" + nameof(ShowCard) + "_" + nameof(Watcher));
+
+
 
                 // Always in the one with the foreign key.
                 entity.HasOne(child => child.User)
@@ -162,10 +160,6 @@ namespace we_watch.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
 
-                entity.HasIndex(e => e.UserID)
-                // FK Child (many) + Parent (one)
-                    .HasName("FK_" + nameof(Watcher) + "_" + nameof(User));
-                       
             });
 
             modelBuilder.Entity<WatchHistory>(entity =>

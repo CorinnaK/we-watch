@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -90,22 +90,23 @@ namespace we_watch.Controllers
                 ViewBag.email = "Please enter an email address.";
             }
 
-            else if (confirmedemail == null)
+            if (confirmedemail == null)
             {
                 ViewBag.confirmedemail = "Please confirm your email.";
             }
 
-            else if (email != confirmedemail)
+            if (email != confirmedemail)
             {
                 ViewBag.matchingemail = "These emails do not match. Please try again.";
             }
+
 
             if (password.Length < 8 && password.All(char.IsLower) && password.All(char.IsLetter))
             {
                 ViewBag.passworderror = "Please choose a password with at least 8 characters, one capital letter, and one digit.";
             }
 
-            else if (password == null)
+            else if (password == null)        
             {
                 ViewBag.password = "Please enter a password.";
             }
@@ -129,30 +130,11 @@ namespace we_watch.Controllers
 }
 
 
-
-
-
-
 // GET: Shows/Create
 /*public IActionResult Create()
 {
     ViewData["UserID"] = new SelectList(_context.User, "UserID", "Email");
     return View();
-}
 
-// POST: Shows/Create
-// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Create([Bind("ShowID,UserID,Title,TotalSeasons")] Show show)
-{
-    if (ModelState.IsValid)
-    {
-        _context.Add(show);
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
-    }
-    ViewData["UserID"] = new SelectList(_context.User, "UserID", "Email", show.UserID);
-    return View(show);
-}*/
+}
+            
