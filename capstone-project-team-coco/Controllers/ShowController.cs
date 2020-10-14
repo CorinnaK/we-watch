@@ -91,12 +91,7 @@ namespace we_watch.Controllers
             else if (saveChanges == "Save")
             { message = $"Your Show ID is {showID}, The seasonID is {seasonID}, the season number is {season} and the episodes are {episodes[2]}";
                 if (title == null)
-                    message = "Title cannot be blank";
-              //  if (seasonID < 1)
-                //    message = "Season must be a positive number between 1-50"; 
-               // if (episodes < 1)
-                 //   message = "Episodes must be a positive number between 1-50";
-              //  message = EditProgram(title, showID, seasonID, season, episodes);          
+                    message = "Title cannot be blank";       
             }
                 
                 return RedirectToAction("ManageShows", new { messages = message});
@@ -181,13 +176,13 @@ namespace we_watch.Controllers
             
             return message;
         }
-        static bool ValidatePositiveInRange(string stringNum)
+     /*   static bool ValidatePositiveInRange(string stringNum)
         {
             
             int.TryParse(stringNum, out int number);
             
         
         
-        }
+        }*/
     }
 }
