@@ -28,7 +28,13 @@ namespace we_watch.Controllers
                 ViewBag.AllShows = allShows;
 
             }
-            ViewBag.messages = messages;
+            // Citation
+            //https://stackoverflow.com/questions/14497711/set-viewbag-before-redirect
+            // Used for transfering error/success messages between redirects.
+            // Ensure that null coalesing is added to TempData before using the ToString() method to avoid null reference errors
+
+            ViewBag.messages = TempData["message"]?.ToString();
+  
             return View();
         }
 
@@ -73,27 +79,12 @@ namespace we_watch.Controllers
         [HttpPost]
 
         // Capture the data in the fields for the Manages Shows form. Title, Season Number, Episodes can be editted. Input values for the buttons are deleteProgram, deleteSeason, saveChanges. ShowID and SeasonID are constants to the form and are hidden input fields used for identifying the values in the database. 
-        public IActionResult Edit(string title, int showID, string deleteProgram, string[] deleteSeason, string saveChanges, string[] seasonID, string[] episodes, string[] season, string addSeason, string newSeason, string newEpisodes)
+        public IActionResult Edit(string title, int showID,  string saveChanges, string[] seasonID, string[] episodes, string[] season)
         {
             string message = $"This did not Work";
 
-            // The delete Program button was selected.
-            if (deleteProgram == "DELETE")
-                message = DeleteProgram(showID);
-
-            // The X was selected to delete a Season.
-/*            else if (deleteSeason.Count() != 0)
-            {
-                int parsedSeasonID = int.Parse(seasonID[deleteSeason.Count()]);
-                message = DeleteSeason(parsedSeasonID);
-            }*/
-            else if (addSeason == "+")
-            {
-                message = AddSeason(showID, newSeason, newEpisodes);
-            }
-
             // The Save button was selected. Error checking to ensure no values are null.
-            else if (saveChanges == "Save")
+             if (saveChanges == "Save")
             {
                 message = $"Your Show ID is {showID}, The seasonID is {seasonID}, the season number is {season} and the episodes are {episodes[2]}";
                 if (title == null)
@@ -103,17 +94,17 @@ namespace we_watch.Controllers
             return RedirectToAction("ManageShows", new { messages = message });
         }
 
-        public IActionResult DeleteSeason(int seasonID)
+        public IActionResult DeleteSeason(int deleteSeason)
         {
             string message;
             using (WeWatchContext context = new WeWatchContext())
             {
                 string tempTitle;
-                if (seasonID == 0)
+                if (deleteSeason == 0)
                 { message = "Cannot delete unknown show. Please refresh and try again"; }
                 else
                 {
-                    ShowSeason season = context.ShowSeason.Where(x => x.ShowSeasonID == seasonID).SingleOrDefault();
+                    ShowSeason season = context.ShowSeason.Where(x => x.ShowSeasonID == deleteSeason).SingleOrDefault();
                     if (season == null)
                     { message = "Cannot find show. Please refresh and try again"; }
                     else
@@ -125,11 +116,12 @@ namespace we_watch.Controllers
                     }
                 }
             }
-            return RedirectToAction("ManageShows");
+            TempData["message"] = message; 
+            return Redirect("ManageShows");
 
         }
 
-        static string DeleteProgram(int showID)
+        public IActionResult DeleteProgram(int showID)
         {
             string message;
             using (WeWatchContext context = new WeWatchContext())
@@ -150,14 +142,10 @@ namespace we_watch.Controllers
                     }
                 }
             }
-            return message;
+            TempData["message"] = message;
+            return Redirect("ManageShows");
 
         }
-
-/*        static string DeleteSeason(int seasonID)
-        {
-            return "Not used";
-        }*/
 
         static string EditProgram(string title, int showID, int seasonID, int seasonNum, int episodes)
         {
@@ -187,7 +175,7 @@ namespace we_watch.Controllers
 
             return message;
         }
-        static string AddSeason(int showID, string newSeason, string newEpisodes)
+        public IActionResult AddSeason(int showID, string newSeason, string newEpisodes)
         {
             string message = null;
 
@@ -225,8 +213,8 @@ namespace we_watch.Controllers
                     message = $"Successfully added season { parsedNewSeason } to {show.Title}";
                 }
             }
-            return message;
-
+            TempData["message"] = message;
+            return Redirect("ManageShows");
         }
 
     }

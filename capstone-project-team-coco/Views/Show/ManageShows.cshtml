@@ -8,10 +8,7 @@
     <h1 class="display-4">Here is the add a show page</h1>
 @if (ViewBag.messages != null) { 
 
-
-
     <h3>@ViewBag.messages</h3>
-
 }
     <p>@ViewBag.ShowID</p>
     <div class="addShow">
@@ -45,7 +42,7 @@
 
             <input type="hidden" name="showID" value="@show.ShowID">
             <input type="text" name="title" id="title" value="@show.Title" required />
-            <input type="submit" name="deleteProgram" value="DELETE" />
+            <button type="submit" name="deleteSeason[]" formaction=@Url.Action("DeleteProgram") formmethod="post">DELETE</button>
 
 
 
@@ -57,16 +54,18 @@
                     <input type="text" id="season" name="season[]" value="@seasons.IndividualSeason" />
                     <label for="episodes">Episodes</label>
                     <input type="text" id="episodes" name="episodes[]" value="@seasons.SeasonEpisodes" />
-                    <button type="submit" name="deleteSeason[]" formaction=@Url.Action("DeleteSeason") formmethod="post" value="@seasons.ShowSeasonID" />
+                    <button type="submit" name="deleteSeason[]" formaction=@Url.Action("DeleteSeason") formmethod="post" >DELETE</button>
                 </div>
             }
-            <div>
-                <label for="newSeason">Add A Season</label>
-                <input type="text" id="newSeason" name="newSeason" value="0" />
-                <label for="newEpisodes">Episodes</label>
-                <input type="text" id="newEpisodes" name="newEpisodes" value="0" />
-                <input type="submit" name="addSeason" value="+" />
-            </div>
+        <div>
+            <label for="newSeason">Add A Season</label>
+            <input type="text" id="newSeason" name="newSeason" value="0" />
+            <label for="newEpisodes">Episodes</label>
+            <input type="text" id="newEpisodes" name="newEpisodes" value="0" />
+            <button type="submit" name="addSeason" formaction=@Url.Action("addSeason") formmethod="post">+</button>
+
+         
+        </div>
             <input type="submit" name="saveChanges" value="Save" />
 
         </form>
