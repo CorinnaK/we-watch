@@ -65,94 +65,86 @@ namespace we_watch.Controllers
 
         public IActionResult SignUp(string email, string confirmedemail, string password, string confirmedpassword)
         {
-
-            using (WeWatchContext context = new WeWatchContext())
+            if (validateEmailPassword(email, password, confirmedemail, confirmedpassword))
             {
-                if (context.User.Where(x => x.Email.ToUpper() == email.Trim().ToUpper()).Count() > 0)
-                {
-                    ViewBag.usedemail = "This email has already been used. Please log in.";
-                    return View();
-                }
 
-                else
+                using (WeWatchContext context = new WeWatchContext())
                 {
-                    User newUser = new User() { Email = email, HashPassword = password, Salt = "saltstring"};
-                    
-                    context.User.Add(newUser);
-                    context.SaveChanges();
-                    return Redirect("Login");
+                    if (context.User.Where(x => x.Email.ToUpper() == email.Trim().ToUpper()).Count() > 0)
+                    {
+                        ViewBag.usedemail = "This email has already been used. Please log in.";
+                        return View();
+                    }
 
+                    else
+                    {
+                        User newUser = new User() { Email = email, HashPassword = password, Salt = "saltstring" };
+
+                        context.User.Add(newUser);
+                        context.SaveChanges();
+                        return Redirect("Login");
+
+                    }
                 }
             }
 
+            else
+            {
+                return View();
+            }
+        }
+
+        // add a method
+        bool validateEmailPassword(string email, string password, string confirmedemail, string confirmedpassword)
+
+        {
+            bool isValid = true;
+
             if (email == null)
             {
+                isValid = false;
                 ViewBag.email = "Please enter an email address.";
             }
 
             else if (confirmedemail == null)
             {
+                isValid = false;
                 ViewBag.confirmedemail = "Please confirm your email.";
             }
 
             else if (email != confirmedemail)
             {
+                isValid = false;
                 ViewBag.matchingemail = "These emails do not match. Please try again.";
             }
 
-            if (password.Length < 8 && password.All(char.IsLower) && password.All(char.IsLetter))
+            if (password == null)
             {
-                ViewBag.passworderror = "Please choose a password with at least 8 characters, one capital letter, and one digit.";
+                isValid = false;
+                ViewBag.password = "Please enter a password.";
             }
 
-            else if (password == null)
+            else if (password.Length < 8 || !password.Any(char.IsUpper) || !password.Any(char.IsDigit))
             {
-                ViewBag.password = "Please enter a password.";
+                isValid = false;
+                ViewBag.passworderror = "Please choose a password with at least 8 characters, one capital letter, and one digit.";
             }
 
             else if (confirmedpassword == null)
             {
+                isValid = false;
                 ViewBag.confirmedemail = "Please confirm your password.";
             }
-          
+
             else if (password != confirmedpassword)
             {
+                isValid = false;
                 ViewBag.confirmedpassword = "These passwords do not match. Please try again.";
             }
 
-            return View();
-
+            return isValid;
         }
-     
+
     }
 
 }
-
-
-
-
-
-
-// GET: Shows/Create
-/*public IActionResult Create()
-{
-    ViewData["UserID"] = new SelectList(_context.User, "UserID", "Email");
-    return View();
-}
-
-// POST: Shows/Create
-// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Create([Bind("ShowID,UserID,Title,TotalSeasons")] Show show)
-{
-    if (ModelState.IsValid)
-    {
-        _context.Add(show);
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
-    }
-    ViewData["UserID"] = new SelectList(_context.User, "UserID", "Email", show.UserID);
-    return View(show);
-}*/
