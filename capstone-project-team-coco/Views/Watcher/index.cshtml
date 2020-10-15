@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Watchers";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Watchers</h1>
+    <p>
+        This is the page that we get to when Clicking Watchers;
+    </p>
+    <ul style="list-style: none">
+    @foreach (Watcher watcher in ViewBag.AllWatchers)
+    { 
+        <li>@watcher.Name</li>
+    }
+        </ul>
+    <a href="watcher/ManageWatcher" class="btn-outline-info">Manage</a>
+</div>
