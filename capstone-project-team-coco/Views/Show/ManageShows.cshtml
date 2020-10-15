@@ -14,7 +14,7 @@
 
 }
     <p>@ViewBag.ShowID</p>
-    <div class="addNewProgram">
+    <div class="addShow">
         @* This will be one collapsed card with caret *@
         <h4>Add New Program</h4>
         <form action="AddShow" method="post">
@@ -57,7 +57,7 @@
                     <input type="text" id="season" name="season[]" value="@seasons.IndividualSeason" />
                     <label for="episodes">Episodes</label>
                     <input type="text" id="episodes" name="episodes[]" value="@seasons.SeasonEpisodes" />
-                    <input type="submit" name="deleteSeason[]" value="X" />
+                    <button type="submit" name="deleteSeason[]" formaction=@Url.Action("DeleteSeason") formmethod="post" value="@seasons.ShowSeasonID" />
                 </div>
             }
             <div>
