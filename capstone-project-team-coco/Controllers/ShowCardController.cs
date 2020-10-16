@@ -62,28 +62,9 @@ namespace we_watch.Controllers
             }
         }
 
-        public IActionResult SelectShow(int showID)
+        public IActionResult Connect(int showID, int watcherID, int showSeasonID, int episode)
         {
-            List<ShowSeason> allSeasons = new List<ShowSeason>();
-            using (WeWatchContext context = new WeWatchContext())
-            {
-                allSeasons = context.ShowSeason.Where(x => x.ShowID == showID).OrderBy(x => x.IndividualSeason).ToList();
-                foreach (ShowSeason season in allSeasons)
-                {
 
-                }
-            }
-
-
-
-            TempData["showID"] = showID;
-
-            return Redirect("ManageCards");
-
-        }
-
-        public IActionResult Connect(int showID, int watcherID, int showSeasonID)
-        {
             return View();
         }
     }

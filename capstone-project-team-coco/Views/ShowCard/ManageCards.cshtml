@@ -21,7 +21,7 @@
         </select>
         <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select Show</button>
     </form>
-    @if (ViewBag.SelectedShow != null)
+    @if (ViewBag.SelectedShow.Title != null)
     {
         <form>
             <div>
@@ -39,12 +39,13 @@
                         }
                     </select>
                     <input hidden name="showID" value="@ViewBag.SelectedShow.ShowID">
+                     <input hidden name="watcherID" value="@ViewBag.SelectedWatcher.WatcherID">
                     <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select Season</button>
                 }
             </div>
         </form>
     }
-    @if (ViewBag.SelectedSeason != 0)
+    @if (ViewBag.SelectedSeason.IndividualSeason != 0)
     {
         <p>You have selected @ViewBag.SelectedSeason.IndividualSeason</p>
         <form>
@@ -59,9 +60,9 @@
             </select>
             <input hidden name="showID" value="@ViewBag.SelectedShow.ShowID">
             <input hidden name="seasonID" value="@ViewBag.SelectedSeason.ShowSeasonID">
+            <input hidden name="watcherID" value="@ViewBag.SelectedWatcher.WatcherID">
 
-
-            <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select Season</button>
+            <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select Episode</button>
         </form>
     }
     @if (ViewBag.Episode != 0)
@@ -77,9 +78,12 @@
             <option value="@watcher.WatcherID">@watcher.Name</option>
         }
     </select>
-    <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select Wathcer</button>
+    <input hidden name="showID" value="@ViewBag.SelectedShow.ShowID">
+    <input hidden name="seasonID" value="@ViewBag.SelectedSeason.ShowSeasonID">
+       <input hidden name="episode" value="@ViewBag.Episode">
+    <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select Watcher</button>
 </form>
-    @if (ViewBag.SelectedWatcher != null)
+    @if (ViewBag.SelectedWatcher.Name != null)
     {
         <p>You have selected @ViewBag.SelectedWatcher.Name</p>
     }
