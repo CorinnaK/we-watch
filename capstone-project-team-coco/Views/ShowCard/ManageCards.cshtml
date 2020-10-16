@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewData["Title"] = "Manage ShowCards";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Here is the Make a Connection page</h1>
+
+    <h3>@ViewBag.Message </h3>
+
+    <form>
+        <label for="show">Choose a show</label>
+        <select id="show" name="showID" required>
+
+            @foreach (Show show in ViewBag.AllShows)
+            {
+                <option value="@show.ShowID">@show.Title</option>
+            }
+
+        </select>
+        <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select Show</button>
+    </form>
+    @if (ViewBag.SelectedShow != null)
+    {
+        <form>
+            <div>
+                <p>You have selected @ViewBag.SelectedShow.Title</p>
+
+                @if (ViewBag.Seasons != null)
+                {
+                    <label for="season">Choose a Season</label>
+                    <select id="season" name="seasonID" required>
+
+                        @foreach (ShowSeason seasons in ViewBag.Seasons)
+                        {
+                            <option value="@seasons.ShowSeasonID">@seasons.IndividualSeason</option>
+
+                        }
+                    </select>
+                    <input hidden name="showID" value="@ViewBag.SelectedShow.ShowID">
+                    <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select Season</button>
+                }
+            </div>
+        </form>
+    }
+    @if (ViewBag.SelectedSeason != 0)
+    {
+        <p>You have selected @ViewBag.SelectedSeason.IndividualSeason</p>
+        <form>
+            <label for="episodes">Choose a Episode</label>
+            <select id="episode" name="episode" required>
+
+                @for (int i = 0; i < ViewBag.SelectedSeason.SeasonEpisodes; i++)
+                {
+                    <option value="@i">@i</option>
+
+                }
+            </select>
+            <input hidden name="showID" value="@ViewBag.SelectedShow.ShowID">
+            <input hidden name="seasonID" value="@ViewBag.SelectedSeason.ShowSeasonID">
+
+
+            <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select Season</button>
+        </form>
+    }
+    @if (ViewBag.Episode != 0)
+    {
+        <p>You have selected @ViewBag.Episode</p>
+    }
+
+<form>
+    <label for="watcher">Choose a Watcher</label>
+    <select id="watcher" name="watcherID" required>
+        @foreach (Watcher watcher in ViewBag.AllWatchers)
+        {
+            <option value="@watcher.WatcherID">@watcher.Name</option>
+        }
+    </select>
+    <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select Wathcer</button>
+</form>
+    @if (ViewBag.SelectedWatcher != null)
+    {
+        <p>You have selected @ViewBag.SelectedWatcher.Name</p>
+    }
+
+
+</div>
