@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using we_watch.Models;
 namespace we_watch.Controllers
@@ -31,20 +33,27 @@ namespace we_watch.Controllers
                 ShowSeason selectedSeason = new ShowSeason();
                 Watcher selectedWatcher = new Watcher();
                 List<ShowSeason> seasons = new List<ShowSeason>();
+                string errorMessage;
 
-                if (showID != 0)
+                if (showID != 0 && watcherID != 0)
                 {
                     selectedShow = context.Show.Where(x => x.ShowID == showID).Single();
+                    selectedWatcher = context.Watcher.Where(x => x.WatcherID == watcherID).Single();
+                    if (context.ShowCard.Where(x=>x.ShowID == showID && x.WatcherID == watcherID).Count() != 0) 
+                    { errorMessage = $"You are already watching {selectedShow.Title} with {selectedWatcher.Name}";
+                        selectedShow = null;
+                        selectedWatcher = null;
+                    }
+
                     seasons = context.ShowSeason.Where(x => x.ShowID == showID).ToList();
                     if (seasonID != 0)
                     {
-                        selectedSeason = context.ShowSeason.Where(x => x.ShowSeasonID == seasonID).Single();
+                    selectedSeason = context.ShowSeason.Where(x => x.ShowSeasonID == seasonID).Single();
                     }
                 }
-                if (watcherID != 0)
-                {
-                    selectedWatcher = context.Watcher.Where(x => x.WatcherID == watcherID).Single();
-                }
+             
+                
+                
 
 
                 List<Show> allShows = context.Show.OrderBy(x => x.Title).ToList();
