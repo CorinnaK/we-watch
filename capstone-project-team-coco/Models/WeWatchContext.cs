@@ -42,8 +42,26 @@ namespace we_watch.Models
                 entity.Property(e => e.Title)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
+                
+                entity.HasData(
+                   new Show()
+                   {
+                       ShowID = -1,
+                       Title = "Game of Thrones"
+                   },
+                   new Show()
+                   {
+                       ShowID = -2,
+                       Title = "American Idol"
+                   },
+                    new Show()
+                    {
+                        ShowID = -3,
+                        Title = "Fringe"
+                    }
 
-             
+                   );
+
             });
 
 
@@ -55,11 +73,9 @@ namespace we_watch.Models
 
 
                 entity.HasIndex(e => e.ShowID)
-                // FK Child + Parent
                     .HasName("FK_" + nameof(ShowCard) + "_" + nameof(Show));
 
 
-                // Always in the one with the foreign key.
                 entity.HasOne(child => child.Show)
                     .WithMany(parent => parent.ShowCards)
                     .HasForeignKey(child => child.ShowID)
@@ -70,10 +86,9 @@ namespace we_watch.Models
 
 
                 entity.HasIndex(e => e.WatcherID)
-                // FK Child (many) + Parent (one)
                     .HasName("FK_" + nameof(ShowCard) + "_" + nameof(Watcher));
 
-                // Always in the one with the foreign key.
+
                 entity.HasOne(child => child.Watcher)
                     .WithMany(parent => parent.ShowCards)
                     .HasForeignKey(child => child.WatcherID)
@@ -83,8 +98,6 @@ namespace we_watch.Models
                     .HasConstraintName("FK_" + nameof(ShowCard) + "_" + nameof(Watcher));
 
 
-
-                // Always in the one with the foreign key.
                 entity.HasOne(child => child.User)
                     .WithMany(parent => parent.ShowCards)
                     .HasForeignKey(child => child.UserID)
@@ -98,10 +111,8 @@ namespace we_watch.Models
             modelBuilder.Entity<ShowSeason>(entity =>
             {
                 entity.HasIndex(e => e.ShowID)
-                // FK Child (many) + Parent (one)
                     .HasName("FK_" + nameof(ShowSeason) + "_" + nameof(Show));
 
-                // Always in the one with the foreign key.
                 entity.HasOne(child => child.Show)
                     .WithMany(parent => parent.ShowSeasons)
                     .HasForeignKey(child => child.ShowID)
@@ -131,21 +142,21 @@ namespace we_watch.Models
                     {
                         UserID = -1,
                         Email = "someone@somewhere.something",
-                        Salt= "wherew",
+                        Salt = "wherew",
                         HashPassword = "2334814362998297759587574090140267323532918138392977707124924545"
                     },
                     new User()
                     {
                         UserID = -2,
                         Email = "aspin@go.com",
-                        Salt= "Yes",
+                        Salt = "Yes",
                         HashPassword = "2334814362998297759587574090140267323532918138392977707124924545"
                     },
                     new User()
                     {
                         UserID = -3,
                         Email = "goaspin@gmail.com",
-                        Salt= "Yes",
+                        Salt = "Yes",
                         HashPassword = "2334814362998297759587574090140267323532918138392977707124924545"
                     }
 
@@ -160,22 +171,24 @@ namespace we_watch.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
 
-            });
+                entity.HasData(
+                   new Watcher()
+                   {
+                       WatcherID = -1,
+                       Name = "Bob Jones"
+                   },
+                   new Watcher()
+                   {
+                       WatcherID = -2,
+                       Name = "Sally Jenkins"
+                   },
+                    new Watcher()
+                    {
+                        WatcherID = -3,
+                        Name = "Austin Jane"
+                    }
 
-            modelBuilder.Entity<WatchHistory>(entity =>
-            {
-                entity.HasIndex(e => e.ShowCardID)
-                // FK Child (many) + Parent (one)
-                .HasName("FK_" + nameof(WatchHistory) + "_" + nameof(ShowCard));
-
-                // Always in the one with the foreign key.
-                entity.HasOne(child => child.ShowCard)
-                    .WithMany(parent => parent.WatchHistories)
-                    .HasForeignKey(child => child.ShowCardID)
-
-                    // Currently set to restrict until CRUD functionality on USER page
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_" + nameof(WatchHistory) + "_" + nameof(ShowCard));
+                   );
             });
 
             OnModelCreatingPartial(modelBuilder);

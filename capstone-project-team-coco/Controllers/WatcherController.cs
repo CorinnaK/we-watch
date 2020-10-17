@@ -63,7 +63,7 @@ namespace we_watch.Controllers
 
                 }
             }
-            return RedirectToAction("ManageWatcher", new { message = message });
+            return RedirectToAction("ManageWatcher", new { message });
         }
         [HttpPost]
 
@@ -114,13 +114,10 @@ namespace we_watch.Controllers
                 else
                 {
                     message = "Cannot find watcher. Please refresh and try again.";
-                    
+
                 }
             }
-            return RedirectToAction("ManageWatcher", new
-            {
-                message = message
-            });
+            return RedirectToAction("ManageWatcher", new { message });
         }
     }
 }

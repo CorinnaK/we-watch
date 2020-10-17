@@ -1,12 +1,6 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using we_watch.Models;
 
 namespace we_watch.Controllers
@@ -14,7 +8,7 @@ namespace we_watch.Controllers
     public class ShowController : Controller
     {
         public IActionResult ManageShows()
-        {
+        { 
             List<ShowSeason> Seasons;
             using (WeWatchContext context = new WeWatchContext())
             {
@@ -62,7 +56,7 @@ namespace we_watch.Controllers
                 else
                 {
 
-                    Show newShow = new Show() { Title = title.Trim(), TotalSeasons = 1 };
+                    Show newShow = new Show() { Title = title.Trim() };
                     context.Show.Add(newShow);
                     context.SaveChanges();
                     int showID = context.Show.Where(x => x.Title == title).Single().ShowID;
