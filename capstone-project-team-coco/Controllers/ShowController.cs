@@ -13,7 +13,7 @@ namespace we_watch.Controllers
 {
     public class ShowController : Controller
     {
-        public IActionResult ManageShows(string messages)
+        public IActionResult ManageShows()
         {
             List<ShowSeason> Seasons;
             using (WeWatchContext context = new WeWatchContext())
@@ -23,16 +23,23 @@ namespace we_watch.Controllers
                 allShows = context.Show.OrderBy(x => x.Title).ToList();
                 foreach (Show show in allShows)
                 {
-                    Seasons = context.ShowSeason.Where(x => x.ShowID == show.ShowID).OrderBy(x=> x.IndividualSeason).ToList();
+                    Seasons = context.ShowSeason.Where(x => x.ShowID == show.ShowID).OrderBy(x => x.IndividualSeason).ToList();
                 }
                 ViewBag.AllShows = allShows;
 
             }
-            ViewBag.messages = messages;
+            // Citation
+            //https://stackoverflow.com/questions/14497711/set-viewbag-before-redirect
+            // Used for transfering error/success messages between redirects.
+            // Ensure that null coalesing is added to TempData before using the ToString() method to avoid null reference errors
+
+            ViewBag.messages = TempData["message"]?.ToString();
+
             return View();
         }
 
         [HttpPost]
+        // This action Adds a show to the database
         public IActionResult AddShow(string title, int indSeason, int episodes)
         {
 
@@ -66,43 +73,39 @@ namespace we_watch.Controllers
                 }
             }
 
-            return RedirectToAction("ManageShows", new { messages = messages });
+            TempData["message"] = messages;
+            return Redirect("ManageShows");
         }
 
         [HttpPost]
-
-        // Capture the data in the fields for the Manages Shows form. Title, Season Number, Episodes can be editted. Input values for the buttons are deleteProgram, deleteSeason, saveChanges. ShowID and SeasonID are constants to the form and are hidden input fields used for identifying the values in the database. 
-        public IActionResult Edit(string title, int showID, string deleteProgram, string[] deleteSeason, string saveChanges, string[] seasonID, string[] episodes, string[] season, string addSeason, string newSeason, string newEpisodes)
+        public IActionResult DeleteSeason(int deleteSeason)
         {
-            string message = $"This did not Work";
-
-            // The delete Program button was selected.
-            if (deleteProgram == "DELETE")
-                message = DeleteProgram(showID);
-
-            // The X was selected to delete a Season.
-            else if (deleteSeason.Count() != 0)
+            string messages;
+            using (WeWatchContext context = new WeWatchContext())
             {
-                int parsedSeasonID = int.Parse(seasonID[deleteSeason.Count()]);
-                message = DeleteSeason(parsedSeasonID);
+                string tempTitle;
+                if (deleteSeason == 0)
+                { messages = "Cannot delete unknown show. Please refresh and try again"; }
+                else
+                {
+                    ShowSeason season = context.ShowSeason.Where(x => x.ShowSeasonID == deleteSeason).SingleOrDefault();
+                    if (season == null)
+                    { messages = "Cannot find show. Please refresh and try again"; }
+                    else
+                    {
+                        tempTitle = context.Show.Where(x => x.ShowID == season.ShowID).Select(y => y.Title).SingleOrDefault().ToString();
+                        context.ShowSeason.Remove(season);
+                        context.SaveChanges();
+                        messages = $"Successfully deleted Season number {season.IndividualSeason} from {tempTitle}";
+                    }
+                }
             }
-            else if (addSeason == "+")
-            {
-                message = AddSeason(showID, newSeason, newEpisodes);
-            }
+            TempData["message"] = messages;
+            return Redirect("ManageShows");
 
-            // The Save button was selected. Error checking to ensure no values are null.
-            else if (saveChanges == "Save")
-            {
-                message = $"Your Show ID is {showID}, The seasonID is {seasonID}, the season number is {season} and the episodes are {episodes[2]}";
-                if (title == null)
-                    message = "Title cannot be blank";
-            }
-
-            return RedirectToAction("ManageShows", new { messages = message });
         }
-
-        static string DeleteProgram(int showID)
+        [HttpPost]
+        public IActionResult DeleteProgram(int showID)
         {
             string message;
             using (WeWatchContext context = new WeWatchContext())
@@ -123,83 +126,55 @@ namespace we_watch.Controllers
                     }
                 }
             }
-            return message;
+            TempData["message"] = message;
+            return Redirect("ManageShows");
 
         }
 
-        static string DeleteSeason(int seasonID)
+        public IActionResult EditTitle(string title, int showID)
         {
             string message;
             using (WeWatchContext context = new WeWatchContext())
             {
                 string tempTitle;
-                if (seasonID == 0)
-                { message = "Cannot delete unknown show. Please refresh and try again"; }
-                else
-                {
-                    ShowSeason season = context.ShowSeason.Where(x => x.ShowSeasonID == seasonID).SingleOrDefault();
-                    if (season == null)
-                    { message = "Cannot find show. Please refresh and try again"; }
-                    else
-                    {
-                        tempTitle = context.Show.Where(x => x.ShowID == season.ShowID).Select(y => y.Title).SingleOrDefault().ToString();
-                        context.ShowSeason.Remove(season);
-                        context.SaveChanges();
-                        message = $"Successfully deleted Season number {season.IndividualSeason} from {tempTitle}";
-                    }
-                }
-            }
-            return message;
-
-        }
-
-        static string EditProgram(string title, int showID, int seasonID, int seasonNum, int episodes)
-        {
-            string message;
-            using (WeWatchContext context = new WeWatchContext())
-            {
-                string tempTitle;
-                if (seasonID == 0)
+                if (showID == 0)
                 { message = "No show was provided."; }
                 else
                 {
-                    ShowSeason season = context.ShowSeason.Where(x => x.ShowSeasonID == seasonID).SingleOrDefault();
-                    if (season == null)
-                    { message = "Cannot find season in the database. Please refresh and try again."; }
+                    Show show = context.Show.Where(x => x.ShowID == showID).SingleOrDefault();
+                    if (show == null)
+                    { message = "Cannot delete show. Please refresh and try again"; }
                     else
                     {
-                        Show show = context.Show.Where(x => x.ShowID == season.ShowID).SingleOrDefault();
-
+                        tempTitle = show.Title;
                         show.Title = title;
-                        season.IndividualSeason = seasonNum;
-                        season.SeasonEpisodes = episodes;
                         context.SaveChanges();
-                        message = "Success";
+                        message = $"Successfully updated '{tempTitle}' to '{title}'";
                     }
                 }
             }
+            TempData["message"] = message;
+            return Redirect("ManageShows");
 
-            return message;
         }
-        static string AddSeason(int showID, string newSeason, string newEpisodes)
+        public IActionResult AddSeason(int showID, string newSeason, string newEpisodes)
         {
             string message = null;
-            int parsedNewSeason;
-            int parsedNewEpisodes;
 
             using (WeWatchContext context = new WeWatchContext())
             {
                 Show show = context.Show.Where(x => x.ShowID == showID).SingleOrDefault();
 
-                if (!int.TryParse(newSeason, out parsedNewSeason))
+                if (!int.TryParse(newSeason, out int parsedNewSeason))
                 {
+                    //ViewBag.Message = "No";
                     message = "Seasons must be positive valid numbers";
                 }
                 else if (parsedNewSeason < 1 || parsedNewSeason > 50)
                 {
                     message = "Season must be between 1 and 50";
                 }
-                else if (!int.TryParse(newEpisodes, out parsedNewEpisodes))
+                else if (!int.TryParse(newEpisodes, out int parsedNewEpisodes))
                 {
                     message = "Episodes must be positive valid numbers";
                 }
@@ -207,7 +182,7 @@ namespace we_watch.Controllers
                 {
                     message = "Episodes must be between 1 and 50";
                 }
-                
+
                 else if (context.ShowSeason.Where(x => x.ShowID == showID).Where(x => x.IndividualSeason == parsedNewSeason).SingleOrDefault() != null)
                 {
                     message = $"Season already exists in {show.Title}";
@@ -220,9 +195,78 @@ namespace we_watch.Controllers
                     message = $"Successfully added season { parsedNewSeason } to {show.Title}";
                 }
             }
-            return message;
-
+            TempData["message"] = message;
+            return Redirect("ManageShows");
         }
+        [HttpPost]
+        public IActionResult EditSeason(int editSeason, string season, string episodes)
+        {
+            string message = "The button was clicked";
 
+            using (WeWatchContext context = new WeWatchContext())
+            {
+         
+                int tempSeason;
+                int tempEpisodes;
+                if (editSeason == 0)
+                { 
+                    message = "Cannot edit unknown season. Please refresh and try again"; 
+                }
+                else
+                {
+                    ShowSeason targetSeason = context.ShowSeason.Where(x => x.ShowSeasonID == editSeason).SingleOrDefault();
+                    if (season == null)
+                    {
+                        message = "Cannot find that season. Please refresh and try again";
+                    }
+
+                    else
+                    {
+                        Show show = context.Show.Where(x => x.ShowID == targetSeason.ShowID).SingleOrDefault();
+
+                        if (show == null)
+                        {
+                            message = "Cannot find that show. Please refresh and try again.";
+                        }
+                        else
+                        {
+                            if (!int.TryParse(season, out int parsedNewSeason))
+                            {
+                                message = "Seasons must be positive valid numbers";
+                            }
+                            else if (parsedNewSeason < 1 || parsedNewSeason > 50)
+                            {
+                                message = "Season must be between 1 and 50";
+                            }
+                            else if (!int.TryParse(episodes, out int parsedNewEpisodes))
+                            {
+                                message = "Episodes must be positive valid numbers";
+                            }
+                            else if (parsedNewEpisodes < 1 || parsedNewEpisodes > 50)
+                            {
+                                message = "Episodes must be between 1 and 50";
+                            }
+
+                            else if (parsedNewSeason != targetSeason.IndividualSeason && context.ShowSeason.Where(x => x.ShowID == targetSeason.ShowID).Where(x => x.IndividualSeason == parsedNewSeason).SingleOrDefault() != null)
+                            {
+                                message = $"Season already exists in {show.Title}";
+                            }
+                            else
+                            {
+                                tempSeason = targetSeason.IndividualSeason;
+                                tempEpisodes = targetSeason.SeasonEpisodes;
+                                targetSeason.IndividualSeason = parsedNewSeason;
+                                targetSeason.SeasonEpisodes = parsedNewEpisodes;
+                                context.SaveChanges();
+                                message = $"Successfully changed {show.Title} from season {tempSeason} having {tempEpisodes} episodes to season {parsedNewSeason} having {parsedNewEpisodes} ";
+                            }
+                        }
+                    }
+                }
+                TempData["message"] = message;
+                return Redirect("ManageShows");
+
+            }
+        }
     }
 }

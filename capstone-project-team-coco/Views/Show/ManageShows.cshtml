@@ -2,36 +2,27 @@
     ViewData["Title"] = "ManageShows";
 }
 
-
-
 <div class="text-center">
     <h1 class="display-4">Here is the add a show page</h1>
 @if (ViewBag.messages != null) { 
 
-
-
     <h3>@ViewBag.messages</h3>
-
 }
-    <p>@ViewBag.ShowID</p>
-    <div class="addNewProgram">
+
+    <div class="addShow">
         @* This will be one collapsed card with caret *@
         <h4>Add New Program</h4>
         <form action="AddShow" method="post">
             <label for="title">Program Name</label>
             <input type="text" id="title" name="title" required />
-            @ViewBag.titleError
             <label for="indSeason">Season</label>
             <input type="number" id="indSeason" name="indSeason" required />
-            @ViewBag.indSeasonError
             <label for="episodes">Episodes</label>
             <input type="number" id="episodes" name="episodes" required />
-            @ViewBag.episodeError
             <input type="submit" value="Add Program" />
 
         </form>
     </div>
-
 </div>
 
     <div class="displayShowCard">
@@ -41,33 +32,39 @@
 
         <h4>@show.Title</h4>
 
-        <form action="Edit" method="post">
+        <form>
 
             <input type="hidden" name="showID" value="@show.ShowID">
             <input type="text" name="title" id="title" value="@show.Title" required />
-            <input type="submit" name="deleteProgram" value="DELETE" />
-
+            <button type="submit" name="editProgram[]" formaction=@Url.Action("EditTitle") formmethod="post">EDIT</button>     
+            <button type="submit" name="deleteProgram[]" formaction=@Url.Action("DeleteProgram") formmethod="post">DELETE</button>
+            </form>
 
 
             @foreach (ShowSeason seasons in show.ShowSeasons)
             {
-                <div>
-                    <input type="hidden" name="seasonID[]" value="@seasons.ShowSeasonID">
-                    <label for="season">Season</label>
-                    <input type="text" id="season" name="season[]" value="@seasons.IndividualSeason" />
-                    <label for="episodes">Episodes</label>
-                    <input type="text" id="episodes" name="episodes[]" value="@seasons.SeasonEpisodes" />
-                    <input type="submit" name="deleteSeason[]" value="X" />
-                </div>
+        <div>
+                <form>
+            <input type="hidden" name="seasonID[]" value="@seasons.ShowSeasonID">
+            <label for="season">Season</label>
+            <input type="text" id="season" name="season[]" value="@seasons.IndividualSeason" />
+            <label for="episodes">Episodes</label>
+            <input type="text" id="episodes" name="episodes[]" value="@seasons.SeasonEpisodes" />
+            <button type="submit" name="editSeason[]"  value = "@seasons.ShowSeasonID" formaction=@Url.Action("EditSeason") formmethod="post">EDIT</button>
+
+            <button type="submit" name="deleteSeason[]" value = "@seasons.ShowSeasonID" formaction=@Url.Action("DeleteSeason") formmethod="post">DELETE</button>
+        </form>
+                    </div>
             }
-            <div>
-                <label for="newSeason">Add A Season</label>
-                <input type="text" id="newSeason" name="newSeason" value="0" />
-                <label for="newEpisodes">Episodes</label>
-                <input type="text" id="newEpisodes" name="newEpisodes" value="0" />
-                <input type="submit" name="addSeason" value="+" />
-            </div>
-            <input type="submit" name="saveChanges" value="Save" />
+    <form>
+        <div>
+            <input type="hidden" name="showID" value="@show.ShowID">
+            <label for="newSeason">Add A Season</label>
+            <input type="text" id="newSeason" name="newSeason" value="0" />
+            <label for="newEpisodes">Episodes</label>
+            <input type="text" id="newEpisodes" name="newEpisodes" value="0" />
+            <button type="submit" name="addSeason" formaction=@Url.Action("AddSeason") formmethod="post">+</button>
+        </div>
 
         </form>
 }
