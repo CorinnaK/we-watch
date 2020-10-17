@@ -42,19 +42,19 @@ namespace we_watch.Controllers
 
                         // we need to check the password that they have inputted + salt value matches what's in their hashpassword in the db
                         if (Authenticate.Hash(password + Salt) == potentialUser.HashPassword)
-                            {
-                                return Redirect("SignUp");
-                            }
-                            {
-                                ViewBag.Email = "The e-mail and/or password entered is incorrect. Please try again.";
-                            }
+                        {
+                            return RedirectToAction("Index", "ShowCard");
+                        }
+                        {
+                            ViewBag.Email = "The e-mail and/or password entered is incorrect. Please try again.";
+                        }
                         ViewBag.Email = email;
                         ViewBag.HashPassword = password;
-                       
-                        return Redirect("SignUp"); // change to show page
+
+                        return View(); // change to show page
 
 
-                    }                   
+                    }
                 }
             }
             if (email == null)
