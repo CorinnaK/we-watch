@@ -27,10 +27,6 @@ namespace we_watch.Models
         public string Title { get; set; }
 
 
-        [Column("TotalSeasons", TypeName = "smallint(2)")]
-        [Required]
-        public int TotalSeasons { get; set; }
-
         [InverseProperty(nameof(Models.ShowSeason.Show))]
         public virtual ICollection<ShowSeason> ShowSeasons { get; set; } // ICollection is an object with lists within it
 
