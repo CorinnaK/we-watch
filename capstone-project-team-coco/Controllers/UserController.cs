@@ -32,18 +32,29 @@ namespace we_watch.Controllers
             {
                 using (WeWatchContext context = new WeWatchContext())
                 {
-                    if (context.User.Where(x => x.Email == email).Count() != 1)
+
+                    // checking the inputted email against what's in our db
+                    User potentialUser = context.User.Where(x => x.Email == email).SingleOrDefault();
+                    // grab the salt value from that specific user
+                    if (potentialUser != null)
                     {
-                        ViewBag.Email = "An incorrect Email and/or password";
-                        ViewBag.Password = "Please Try Again";
-                    }
-                    else
-                    {
+                        string Salt = potentialUser.Salt;
+
+                        // we need to check the password that they have inputted + salt value matches what's in their hashpassword in the db
+                        if (Authenticate.Hash(password + Salt) == potentialUser.HashPassword)
+                            {
+                                return Redirect("SignUp");
+                            }
+                            {
+                                ViewBag.Email = "The e-mail and/or password entered is incorrect. Please try again.";
+                            }
                         ViewBag.Email = email;
-                        ViewBag.Password = password;
+                        ViewBag.HashPassword = password;
+                       
+                        return Redirect("SignUp"); // change to show page
 
-                    }
 
+                    }                   
                 }
             }
             if (email == null)
@@ -78,9 +89,13 @@ namespace we_watch.Controllers
 
                     else
                     {
-                        User newUser = new User() { Email = email, HashPassword = password, Salt = "saltstring" };
+                        Random r = new Random();
+                        string Salt = Convert.ToString(r.Next());
+
+                        User newUser = new User() { Email = email, HashPassword = Authenticate.Hash(password + Salt), Salt = Salt };
 
                         context.User.Add(newUser);
+
                         context.SaveChanges();
                         return Redirect("Login");
 
@@ -94,7 +109,7 @@ namespace we_watch.Controllers
             }
         }
 
-        // add a method
+        // method to validate email & password
         bool validateEmailPassword(string email, string password, string confirmedemail, string confirmedpassword)
 
         {
