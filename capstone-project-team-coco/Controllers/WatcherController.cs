@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using we_watch.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace we_watch.Controllers
 {
@@ -17,6 +18,7 @@ namespace we_watch.Controllers
             {
                 watchers = context.Watcher.ToList();
             }
+            ViewBag.usedemail = HttpContext.Session.GetString("isLoggedIn");
             ViewBag.AllWatchers = watchers;
             return View();
         }
