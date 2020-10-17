@@ -22,16 +22,17 @@ namespace we_watch.Models
         public int UserID { get; set; }
 
         [Column("Email", TypeName = "varchar(30)")]
-        [Required]
+        [Required(AllowEmptyStrings = false)]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Column("Salt", TypeName = "varchar(32)")]
-        [Required]
+        [Column("Salt", TypeName = "varchar(10)")]
+        [Required(AllowEmptyStrings = false)]
         public string Salt { get; set; }
 
-
         [Column("HashPassword", TypeName = "char(64)")]
-        [Required]
+        [Required(AllowEmptyStrings = false)]
+        [DataType(DataType.Password)]        
         public string HashPassword { get; set; }
 
         [InverseProperty(nameof(Models.ShowCard.User))]
