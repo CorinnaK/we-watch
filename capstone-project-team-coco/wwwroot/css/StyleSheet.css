@@ -1,3 +1,60 @@
-﻿body {
+﻿/*
+    Colour Hex Codes:
+    Rich Black: #001517
+    Midnight Teal: #072F34
+    Deep Teal: 00454E
+    Tropical Blue: 0A9EB0
+    Golden Yellow: F0A202
+    Maroon: 7B3F3C
+    Coral Pink: F56960
+    Pinkish White: FEE2E0
+*/
+
+body {
     background-color: greenyellow;
 }
+
+/*START of log in page*/
+label {
+    color: #0A9eB0;
+    font-weight: bold;
+}
+
+#email, #password {
+    background-color: #FEE2E0;
+    color: #00454E;
+    font-weight: bold;
+    padding: 8px 15px;
+    margin: 4px 0 15px 0;
+    display: flex;
+    line-height: 25px;
+    border-radius: 15px;
+    border: none;
+    width: 200px;
+}
+
+#loginbutton {
+    background-color: #001517;
+    color: #F56960;
+    padding: 5px 10px;
+    margin: 5px 0 10px 0;
+    border-radius: 30px;
+    border: 2px solid #F56960;
+    font-weight: bold;
+}
+
+#signupbutton {
+    background-color: #F56960;
+    color: #FEE2E0;
+    padding: 5px 10px;
+    margin: 5px 0 10px 0;
+    border-radius: 30px;
+    border: 2px solid #F56960;
+    font-weight: bold;
+}
+
+#errormessage {
+    color: #F56960;
+    font-weight: bold;
+}
+    /*END of log in page*/
