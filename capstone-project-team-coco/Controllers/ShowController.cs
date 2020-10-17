@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using we_watch.Models;
 
 namespace we_watch.Controllers
 {
     public class ShowController : Controller
     {
-        public IActionResult ManageShows(string messages)
-        {
+        public IActionResult ManageShows()
+        { 
             List<ShowSeason> Seasons;
             using (WeWatchContext context = new WeWatchContext())
             {
@@ -23,7 +17,7 @@ namespace we_watch.Controllers
                 allShows = context.Show.OrderBy(x => x.Title).ToList();
                 foreach (Show show in allShows)
                 {
-                    Seasons = context.ShowSeason.Where(x => x.ShowID == show.ShowID).OrderBy(x=> x.IndividualSeason).ToList();
+                    Seasons = context.ShowSeason.Where(x => x.ShowID == show.ShowID).OrderBy(x => x.IndividualSeason).ToList();
                 }
                 ViewBag.AllShows = allShows;
 
@@ -34,7 +28,7 @@ namespace we_watch.Controllers
             // Ensure that null coalesing is added to TempData before using the ToString() method to avoid null reference errors
 
             ViewBag.messages = TempData["message"]?.ToString();
-  
+
             return View();
         }
 
@@ -62,7 +56,7 @@ namespace we_watch.Controllers
                 else
                 {
 
-                    Show newShow = new Show() { Title = title.Trim(), TotalSeasons = 1 };
+                    Show newShow = new Show() { Title = title.Trim() };
                     context.Show.Add(newShow);
                     context.SaveChanges();
                     int showID = context.Show.Where(x => x.Title == title).Single().ShowID;
@@ -73,18 +67,18 @@ namespace we_watch.Controllers
                 }
             }
 
-            return RedirectToAction("ManageShows", new { messages = messages });
+            return RedirectToAction("ManageShows", new {  messages });
         }
 
         [HttpPost]
 
         // Capture the data in the fields for the Manages Shows form. Title, Season Number, Episodes can be editted. Input values for the buttons are deleteProgram, deleteSeason, saveChanges. ShowID and SeasonID are constants to the form and are hidden input fields used for identifying the values in the database. 
-        public IActionResult Edit(string title, int showID,  string saveChanges, string[] seasonID, string[] episodes, string[] season)
+        public IActionResult Edit(string title, int showID, string saveChanges, string[] seasonID, string[] episodes, string[] season)
         {
             string message = $"This did not Work";
 
             // The Save button was selected. Error checking to ensure no values are null.
-             if (saveChanges == "Save")
+            if (saveChanges == "Save")
             {
                 message = $"Your Show ID is {showID}, The seasonID is {seasonID}, the season number is {season} and the episodes are {episodes[2]}";
                 if (title == null)
@@ -116,7 +110,7 @@ namespace we_watch.Controllers
                     }
                 }
             }
-            TempData["message"] = message; 
+            TempData["message"] = message;
             return Redirect("ManageShows");
 
         }
@@ -147,12 +141,12 @@ namespace we_watch.Controllers
 
         }
 
-        static string EditProgram(string title, int showID, int seasonID, int seasonNum, int episodes)
+        static string EditProgram(string title,  int seasonID, int seasonNum, int episodes)
         {
             string message;
             using (WeWatchContext context = new WeWatchContext())
             {
-                string tempTitle;
+                
                 if (seasonID == 0)
                 { message = "No show was provided."; }
                 else
