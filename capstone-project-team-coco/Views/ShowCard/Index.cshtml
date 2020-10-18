@@ -6,19 +6,16 @@
 
 <div class="text-center">
     <h1 class="display-4">List of All Shows</h1>
-    @if (ViewBag.AllShows == null)
+    @if (ViewBag.AllShowCardTitles == null)
     {
-        <h2>Looks like you have no shows. </h2>
-        <h2><a class="nav-link text-dark" asp-area="" asp-controller="Show" asp-action="ManageShows">Add a Show</a></h2>
+        <h2>Looks like you are not watching anything. </h2>
+        <h2><a class="nav-link text-dark" asp-area="" asp-controller="ShowCard" asp-action="CreateCard">Add a connection</a></h2>
     }
     else
     {
-        @foreach (ShowCard show in ViewBag.AllShows)
+        @foreach (string showCardTitle in ViewBag.AllShowCardTitles)
         {
-            <h3>@show.Show.Title</h3>
-            <h3>@show.Watcher.Name</h3>
-            <h3>@show.CurrentSeason</h3>
-            <h3>@show.CurrentEpisode</h3>
+            <h3>@showCardTitle</h3>
         }
     }
 
