@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+
 using we_watch.Models;
 namespace we_watch.Controllers
 {
@@ -22,14 +18,17 @@ namespace we_watch.Controllers
             if (userID == 0)
             { return RedirectToAction("Login", "User"); }
 
-            List<ShowCard> allShows = new List<ShowCard>();
+            List<string> allShowCardTitles = new List<string>();
             using (WeWatchContext context = new WeWatchContext())
             {
 
-                allShows = context.ShowCard.Include("Show").Include("Watcher").Where(x => x.UserID == userID).Distinct().OrderBy(x => x.Show.Title).ToList();
-
+                List<int> allShowCardIDs = context.ShowCard.Where(x => x.UserID == userID).Select(x=>x.ShowID).Distinct().ToList();
+                foreach (int id in allShowCardIDs)
+                {
+                    allShowCardTitles.Add(context.Show.Where(x => x.ShowID == id).Select(x => x.Title).Single().ToString());
+                }      
             }
-            ViewBag.AllShows = allShows;
+            ViewBag.AllShowCardTitles = allShowCardTitles;
             return View();
         }
 
@@ -40,29 +39,25 @@ namespace we_watch.Controllers
             int userID = GetUserID();
             if (userID == 0)
             { return RedirectToAction("Login", "User"); }
-
             using (WeWatchContext context = new WeWatchContext())
             {
+
 
                 Show selectedShow = new Show();
                 ShowSeason selectedSeason = new ShowSeason();
                 Watcher selectedWatcher = new Watcher();
                 List<ShowSeason> seasons = new List<ShowSeason>();
-              
-
+                DisplayCard card = new DisplayCard();
 
                 // A show and a watcher must be selected before seasons can be determined
                 if (showID != 0 && watcherID != 0)
                 {
-                    selectedShow = context.Show.Where(x => x.ShowID == showID).Single();
-                    selectedWatcher = context.Watcher.Where(x => x.WatcherID == watcherID).Single();
-
+                    card = new DisplayCard(showID, watcherID);
+     
                     // Check to see if this user already has a card with this watcher and this show
-                    if (context.ShowCard.Where(x => x.ShowID == selectedShow.ShowID && x.WatcherID == selectedWatcher.WatcherID && x.UserID == userID).Count() != 0)
+                    if (context.ShowCard.Where(x => x.ShowID == card.ShowID && x.WatcherID == card.WatcherID && x.UserID == userID).Count() != 0)
                     {
-                        message = $"You are already watching {selectedShow.Title} with {selectedWatcher.Name}";
-                        selectedShow = null;
-                        selectedWatcher = null;
+                        message = $"You are already watching {card.ShowTitle} with {card.WatcherName}";
                     }
 
                     // Populate the seasons for this show
@@ -73,11 +68,22 @@ namespace we_watch.Controllers
                         // Populate episodes if season has been selected
                         if (seasonID != 0)
                         {
+                            card.SeasonID = seasonID;
                             selectedSeason = context.ShowSeason.Where(x => x.ShowSeasonID == seasonID).Single();
+                            card.CurrentEpisode = episode;
                         }
                     }
                 }
+                if (TempData["showCardID"] != null)
+                {
+                    int showCardID = int.Parse(TempData["showCardID"].ToString());
+                    ShowCard show = context.ShowCard.Where(x => x.ShowCardID == showCardID).Single();
+                    card = new DisplayCard(show.ShowID, show.WatcherID);
+                    card.SeasonID = show.CurrentSeason;
+                    card.CurrentEpisode = show.CurrentEpisode;
 
+                }
+                ViewBag.Card = card;
                 List<Show> allShows = context.Show.OrderBy(x => x.Title).ToList();
                 List<Watcher> allWatchers = context.Watcher.OrderBy(x => x.Name).ToList();
 
@@ -101,7 +107,7 @@ namespace we_watch.Controllers
             { return RedirectToAction("Login", "User"); }
             string message = "";
 
-            if (showID == 0 || watcherID == 0 || seasonID == 0 || episode == 0)
+            if (showID== 0 || watcherID == 0 || seasonID == 0 || episode == 0)
             {
                 return RedirectToAction("CreateCard");
             }
@@ -119,17 +125,16 @@ namespace we_watch.Controllers
                 ShowCard newShowCard = new ShowCard()
                 {
                     ShowID = showID,
+                    WatcherID = watcherID,
                     CurrentSeason = seasonID,
                     CurrentEpisode = episode,
                     UserID = userID,
-                    WatcherID = watcherID,
                     Status = "Current"
                 };
                 try
                 {
                     context.ShowCard.Add(newShowCard);
                     context.SaveChanges();
-                    ViewBag.NewShowCard = newShowCard;
                     message = "Success";
                 }
                 catch
@@ -142,17 +147,21 @@ namespace we_watch.Controllers
             }
             return Redirect("CreateCard");
         }
-        public IActionResult EditCard()
+        public IActionResult EditCard(int showCardID)
         {
             int userID = GetUserID();
             if (userID == 0)
             { return RedirectToAction("Login", "User"); }
 
-            int showCardID = int.Parse(TempData["showCardID"].ToString());
-            ShowCard targetShowCard;
-            using (WeWatchContext context = new WeWatchContext())
+
+            if (TempData["showCardID"] != null)
             {
-                targetShowCard = context.ShowCard.Include("Show").Include("ShowSeason").Where(x => x.ShowCardID == showCardID).SingleOrDefault();
+                int showCardID = int.Parse(TempData["showCardID"].ToString());
+                ShowCard show = context.ShowCard.Where(x => x.ShowCardID == showCardID).Single();
+                card = new DisplayCard(show.ShowID, show.WatcherID);
+                card.SeasonID = show.CurrentSeason;
+                card.CurrentEpisode = show.CurrentEpisode;
+
             }
 
             ViewBag.ShowCard = targetShowCard;
