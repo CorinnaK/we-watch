@@ -1,3 +1,88 @@
-﻿body {
+﻿/*
+    Colour Hex Codes:
+    Rich Black: #001517
+    Midnight Teal: #072F34
+    Deep Teal: 00454E
+    Tropical Blue: 0A9EB0
+    Golden Yellow: F0A202
+    Maroon: 7B3F3C
+    Coral Pink: F56960
+    Pinkish White: FEE2E0
+*/
+
+body {
     background-color: greenyellow;
+    font-family: Arial, Verdana;
 }
+
+/*START of log in & sign up pages*/
+/*.pb-3 {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+}*/
+
+#loginsignupform {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+label {
+    color: #0A9eB0;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#email, #password {
+    background-color: #FEE2E0;
+    color: #00454E;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 8px 15px;
+    margin: 4px 0 15px 0;
+    display: flex;
+    line-height: 25px;
+    border-radius: 15px;
+    border: none;
+    width: 200px;
+    
+}
+
+#loginbutton {
+    background-color: #001517;
+    color: #F56960;
+    padding: 5px 10px;
+    margin: 5px 0 10px 0;
+    border-radius: 30px;
+    border: 2px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    position: absolute;
+    /*top: 50%;*/
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#signupbutton {
+    background-color: #F56960;
+    color: #FEE2E0;
+    padding: 5px 10px;
+    margin: 5px 0 10px 0;
+    border-radius: 30px;
+    border: 2px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#errormessage {
+    color: #F56960;
+    font-weight: bold;
+    font-size: 12px;
+}
+/*END of log in & sign up pages*/

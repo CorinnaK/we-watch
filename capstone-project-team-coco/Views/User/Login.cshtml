@@ -5,29 +5,35 @@
 @{
     ViewData["Title"] = "Login";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
     <p>
         This is the splash page for We Watch if the isloggedIn is false;
     </p>
-    <form action="Login" method="post">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-        <input type="submit" />
+    <div class="text-center">
+        <h1></h1>
+        
+        <form action="Login" id="loginsignupform" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"  />
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"  />
+            <input type="submit" id="loginbutton" value="Log In" />
 
-    </form>
+        </form>
 
-    <p>@ViewBag.Count</p>
+        <p>@ViewBag.Count</p>
 
-    @if (ViewBag.email != null || ViewBag.password != null)
-    {<h3>You have entered:</h3>}
-    <p>@ViewBag.email</p>
-    <p>@ViewBag.password</p>
+        @*@if (ViewBag.email != null || ViewBag.password != null)
+        {<h3>You have entered:</h3>}
+        <p>@ViewBag.email</p>
+        <p>@ViewBag.password</p>*@
+        <div id="errormessage">
+            <p>@ViewBag.errorwronglogin</p>
+            <p>@ViewBag.erroremailpassword</p>
+            <p>@ViewBag.erroremail</p>
+            <p>@ViewBag.errorpassword</p>
+        </div>
 
 
 
 
-</div>
+    </div>

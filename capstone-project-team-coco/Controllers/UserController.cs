@@ -39,6 +39,18 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
+           if (email == null && password == null)
+            {
+                ViewBag.erroremailpassword = "Please enter an email address & password.";
+            }
+            else if (email == null)
+            {
+                ViewBag.erroremail = "Please enter an email address.";
+            }
+            else if (password == null)
+            {
+                ViewBag.errorpassword = "Please enter a password.";
+            }
             if (ModelState.IsValid)
             {
                 if (email == null)
@@ -49,6 +61,7 @@ namespace we_watch.Controllers
                 {
                     using (WeWatchContext context = new WeWatchContext())
                     {
+
 
                         // checking the inputted email against what's in our db
                         User potentialUser = context.User.Where(x => x.Email == email).SingleOrDefault();
@@ -64,12 +77,21 @@ namespace we_watch.Controllers
                                 HttpContext.Session.SetInt32("User", potentialUser.UserID);
                                 return RedirectToAction("Index", "ShowCard");
                             }
-                            
+                           
+                        {
+                            ViewBag.errorwronglogin = "The e-mail and/or password entered is incorrect. Please try again.";
                         }
+                        ViewBag.Email = email;
+                        ViewBag.HashPassword = password;
+
+                        return View(); // change to show page
+
+
                     }
                 }
             }
-            ViewBag.Email = "The e-mail and/or password entered is incorrect. Please try again.";
+
+
 
             // default view
             return View();
@@ -127,43 +149,43 @@ namespace we_watch.Controllers
             if (email == null)
             {
                 isValid = false;
-                ViewBag.email = "Please enter an email address.";
+                ViewBag.erroremail = "Please enter an email address.";
             }
 
             else if (confirmedemail == null)
             {
                 isValid = false;
-                ViewBag.confirmedemail = "Please confirm your email.";
+                ViewBag.errorconfirmedemail = "Please confirm your email.";
             }
 
             else if (email != confirmedemail)
             {
                 isValid = false;
-                ViewBag.matchingemail = "These emails do not match. Please try again.";
+                ViewBag.errormatchingemail = "These emails do not match. Please try again.";
             }
 
             if (password == null)
             {
                 isValid = false;
-                ViewBag.password = "Please enter a password.";
+                ViewBag.errorpassword = "Please enter a password.";
             }
 
             else if (password.Length < 8 || !password.Any(char.IsUpper) || !password.Any(char.IsDigit))
             {
                 isValid = false;
-                ViewBag.passworderror = "Please choose a password with at least 8 characters, one capital letter, and one digit.";
+                ViewBag.errorpasswordconstraint = "Please choose a password with at least 8 characters, one capital letter, and one digit.";
             }
 
             else if (confirmedpassword == null)
             {
                 isValid = false;
-                ViewBag.confirmedemail = "Please confirm your password.";
+                ViewBag.errorconfirmedpassword = "Please confirm your password.";
             }
 
             else if (password != confirmedpassword)
             {
                 isValid = false;
-                ViewBag.confirmedpassword = "These passwords do not match. Please try again.";
+                ViewBag.errormatchingpassword = "These passwords do not match. Please try again.";
             }
 
             return isValid;
