@@ -154,7 +154,7 @@ namespace we_watch.Controllers
             { return RedirectToAction("Login", "User"); }
 
 
-            if (TempData["showCardID"] != null)
+/*            if (TempData["showCardID"] != null)
             {
                 int showCardID = int.Parse(TempData["showCardID"].ToString());
                 ShowCard show = context.ShowCard.Where(x => x.ShowCardID == showCardID).Single();
@@ -164,7 +164,7 @@ namespace we_watch.Controllers
 
             }
 
-            ViewBag.ShowCard = targetShowCard;
+            ViewBag.ShowCard = targetShowCard;*/
             return View();
 
         }

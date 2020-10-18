@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using we_watch.Models;
@@ -26,7 +27,7 @@ namespace we_watch.Controllers
 
         public IActionResult Index()
         {
-            return Redirect("/User/Login");
+            return (isLoggedIn() ?  Redirect("/User/Login") :  Redirect("/ShowCard"));
         }
 
         public IActionResult Privacy()
@@ -38,6 +39,10 @@ namespace we_watch.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public bool isLoggedIn()
+        {
+            return (HttpContext.Session.GetString("isLoggedIn") == "true");
         }
     }
 }

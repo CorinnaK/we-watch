@@ -299,7 +299,6 @@ namespace we_watch.Controllers
 
         public bool isLoggedIn()
         {
-
             return (HttpContext.Session.GetString("isLoggedIn") == "true" );
         }
     }

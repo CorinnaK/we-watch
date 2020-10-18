@@ -30,7 +30,7 @@ namespace we_watch.Controllers
 
             if (HttpContext.Session.GetString("isLoggedIn") == null)
             { HttpContext.Session.SetString("isLoggedIn", "false"); }
-            else if (HttpContext.Session.GetString("isLoggedIn")=="true")
+            else if (HttpContext.Session.GetString("isLoggedIn") == "true")
             {
                 return RedirectToAction("Index", "ShowCard");
             }
@@ -39,7 +39,7 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
-           if (email == null && password == null)
+            if (email == null && password == null)
             {
                 ViewBag.erroremailpassword = "Please enter an email address & password.";
             }
@@ -77,26 +77,21 @@ namespace we_watch.Controllers
                                 HttpContext.Session.SetInt32("User", potentialUser.UserID);
                                 return RedirectToAction("Index", "ShowCard");
                             }
-                           
-                        {
+
                             ViewBag.errorwronglogin = "The e-mail and/or password entered is incorrect. Please try again.";
+                            ViewBag.Email = email;
+                            ViewBag.HashPassword = password;
+
+                            return View(); // change to show page
+
+
                         }
-                        ViewBag.Email = email;
-                        ViewBag.HashPassword = password;
-
-                        return View(); // change to show page
-
-
                     }
                 }
             }
-
-
-
-            // default view
-            return View();
+                // default view
+                return View();
         }
-
         public IActionResult SignUp()
         {
             // needed to show our form
