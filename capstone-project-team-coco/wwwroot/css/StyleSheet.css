@@ -22,11 +22,36 @@ body {
     background-size: 455px;
     height: 100%;
     
-    /*background-position-x: -23%;
+ /*   background-position-x: -23%;
     position: fixed;*/
 }
 
-*:focus{
+.programTitle {
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 200px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    border-radius: 20px;
+}
+
+.active, .programTitle:hover {
+    background-color: #555;
+}
+
+.dropdowns {
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+    overflow: hidden;
+    background: #000;
+}
+
+
+*:focus {
     outline: none;
 }
 
@@ -37,9 +62,6 @@ body {
     position: absolute;
 }*/
 
-section {
-    background-color: red;
-}
 
 #loginsignupform {    
     position: absolute;
@@ -55,6 +77,26 @@ label {
     color: #0A9eB0;
     font-weight: bold;
     font-size: 12px;
+}
+
+#title, #indSeason, #episodes {
+    background-color: #FEE2E0;
+    color: #00454E;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 8px 15px;
+    margin: 4px 0 15px 0;
+    display: flex;
+    line-height: 25px;
+    border-radius: 20px;
+    border: none;
+    width: 300px;
+}
+
+div#dropdown{
+    background-color: red;
+    color: yellow;
+    width: 500px;
 }
 
 #email, #password {
