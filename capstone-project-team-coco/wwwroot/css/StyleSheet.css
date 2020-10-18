@@ -9,10 +9,25 @@
     Coral Pink: F56960
     Pinkish White: FEE2E0
 */
-
+/*html{
+    background-color: aqua;
+}*/
 body {
     background-color: greenyellow;
     font-family: Arial, Verdana;
+    background-image: url(../img/loginbackground.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 455px;
+    height: 100%;
+    
+    /*background-position-x: -23%;
+    position: fixed;*/
+}
+
+*:focus{
+    outline: none;
 }
 
 /*START of log in & sign up pages*/
@@ -22,11 +37,18 @@ body {
     position: absolute;
 }*/
 
-#loginsignupform {
-    position: fixed;
+section {
+    background-color: red;
+}
+
+#loginsignupform {    
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    
+    /*margin-right: 500px;*/
+     
 }
 
 label {
@@ -44,19 +66,18 @@ label {
     margin: 4px 0 15px 0;
     display: flex;
     line-height: 25px;
-    border-radius: 15px;
+    border-radius: 20px;
     border: none;
-    width: 200px;
-    
+    width: 300px;
 }
 
 #loginbutton {
     background-color: #001517;
     color: #F56960;
     padding: 5px 10px;
-    margin: 5px 0 10px 0;
+    margin: 15px 0 10px 0;
     border-radius: 30px;
-    border: 2px solid #F56960;
+    border: 3px solid #F56960;
     font-weight: bold;
     font-size: 12px;
     position: absolute;
@@ -70,11 +91,12 @@ label {
     background-color: #F56960;
     color: #FEE2E0;
     padding: 5px 10px;
-    margin: 5px 0 10px 0;
+    margin: 15px 0 10px 0;
     border-radius: 30px;
     border: 2px solid #F56960;
     font-weight: bold;
     font-size: 12px;
+    position: absolute;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -86,3 +108,8 @@ label {
     font-size: 12px;
 }
 /*END of log in & sign up pages*/
+
+footer{
+    position: absolute;
+    bottom: 0;
+}
