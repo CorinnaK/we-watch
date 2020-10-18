@@ -8,6 +8,22 @@ namespace we_watch.Controllers
 {
     public class ShowController : Controller
     {
+        public IActionResult Index()
+        {
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+
+
+            List<string> allShowTitles = new List<string>();
+            using (WeWatchContext context = new WeWatchContext())
+            {
+
+                allShowTitles = context.Show.Select(x=> x.Title).ToList();
+
+            }
+            ViewBag.AllShows = allShowTitles;
+            return View();
+        }
+
         public IActionResult ManageShows()
         {
             if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
