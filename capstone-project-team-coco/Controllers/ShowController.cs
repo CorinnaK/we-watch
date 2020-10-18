@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using we_watch.Models;
 
@@ -8,8 +9,10 @@ namespace we_watch.Controllers
     public class ShowController : Controller
     {
         public IActionResult ManageShows()
-        { 
-            List<ShowSeason> Seasons;
+        {
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+
+                List<ShowSeason> Seasons;
             using (WeWatchContext context = new WeWatchContext())
             {
                 List<Show> allShows = new List<Show>();
@@ -29,6 +32,8 @@ namespace we_watch.Controllers
 
             ViewBag.messages = TempData["message"]?.ToString();
 
+          
+
             return View();
         }
 
@@ -36,6 +41,7 @@ namespace we_watch.Controllers
         // This action Adds a show to the database
         public IActionResult AddShow(string title, int indSeason, int episodes)
         {
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             string messages;
             using (WeWatchContext context = new WeWatchContext())
@@ -74,6 +80,8 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult DeleteSeason(int deleteSeason)
         {
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+
             string messages;
             using (WeWatchContext context = new WeWatchContext())
             {
@@ -101,6 +109,8 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult DeleteProgram(int showID)
         {
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+
             string message;
             using (WeWatchContext context = new WeWatchContext())
             {
@@ -127,6 +137,8 @@ namespace we_watch.Controllers
 
         public IActionResult EditTitle(string title, int showID)
         {
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+
             string message;
             using (WeWatchContext context = new WeWatchContext())
             {
@@ -153,6 +165,8 @@ namespace we_watch.Controllers
         }
         public IActionResult AddSeason(int showID, string newSeason, string newEpisodes)
         {
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+
             string message = null;
 
             using (WeWatchContext context = new WeWatchContext())
@@ -195,11 +209,14 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult EditSeason(int editSeason, string season, string episodes)
         {
-            string message = "The button was clicked";
+
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             using (WeWatchContext context = new WeWatchContext())
             {
-         
+             
+
+                string message;
                 int tempSeason;
                 int tempEpisodes;
                 if (editSeason == 0)
@@ -257,10 +274,17 @@ namespace we_watch.Controllers
                         }
                     }
                 }
+                
                 TempData["message"] = message;
                 return Redirect("ManageShows");
 
             }
+        }
+
+        public bool isLoggedIn()
+        {
+
+            return (HttpContext.Session.GetString("isLoggedIn") == "true" );
         }
     }
 }
