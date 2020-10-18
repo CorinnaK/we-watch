@@ -13,7 +13,14 @@
 body {
     background-color: greenyellow;
     font-family: Arial, Verdana;
+    background-image: url(../img/loginbackground.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 455px;
+    background-position-x: -23%;
 }
+
 
 /*START of log in & sign up pages*/
 /*.pb-3 {
@@ -22,11 +29,13 @@ body {
     position: absolute;
 }*/
 
-#loginsignupform {
+#loginsignupform, select {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    outline: none;
+    /*margin-right: 500px;*/
      
 }
 
@@ -45,9 +54,9 @@ label {
     margin: 4px 0 15px 0;
     display: flex;
     line-height: 25px;
-    border-radius: 15px;
+    border-radius: 20px;
     border: none;
-    width: 200px;
+    width: 300px;
     
 }
 
@@ -55,9 +64,9 @@ label {
     background-color: #001517;
     color: #F56960;
     padding: 5px 10px;
-    margin: 5px 0 10px 0;
+    margin: 15px 0 10px 0;
     border-radius: 30px;
-    border: 2px solid #F56960;
+    border: 3px solid #F56960;
     font-weight: bold;
     font-size: 12px;
     position: absolute;
@@ -71,7 +80,7 @@ label {
     background-color: #F56960;
     color: #FEE2E0;
     padding: 5px 10px;
-    margin: 5px 0 10px 0;
+    margin: 15px 0 10px 0;
     border-radius: 30px;
     border: 2px solid #F56960;
     font-weight: bold;

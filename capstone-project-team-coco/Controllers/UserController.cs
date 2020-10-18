@@ -28,7 +28,8 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
-           if (email == null && password == null)
+
+            if (email == null && password == null)
             {
                 ViewBag.erroremailpassword = "Please enter an email address & password.";
             }
@@ -44,27 +45,28 @@ namespace we_watch.Controllers
             {
                 using (WeWatchContext context = new WeWatchContext())
                 {
-
+                   
                     // checking the inputted email against what's in our db
+                    
                     User potentialUser = context.User.Where(x => x.Email == email).SingleOrDefault();
-                    // grab the salt value from that specific user
-                    if (potentialUser != null)
-                    {
-                        string Salt = potentialUser.Salt;
-
-                        // we need to check the password that they have inputted + salt value matches what's in their hashpassword in the db
-                        if (Authenticate.Hash(password + Salt) == potentialUser.HashPassword)
+                        // grab the salt value from that specific user
+                        if (potentialUser != null)
                         {
-                            return RedirectToAction("Index", "ShowCard");
-                        }
-                        {
-                            ViewBag.errorwronglogin = "The e-mail and/or password entered is incorrect. Please try again.";
-                        }
-                        ViewBag.Email = email;
-                        ViewBag.HashPassword = password;
+                            string Salt = potentialUser.Salt;
 
-                        return View(); // change to show page
+                            // we need to check the password that they have inputted + salt value matches what's in their hashpassword in the db
+                            if (Authenticate.Hash(password + Salt) == potentialUser.HashPassword)
+                            {
+                                return RedirectToAction("Index", "ShowCard");
+                            }
+                            {
+                                ViewBag.errorwronglogin = "The e-mail and/or password entered is incorrect. Please try again.";
+                            }
+                            ViewBag.Email = email;
+                            ViewBag.HashPassword = password;
 
+                            return View(); // change to show page
+                        
 
                     }
                 }
