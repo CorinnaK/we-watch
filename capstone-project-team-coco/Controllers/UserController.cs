@@ -44,8 +44,7 @@ namespace we_watch.Controllers
             if (ModelState.IsValid)
             {
                 using (WeWatchContext context = new WeWatchContext())
-                {
-                   
+                {                   
                     // checking the inputted email against what's in our db
                     
                     User potentialUser = context.User.Where(x => x.Email == email).SingleOrDefault();

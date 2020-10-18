@@ -1,40 +1,41 @@
 ﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Sign Up";
 }
-    <p>
-        This is the splash page for We Watch if the isloggedIn is false;
-    </p>
-    <div class="text-center">
-        <h1></h1>
-        
-        <form action="SignUp"  id="loginsignupform" method="post">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required />
-            <label for="confirmedemail">Confirm Email:</label>
-            <input type="email" id="email" name="confirmedemail" required />
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required />
-            <label for="confirmedpassword">Confirm Password:</label>
-            <input type="password" id="password" name="confirmedpassword" required />
-            <input type="submit" id="signupbutton" value="Sign Up" />
+<p>
+    This is the splash page for We Watch if the isloggedIn is false;
+</p>
+@*<div class="text-center">
+    <h1></h1>*@
 
-        </form>
+    <form action="SignUp" id="loginsignupform" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+        <label for="confirmedemail">Confirm Email:</label>
+        <input type="email" id="email" name="confirmedemail" required />
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+        <label for="confirmedpassword">Confirm Password:</label>
+        <input type="password" id="password" name="confirmedpassword" required />
+        <input type="submit" id="signupbutton" value="Sign Up" />
 
-        <p> Once you are successfully signed up, you will be redirected to the login page.</p>
+    </form>
 
-        <p>@ViewBag.Count</p>
+    <p> Once you are successfully signed up, you will be redirected to the login page.</p>
 
-        @if (ViewBag.email != null || ViewBag.password != null)
-            
-        {<h3>You have entered:</h3>}
-        <p>@ViewBag.erroremail</p>
-        <p>@ViewBag.errorconfirmedemai</p>
-        <p>@ViewBag.errormatchingemail</p>
-        <p>@ViewBag.errorpassword</p>
-        <p>@ViewBag.errorconfirmedpassword</p>
-        <p>@ViewBag.errorpasswordconstraint</p>
-        <p>@ViewBag.usedemail</p>
-        <p>@ViewBag.errormatchingpassword</p>
-        
+    <p>@ViewBag.Count</p>
 
-    </div>
+    @if (ViewBag.email != null || ViewBag.password != null)
+
+    {<h3>You have entered:</h3>}
+    <p>@ViewBag.erroremail</p>
+    <p>@ViewBag.errorconfirmedemai</p>
+    <p>@ViewBag.errormatchingemail</p>
+    <p>@ViewBag.errorpassword</p>
+    <p>@ViewBag.errorconfirmedpassword</p>
+    <p>@ViewBag.errorpasswordconstraint</p>
+    <p>@ViewBag.usedemail</p>
+    <p>@ViewBag.errormatchingpassword</p>
+
+
+@*</div>*@

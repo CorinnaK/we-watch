@@ -1,40 +1,41 @@
-﻿@*@{
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }*@
-
-@{
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Login";
 }
+
+
+
 <p>
     This is the splash page for We Watch if the isloggedIn is false;
 </p>
-<div class="text-center">
-    <h1></h1>
+@*<div class="text-center">
+    <h1></h1>*@
 
-    <form action="Login" id="loginsignupform" method="post">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" />
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" />
-        <input type="submit" id="loginbutton" value="Log In" />
+<form action="Login" id="loginsignupform" method="post">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" />
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" />
+    <input type="submit" id="loginbutton" value="Log In" />
 
-    </form>
-
-
-    <p>@ViewBag.Count</p>
-
-    @*@if (ViewBag.email != null || ViewBag.password != null)
-        {<h3>You have entered:</h3>}
-        <p>@ViewBag.email</p>
-        <p>@ViewBag.password</p>*@
-    <div id="errormessage">
-        <p>@ViewBag.errorwronglogin</p>
-        <p>@ViewBag.erroremailpassword</p>
-        <p>@ViewBag.erroremail</p>
-        <p>@ViewBag.errorpassword</p>
-    </div>
+</form>
 
 
+<p>@ViewBag.Count</p>
 
-
+@*@if (ViewBag.email != null || ViewBag.password != null)
+    {<h3>You have entered:</h3>}
+    <p>@ViewBag.email</p>
+    <p>@ViewBag.password</p>*@
+<div id="errormessage">
+    <p>@ViewBag.errorwronglogin</p>
+    <p>@ViewBag.erroremailpassword</p>
+    <p>@ViewBag.erroremail</p>
+    <p>@ViewBag.errorpassword</p>
 </div>
+
+
+
+@*
+    </div>*@
+
