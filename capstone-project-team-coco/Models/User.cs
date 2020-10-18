@@ -23,7 +23,7 @@ namespace we_watch.Models
 
         [Column("Email", TypeName = "varchar(30)")]
         [Required(AllowEmptyStrings = false)]
-        [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage ="need email!")] //error message not working?
         public string Email { get; set; }
 
         [Column("Salt", TypeName = "varchar(10)")]
