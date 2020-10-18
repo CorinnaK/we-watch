@@ -6,16 +6,16 @@
 
 <div class="text-center">
     <h1 class="display-4">List of All Shows</h1>
-    @if (ViewBag.AllShowCardTitles == null)
+    @if (ViewBag.AllShowCardShows == null)
     {
         <h2>Looks like you are not watching anything. </h2>
         <h2><a class="nav-link text-dark" asp-area="" asp-controller="ShowCard" asp-action="CreateCard">Add a connection</a></h2>
     }
     else
     {
-        @foreach (string showCardTitle in ViewBag.AllShowCardTitles)
+        @foreach (Show show in ViewBag.AllShowCardShows)
         {
-            <h3>@showCardTitle</h3>
+<h3>@Html.ActionLink(show.Title, "ByShow", new { showID = show.ShowID})</h3>
         }
     }
 

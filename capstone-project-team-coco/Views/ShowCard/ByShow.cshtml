@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Edit ShowCards";
+
+}
+
+@*              // Citation
+                //https://stackoverflow.com/questions/16636448/dropdownlist-from-objects-mvc
+                //Select overload (data, value, text)
+*@
+@{Html.BeginForm("ByShow", "ShowCard");}
+<p>Choose a Different Show</p>
+@Html.DropDownList("showID", new SelectList(ViewBag.AllUserShows, "ShowID", "Title"), "Choose a new Show")
+<input type="submit" value="Submit" />
+
+
+<div class="text-center">
+    <h1 class="display-4">ShowCards</h1>
+    
+
+    @foreach (DisplayCard card in ViewBag.DisplayCards)
+    {
+
+        <dl style="border: solid black 2px; width:150px">
+            <dt>Show</dt>
+            <dd>@card.ShowTitle</dd>
+            <dt>Watcher</dt>
+            <dd>@card.WatcherName</dd>
+            <dt>Season</dt>
+            <dd>@card.CurrentSeason</dd>
+            <dt>Episode</dt>
+            <dd>@card.CurrentEpisode</dd>
+        </dl>
+
+    }
+</div>

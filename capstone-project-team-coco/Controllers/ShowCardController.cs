@@ -18,17 +18,14 @@ namespace we_watch.Controllers
             if (userID == 0)
             { return RedirectToAction("Login", "User"); }
 
-            List<string> allShowCardTitles = new List<string>();
+            List<Show> allShowCardShows = new List<Show>();
             using (WeWatchContext context = new WeWatchContext())
             {
 
-                List<int> allShowCardIDs = context.ShowCard.Where(x => x.UserID == userID).Select(x=>x.ShowID).Distinct().ToList();
-                foreach (int id in allShowCardIDs)
-                {
-                    allShowCardTitles.Add(context.Show.Where(x => x.ShowID == id).Select(x => x.Title).Single().ToString());
-                }      
+                allShowCardShows = context.ShowCard.Include(x=>x.Show).Where(x => x.UserID == userID).Select(x=> x.Show).Distinct().ToList();
+     
             }
-            ViewBag.AllShowCardTitles = allShowCardTitles;
+            ViewBag.AllShowCardShows= allShowCardShows;
             return View();
         }
 
@@ -147,25 +144,39 @@ namespace we_watch.Controllers
             }
             return Redirect("CreateCard");
         }
-        public IActionResult EditCard(int showCardID)
+        public IActionResult ByShow(int showID)
         {
             int userID = GetUserID();
             if (userID == 0)
             { return RedirectToAction("Login", "User"); }
+             
+            List<DisplayCard> displayCards = new List<DisplayCard>();
+            List<Show> allUserShows = new List<Show>();
 
 
-/*            if (TempData["showCardID"] != null)
+            using (WeWatchContext context = new WeWatchContext())
             {
-                int showCardID = int.Parse(TempData["showCardID"].ToString());
-                ShowCard show = context.ShowCard.Where(x => x.ShowCardID == showCardID).Single();
-                card = new DisplayCard(show.ShowID, show.WatcherID);
-                card.SeasonID = show.CurrentSeason;
-                card.CurrentEpisode = show.CurrentEpisode;
 
+                
+                List<ShowCard> showCardsByShow = context.ShowCard.Where(x => x.ShowID == showID && x.UserID == userID).ToList();
+
+
+                allUserShows = context.ShowCard.Include(x=>x.Show).Where(x => x.UserID == userID).Select(x=>x.Show).Distinct().ToList();
+
+                if (showCardsByShow != null)
+                {
+                    foreach (ShowCard showCard in showCardsByShow)
+                    {
+                        DisplayCard card = new DisplayCard(showCard.ShowID, showCard.WatcherID);
+                        card.SeasonID = showCard.CurrentSeason;
+                        card.CurrentEpisode = showCard.CurrentEpisode;
+                        displayCards.Add(card);
+                    }
+                }
             }
-
-            ViewBag.ShowCard = targetShowCard;*/
-            return View();
+            ViewBag.AllUserShows = allUserShows;
+            ViewBag.DisplayCards = displayCards;
+                return View();
 
         }
         // Method to check whether the user is logged in and if so, return the user ID.
