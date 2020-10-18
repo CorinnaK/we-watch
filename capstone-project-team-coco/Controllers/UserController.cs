@@ -92,7 +92,14 @@ namespace we_watch.Controllers
                 // default view
                 return View();
         }
-        public IActionResult SignUp()
+
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("User");
+            HttpContext.Session.Remove("isLoggedIn");
+            return Redirect("Login");
+        }
+            public IActionResult SignUp()
         {
             // needed to show our form
             return View();
