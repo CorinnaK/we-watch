@@ -9,6 +9,7 @@ namespace we_watch.Models
 {
     public class DisplayCard
     {
+        public int ShowCardID { get; set; }
         private int _seasonID;
         public int ShowID { get; set; }
         public string ShowTitle { get; set; }

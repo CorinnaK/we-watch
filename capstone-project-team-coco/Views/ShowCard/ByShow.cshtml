@@ -7,11 +7,13 @@
                 //https://stackoverflow.com/questions/16636448/dropdownlist-from-objects-mvc
                 //Select overload (data, value, text)
 *@
+<h3>@ViewBag.Message</h3>
+
 @{Html.BeginForm("ByShow", "ShowCard");}
 <p>Choose a Different Show</p>
 @Html.DropDownList("showID", new SelectList(ViewBag.AllUserShows, "ShowID", "Title"), "Choose a new Show")
 <input type="submit" value="Submit" />
-
+@{ Html.EndForm();}
 
 <div class="text-center">
     <h1 class="display-4">ShowCards</h1>
@@ -28,7 +30,11 @@
             <dt>Season</dt>
             <dd>@card.CurrentSeason</dd>
             <dt>Episode</dt>
-            <dd>@card.CurrentEpisode</dd>
+            <dd>
+                @card.CurrentEpisode
+                        @Html.ActionLink("Submit", "addEpisode", "ShowCard", new {  showCardID = card.ShowCardID })
+                       @* <button type="submit" value=@card formaction=@Url.Action("addEpisode", "ShowCard", new { card = card}) formmethod="post">+</button>*@
+                    </dd>
         </dl>
 
     }
