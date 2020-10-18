@@ -217,6 +217,39 @@ namespace we_watch.Controllers
             return RedirectToAction("ByShow", new { showID = show.ShowID });
         }
 
+        public IActionResult minusEpisode(int showCardID)
+        {
+            string message = null;
+            ShowCard show = new ShowCard();
+            using (WeWatchContext context = new WeWatchContext())
+            {
+                show = context.ShowCard.Include(x => x.Show).Where(x => x.ShowCardID == showCardID).Single();
+                ShowSeason currentSeason = context.ShowSeason.Where(x => x.ShowID == show.ShowID && x.ShowSeasonID == show.CurrentSeason).Single();
+                if (show.CurrentEpisode == 1)
+                {
+
+                    ShowSeason pastSeason = context.ShowSeason.Include(x => x.Show).Where(x => x.ShowID == show.ShowID && x.IndividualSeason < currentSeason.IndividualSeason).OrderBy(x => x.IndividualSeason).FirstOrDefault();
+                    if (pastSeason == null)
+                    { message = "Sorry you no season to go back to. Would you like to add a season to the list?"; }
+                    else
+                    {
+                        show.CurrentEpisode = pastSeason.SeasonEpisodes;
+                        show.CurrentSeason = pastSeason.ShowSeasonID;
+                        message = "You went back a SEASON";
+                    }
+                }
+                else
+                {
+                    show.CurrentEpisode--;
+                    message = "NWent back an EPISODE";
+                }
+
+                context.SaveChanges();
+            }
+            TempData["message"] = message;
+            return RedirectToAction("ByShow", new { showID = show.ShowID });
+        }
+
         // Method to check whether the user is logged in and if so, return the user ID.
         public int GetUserID()
         {

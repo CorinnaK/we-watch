@@ -32,8 +32,9 @@
             <dt>Episode</dt>
             <dd>
                 @card.CurrentEpisode
-                        @Html.ActionLink("Submit", "addEpisode", "ShowCard", new {  showCardID = card.ShowCardID })
-                       @* <button type="submit" value=@card formaction=@Url.Action("addEpisode", "ShowCard", new { card = card}) formmethod="post">+</button>*@
+                        @Html.ActionLink("++++", "addEpisode", "ShowCard", new {  showCardID = card.ShowCardID })
+                        @Html.ActionLink("----", "minusEpisode", "ShowCard", new {  showCardID = card.ShowCardID })
+                       
                     </dd>
         </dl>
 
