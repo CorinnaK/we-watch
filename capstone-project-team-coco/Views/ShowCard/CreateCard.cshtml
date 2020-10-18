@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Manage ShowCards";
+    ViewData["Title"] = "Create ShowCards";
 }
 
 
@@ -27,7 +27,7 @@
                 <option value="@watcher.WatcherID">@watcher.Name</option>
             }
         </select>
-        <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select</button>
+        <button type="submit" formaction=@Url.Action("CreateCard") formmethod="post">Select</button>
     </form>
     @if (ViewBag.SelectedShow.Title != null && ViewBag.SelectedWatcher.Name != null)
     {
@@ -48,7 +48,7 @@
                     </select>
                     <input hidden name="showID" value="@ViewBag.SelectedShow.ShowID">
                     <input hidden name="watcherID" value="@ViewBag.SelectedWatcher.WatcherID">
-                    <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select</button>
+                    <button type="submit" formaction=@Url.Action("CreateCard") formmethod="post">Select</button>
                 }
             </div>
         </form>
@@ -68,7 +68,7 @@
             <input hidden name="seasonID" value="@ViewBag.SelectedSeason.ShowSeasonID">
             <input hidden name="watcherID" value="@ViewBag.SelectedWatcher.WatcherID">
 
-            <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select</button>
+            <button type="submit" formaction=@Url.Action("CreateCard") formmethod="post">Select</button>
         </form>
     }
 
@@ -91,17 +91,18 @@
 
 <form>
    <p> <label for="showID">Show</label>
-    <input disabled name="showID" value="@ViewBag.SelectedShow.ShowID">
+    <input readonly="readonly" name="showID" value="@ViewBag.SelectedShow.ShowID">
     </p>
     <label for="watcherID">Watcher</label>
-    <input disabled name="watcherID" value="@ViewBag.SelectedWatcher.WatcherID">
+    <input readonly="readonly" name="watcherID" value="@ViewBag.SelectedWatcher.WatcherID">
     <label for="seasonID">Seasons</label>
-    <input disabled name="seasonID" value="@ViewBag.SelectedSeason.ShowSeasonID">
+    <input readonly="readonly" name="seasonID" value="@ViewBag.SelectedSeason.IndividualSeason">
     <label for="episode">Episode</label>
-    <input disabled name="episode" value="@ViewBag.Episode">
-    <button type="submit" formaction=@Url.Action("ManageCards") formmethod="post">Select</button>
+    <input readonly="readonly" name="episode" value="@ViewBag.Episode">
+    <button type="submit" formaction=@Url.Action("Connect") formmethod="post">Let's Watch</button>
 
 </form>
 
     
 
+    </div>

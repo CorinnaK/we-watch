@@ -4,21 +4,21 @@
 }
 
 
-
 <div class="text-center">
     <h1 class="display-4">List of All Shows</h1>
     @if (ViewBag.AllShows == null)
     {
         <h2>Looks like you have no shows. </h2>
-       <h2><a class="nav-link text-dark" asp-area="" asp-controller="Show" asp-action="ManageShows">Add a Show</a></h2>
-
-
+        <h2><a class="nav-link text-dark" asp-area="" asp-controller="Show" asp-action="ManageShows">Add a Show</a></h2>
     }
     else
     {
-        @foreach (Show show in ViewBag.AllShows)
+        @foreach (ShowCard show in ViewBag.AllShows)
         {
-            <h3>@show.Title</h3>
+            <h3>@show.Show.Title</h3>
+            <h3>@show.Watcher.Name</h3>
+            <h3>@show.CurrentSeason</h3>
+            <h3>@show.CurrentEpisode</h3>
         }
     }
 

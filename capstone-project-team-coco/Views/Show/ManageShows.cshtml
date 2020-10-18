@@ -39,7 +39,7 @@
 
             <input type="hidden" name="showID" value="@show.ShowID">
             <input type="text" name="title" id="title" value="@show.Title" required />
-            <button type="submit" name="editProgram[]" formaction=@Url.Action("EditTitle") formmethod="post">EDIT</button>     
+            <button type="submit" name="editProgram[]" formaction=@Url.Action("EditTitle") formmethod="post">Save</button>     
             <button type="submit" name="deleteProgram[]" formaction=@Url.Action("DeleteProgram") formmethod="post">DELETE</button>
             </form>
       
@@ -52,7 +52,7 @@
             <input type="text" id="season" name="season[]" value="@seasons.IndividualSeason" />
             <label for="episodes">Episodes</label>
             <input type="text" id="episodes" name="episodes[]" value="@seasons.SeasonEpisodes" />
-            <button type="submit" name="editSeason[]"  value = "@seasons.ShowSeasonID" formaction=@Url.Action("EditSeason") formmethod="post">EDIT</button>
+            <button type="submit" name="editSeason[]"  value = "@seasons.ShowSeasonID" formaction=@Url.Action("EditSeason") formmethod="post">Save</button>
 
             <button type="submit" name="deleteSeason[]" value = "@seasons.ShowSeasonID" formaction=@Url.Action("DeleteSeason") formmethod="post">DELETE</button>
         </form>

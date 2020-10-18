@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using we_watch.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace we_watch.Controllers
 {
@@ -17,11 +18,13 @@ namespace we_watch.Controllers
             {
                 watchers = context.Watcher.ToList();
             }
+
             ViewBag.AllWatchers = watchers;
             return View();
         }
         public IActionResult ManageWatcher(string message)
         {
+            
             List<Watcher> watchers;
             using (WeWatchContext context = new WeWatchContext())
             {
@@ -29,7 +32,7 @@ namespace we_watch.Controllers
             }
             ViewBag.AllWatchers = watchers;
             ViewBag.Message = message;
-
+   
 
             return View();
         }
@@ -37,6 +40,7 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult AddWatcher(string name)
         {
+            
             string message = null;
             using (WeWatchContext context = new WeWatchContext())
             {
@@ -63,7 +67,8 @@ namespace we_watch.Controllers
 
                 }
             }
-            return RedirectToAction("ManageWatcher", new { message });
+
+            return RedirectToAction("ManageWatcher", new { message});
         }
         [HttpPost]
 
