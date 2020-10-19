@@ -54,23 +54,27 @@ label {
     width: 100%;
 }
 
+.addShow {
+    text-align: center;
+}
 .programTitle {
-    background-color: red;
-    color: white;
+    background-color: #F0A202;
+    color: #072F34;
     cursor: pointer;
-    padding: 18px;
+    padding: 5px;
     margin: 5px;
     width: 200px;
     border: none;
     text-align: center;
     outline: none;
-    font-size: 15px;
+    font-size: 12px;
+    font-weight: bold;
     border-radius: 20px;
 }
 
-    .active, .programTitle:hover {
+   /* .active, .programTitle:hover {
         background-color: #555;
-    }
+    }*/
 
 .dropdownContainer {
     max-height: 0;
@@ -123,6 +127,7 @@ label {
     border-radius: 20px;
     border: none;
     width: 30px;
+    height: 15px;
     /* display: inline;
     justify-content: flex-start;*/
 }
