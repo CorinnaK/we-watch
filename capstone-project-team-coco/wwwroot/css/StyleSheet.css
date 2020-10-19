@@ -2,12 +2,12 @@
     Colour Hex Codes:
     Rich Black: #001517
     Midnight Teal: #072F34
-    Deep Teal: 00454E
-    Tropical Blue: 0A9EB0
-    Golden Yellow: F0A202
-    Maroon: 7B3F3C
-    Coral Pink: F56960
-    Pinkish White: FEE2E0
+    Deep Teal: #00454E
+    Tropical Blue: #0A9EB0
+    Golden Yellow: #F0A202
+    Maroon: #7B3F3C
+    Coral Pink: #F56960
+    Pinkish White: #FEE2E0
 */
 /*html{
     background-color: aqua;
@@ -21,56 +21,20 @@ body {
     background-attachment: fixed;
     background-size: 455px;
     height: 100%;
-    
- /*   background-position-x: -23%;
+    /*   background-position-x: -23%;
     position: fixed;*/
 }
 
-.programTitle {
-    background-color: red;
-    color: white;
-    cursor: pointer;
-    padding: 18px;
-    width: 200px;
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 15px;
-    border-radius: 20px;
-}
-
-.active, .programTitle:hover {
-    background-color: #555;
-}
-
-.dropdowns {
-    max-height: 0;
-    transition: max-height 0.2s ease-out;
-    overflow: hidden;
-    background: #000;
-}
-
-
-*:focus {
-    outline: none;
-}
-
-/*START of log in & sign up pages*/
-/*.pb-3 {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-}*/
-
-
-#loginsignupform {    
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    /*margin-right: 500px;*/
-     
+input,
+input:hover,
+input:focus,
+textarea,
+textarea:hover,
+textarea:focus,
+select,
+select:hover,
+select:focus {
+    transition: background-color 5000s;
 }
 
 label {
@@ -79,7 +43,105 @@ label {
     font-size: 12px;
 }
 
-#title, #indSeason, #episodes {
+*:focus {
+    outline: none;
+}
+
+/*START of Manage Shows*/
+.text-center {
+    display: block;
+    justify-content: center;
+    width: 100%;
+}
+
+.addShow, .displayShowCard {
+    text-align: center;
+}
+
+.programTitle {
+    background-color: #F0A202;
+    color: #072F34;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    width: 200px;
+    height: 30px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+/* .active, .programTitle:hover {
+        background-color: #555;
+    }*/
+
+.dropdownContainer {
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+    overflow: hidden;
+    background-color: #072F34;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+/*#dropdowns {
+    background-color: #001517;
+    width: 300px;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+    align-content: center;*/
+    /*display: flex;
+    justify-content: center;
+    text-align: center;*/ /*
+    flex-direction: column;*/
+/*}*/
+#dropdowns {
+    background-color: #001517;
+    width: 350px;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+/*#addProgramContainer {
+    background-color: red;*/
+    /*margin-bottom: 50px;*/
+    /*display: flex;
+    flex-direction: column;
+    align-items: center;
+}*/
+
+#editShowTitleContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    background-color: red;
+}
+
+#title {
+    background-color: #FEE2E0;
+    color: #00454E;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 8px 15px;
+    margin: 4px 0 15px 0;
+    /*display: flex;*/
+    line-height: 25px;
+    border-radius: 20px;
+    border: none;
+    width: 275px;
+    height: 15px;
+}
+
+#season, #episodes {
     background-color: #FEE2E0;
     color: #00454E;
     font-weight: bold;
@@ -90,13 +152,63 @@ label {
     line-height: 25px;
     border-radius: 20px;
     border: none;
-    width: 300px;
+    width: 30px;
+    height: 15px;
+    /* display: inline;
+    justify-content: flex-start;*/
 }
 
-div#dropdown{
+#seasonEpisodeContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#seasonContainer, #episodeContainer {
+    text-align: center;
+}
+
+#programNameContainer {
+    /*text-align: center;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#saveButtons {
+    background-color: #001517;
+    color: #F56960;
+    padding: 5px 10px;
+    margin: 15px 0 10px 0;
+    border-radius: 30px;
+    border: 3px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    height: 30px;
+}
+
+#deleteButtons {
     background-color: red;
-    color: yellow;
-    width: 500px;
+    border-radius: 20px;
+}
+
+/*END of Manage Shows Page*/
+
+
+/*START of log in & sign up pages*/
+/*.pb-3 {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+}*/
+
+
+#loginsignupform {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*margin-right: 500px;*/
 }
 
 #email, #password {
@@ -151,7 +263,7 @@ div#dropdown{
 }
 /*END of log in & sign up pages*/
 
-footer{
+footer {
     position: absolute;
     bottom: 0;
 }
