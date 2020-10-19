@@ -14,31 +14,35 @@
     }
 
     <div class="addShow">
-    
+
         <button class="programTitle"> Add New Program</button>
-    
-    <section class="dropdownContainer">
-        <div id="dropdowns">
 
-            <form action="AddShow" method="post">
-                <label for="title">Program Name:</label>
-                <input type="text" id="title" name="title" required />
-                <div id="seasonEpisodeContainer">
-                    <div id="seasonContainer">
-                        <label for="season">Season:</label>
-                        <input type="number" id="season" name="season" required />
+        <section class="dropdownContainer">
+            <div id="dropdowns">
+
+                <form action="AddShow" method="post">
+                    <div id="addProgramContainer">
+                    <div id="programNameContainer">
+                        <label for="title">Program Name:</label>
+                        <input type="text" id="title" name="title" required />
                     </div>
-                    <div id="episodeContainer">
-                        <label for="episodes">Episodes:</label>
-                        <input type="number" id="episodes" name="episodes" required />
+                    <div id="seasonEpisodeContainer">
+                        <div id="seasonContainer">
+                            <label for="season">Season:</label>
+                            <input type="number" id="season" name="season" required />
+                        </div>
+                        <div id="episodeContainer">
+                            <label for="episodes">Episodes:</label>
+                            <input type="number" id="episodes" name="episodes" required />
+                        </div>
+                        <input type="submit" id="saveButtons" value="Add Program" />
                     </div>
-                    <input type="submit" id="saveButtons" value="Add Program" />
-                </div>
+                        </div>
 
 
-            </form>
-        </div>
-    </section>
+                </form>
+            </div>
+        </section>
     </div>
 </div>
 
@@ -48,41 +52,50 @@
     {
 
         <button class="programTitle">@show.Title</button>
-        <section class="dropdowns">
-            <form>
+        <section class="dropdownContainer">
+            <section id="dropdowns">
+                <form>
+                    <div id="editShowTitleContainer">
+                        <input type="hidden" name="showID" value="@show.ShowID">
+                        <input type="text" name="title" id="title" value="@show.Title" required />
+                        <button type="submit" name="editProgram[]" formaction=@Url.Action("EditTitle") formmethod="post">Save</button>
+                        <button type="submit" id="deleteButtons" name="deleteProgram[]" formaction=@Url.Action("DeleteProgram") formmethod="post">DELETE</button>
+                    </div>
+                </form>
 
-                <input type="hidden" name="showID" value="@show.ShowID">
-                <input type="text" name="title" id="title" value="@show.Title" required />
-                <button type="submit" name="editProgram[]" formaction=@Url.Action("EditTitle") formmethod="post">Save</button>
-                <button type="submit" id="deleteButtons" name="deleteProgram[]" formaction=@Url.Action("DeleteProgram") formmethod="post">DELETE</button>
-            </form>
 
+                @foreach (ShowSeason seasons in show.ShowSeasons)
+                {
+                    <div>
+                        <form>
+                            <input type="hidden" name="seasonID[]" value="@seasons.ShowSeasonID">
+                            <div id="seasonEpisodeContainer">
+                                <div id="seasonContainer">
+                                    <label for="season">Season</label>
+                                    <input type="text" id="season" name="season[]" value="@seasons.IndividualSeason" />
+                                </div>
+                                <div id="episodeContainer">
+                                    <label for="episodes">Episodes</label>
+                                    <input type="text" id="episodes" name="episodes[]" value="@seasons.SeasonEpisodes" />
+                                </div>
+                                <button type="submit" id="saveButtons" name="editSeason[]" value="@seasons.ShowSeasonID" formaction=@Url.Action("EditSeason") formmethod="post">Save</button>
 
-            @foreach (ShowSeason seasons in show.ShowSeasons)
-            {
-                <div>
-                    <form>
-                        <input type="hidden" name="seasonID[]" value="@seasons.ShowSeasonID">
-                        <label for="season">Season</label>
-                        <input type="text" id="season" name="season[]" value="@seasons.IndividualSeason" />
-                        <label for="episodes">Episodes</label>
-                        <input type="text" id="episodes" name="episodes[]" value="@seasons.SeasonEpisodes" />
-                        <button type="submit" id="saveButtons" name="editSeason[]" value="@seasons.ShowSeasonID" formaction=@Url.Action("EditSeason") formmethod="post">Save</button>
-
-                        <button type="submit" id="deleteButtons" name="deleteSeason[]" value="@seasons.ShowSeasonID" formaction=@Url.Action("DeleteSeason") formmethod="post">DELETE</button>
-                    </form>
-                </div>
-            }
-            <form>
-                <div>
-                    <input type="hidden" name="showID" value="@show.ShowID">
-                    <label for="newSeason">Add A Season</label>
-                    <input type="text" id="newSeason" name="newSeason" value="0" />
-                    <label for="newEpisodes">Episodes</label>
-                    <input type="text" id="newEpisodes" name="newEpisodes" value="0" />
-                    <button type="submit" id="saveButtons" name="addSeason" formaction=@Url.Action("AddSeason") formmethod="post">+</button>
-                </div>
-            </form>
+                                <button type="submit" id="deleteButtons" name="deleteSeason[]" value="@seasons.ShowSeasonID" formaction=@Url.Action("DeleteSeason") formmethod="post">DELETE</button>
+                            </div>
+                        </form>
+                    </div>
+                }
+                <form>
+                    <div>
+                        <input type="hidden" name="showID" value="@show.ShowID">
+                        <label for="newSeason">Add A Season</label>
+                        <input type="text" id="newSeason" name="newSeason" value="0" />
+                        <label for="newEpisodes">Episodes</label>
+                        <input type="text" id="newEpisodes" name="newEpisodes" value="0" />
+                        <button type="submit" id="saveButtons" name="addSeason" formaction=@Url.Action("AddSeason") formmethod="post">+</button>
+                    </div>
+                </form>
+            </section>
         </section>
     }
 </div>

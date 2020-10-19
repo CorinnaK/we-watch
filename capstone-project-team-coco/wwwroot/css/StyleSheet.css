@@ -33,7 +33,7 @@ textarea:hover,
 textarea:focus,
 select,
 select:hover,
-select:focus {    
+select:focus {
     transition: background-color 5000s;
 }
 
@@ -54,9 +54,10 @@ label {
     width: 100%;
 }
 
-.addShow {
+.addShow, .displayShowCard {
     text-align: center;
 }
+
 .programTitle {
     background-color: #F0A202;
     color: #072F34;
@@ -64,6 +65,7 @@ label {
     padding: 5px;
     margin: 5px;
     width: 200px;
+    height: 30px;
     border: none;
     text-align: center;
     outline: none;
@@ -72,7 +74,7 @@ label {
     border-radius: 20px;
 }
 
-   /* .active, .programTitle:hover {
+/* .active, .programTitle:hover {
         background-color: #555;
     }*/
 
@@ -84,21 +86,44 @@ label {
     width: 100%;
     display: flex;
     justify-content: center;
-   
 }
-
-#dropdowns {
+/*#dropdowns {
     background-color: #001517;
     width: 300px;
     border-radius: 20px;
     margin: 10px;
     padding: 10px;
-    display: flex;
+    align-content: center;*/
+    /*display: flex;
     justify-content: center;
+    text-align: center;*/ /*
+    flex-direction: column;*/
+/*}*/
+#dropdowns {
+    background-color: #001517;
+    width: 350px;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
     text-align: center;
 }
 
-.seasonEpisodes {
+/*#addProgramContainer {
+    background-color: red;*/
+    /*margin-bottom: 50px;*/
+    /*display: flex;
+    flex-direction: column;
+    align-items: center;
+}*/
+
+#editShowTitleContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    background-color: red;
 }
 
 #title {
@@ -108,11 +133,12 @@ label {
     font-size: 12px;
     padding: 8px 15px;
     margin: 4px 0 15px 0;
-    display: flex;
+    /*display: flex;*/
     line-height: 25px;
     border-radius: 20px;
     border: none;
-    width: 250px;
+    width: 275px;
+    height: 15px;
 }
 
 #season, #episodes {
@@ -134,18 +160,19 @@ label {
 
 #seasonEpisodeContainer {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    padding-bottom: 10px;
-   
 }
 
-#seasonContainer {
+#seasonContainer, #episodeContainer {
     text-align: center;
 }
 
-#episodeContainer {    
-    text-align: center;
+#programNameContainer {
+    /*text-align: center;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #saveButtons {
