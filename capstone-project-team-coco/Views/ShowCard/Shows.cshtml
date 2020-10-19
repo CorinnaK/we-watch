@@ -1,11 +1,10 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Shows";
 }
 
 
 <div class="text-center">
-    <h1 class="display-4">List of All Shows</h1>
+    <h1 class="display-4">List of All Programs</h1>
     @if (ViewBag.AllShowCardShows == null)
     {
         <h2>Looks like you are not watching anything. </h2>
@@ -15,7 +14,7 @@
     {
         @foreach (Show show in ViewBag.AllShowCardShows)
         {
-<h3>@Html.ActionLink(show.Title, "ByShow", new { showID = show.ShowID})</h3>
+            <h3>@Html.ActionLink(show.Title, "ByShow", new { showID = show.ShowID })</h3>
         }
     }
 

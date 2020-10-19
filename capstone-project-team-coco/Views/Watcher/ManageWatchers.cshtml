@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Manage Watcher";
+}
+
+
+<div class="addShow">
+
+    <button class="programTitle"> Add New Watcher</button>
+
+    <section class="dropdownContainer">
+        <div id="dropdowns">
+            <form action="AddWatcher" method="post">
+                <div id="addProgramContainer">
+                    <div id="programNameContainer">
+                        <label for="name">Watcher Name:</label>
+                        <input type="text" id="name" name="name" required />
+                    </div>
+                    <input type="submit" id="saveButtons" value="Add Watcher" />
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+<div class="displayShowCard">
+    <h3>List of all Watchers</h3>
+
+    @foreach (Watcher watcher in ViewBag.AllWatchers)
+    {
+        <button class="programTitle">@watcher.Name</button>
+        <section class="dropdownContainer">
+            <section id="dropdowns">
+                <form>
+                    <div id="editShowTitleContainer">
+                        <input type="hidden" name="watcherID" value="@watcher.WatcherID">
+                        <input type="text" name="watcherName" id="watcherName" value="@watcher.Name" required />
+
+                        <button type="submit" name="editWatcher[]" id="editWatcher" formaction=@Url.Action("EditWatcher") formmethod="post">Save</button>
+                        <button type="submit" id="deleteButtons" name="deleteWatcher[]" formaction=@Url.Action("DeleteWatcher") formmethod="post">DELETE</button>
+
+                    </div>
+                </form>
+            </section>
+        </section>
+    }
+
+</div>

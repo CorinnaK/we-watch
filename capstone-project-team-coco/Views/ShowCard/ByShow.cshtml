@@ -5,23 +5,21 @@
 
 @*              // Citation
                 //https://stackoverflow.com/questions/16636448/dropdownlist-from-objects-mvc
-                //Select overload (data, value, text)
+                //SelectList overload (data, value, text)
 *@
 <h3>@ViewBag.Message</h3>
 
 @{Html.BeginForm("ByShow", "ShowCard");}
 <p>Choose a Different Show</p>
 @Html.DropDownList("showID", new SelectList(ViewBag.AllUserShows, "ShowID", "Title"), "Choose a new Show")
-<input type="submit" value="Submit" />
+<button type="submit" value="Submit">Select</button> 
 @{ Html.EndForm();}
 
 <div class="text-center">
     <h1 class="display-4">ShowCards</h1>
     
-
     @foreach (DisplayCard card in ViewBag.DisplayCards)
     {
-
         <dl style="border: solid black 2px; width:150px">
             <dt>Show</dt>
             <dd>@card.ShowTitle</dd>
@@ -32,10 +30,10 @@
             <dt>Episode</dt>
             <dd>
                 @card.CurrentEpisode
-                        @Html.ActionLink("++++", "addEpisode", "ShowCard", new {  showCardID = card.ShowCardID })
-                        @Html.ActionLink("----", "minusEpisode", "ShowCard", new {  showCardID = card.ShowCardID })
+                @Html.ActionLink("++++", "addEpisode", "ShowCard", new {  showCardID = card.ShowCardID })
+                @Html.ActionLink("----", "minusEpisode", "ShowCard", new {  showCardID = card.ShowCardID })
                        
-                    </dd>
+            </dd>
         </dl>
 
     }
