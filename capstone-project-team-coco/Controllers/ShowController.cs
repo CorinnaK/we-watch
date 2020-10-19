@@ -8,24 +8,29 @@ namespace we_watch.Controllers
 {
     public class ShowController : Controller
     {
+        // Index lists all the shows in the database
         public IActionResult Index()
         {
+            // Ensure user is logged in
             if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
 
-
+            // Initialize empty List
             List<string> allShowTitles = new List<string>();
+
+            // Search for a list of all shows in Db
             using (WeWatchContext context = new WeWatchContext())
             {
-
                 allShowTitles = context.Show.Select(x=> x.Title).ToList();
-
             }
+
             ViewBag.AllShows = allShowTitles;
             return View();
         }
 
+        // Central View for CRUD relating to shows or seasons
         public IActionResult ManageShows()
         {
+            // Ensure user is logged in
             if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
 
                 List<ShowSeason> Seasons;
@@ -62,30 +67,34 @@ namespace we_watch.Controllers
             string messages;
             using (WeWatchContext context = new WeWatchContext())
             {
-                if (context.Show.Where(x => x.Title.ToUpper() == title.ToUpper().Trim()).Count() > 0)
+                if (title.Length > 50)
                 {
-                    messages = ("Program already exists");
+                    messages = ("Program name cannot be greater than 50 characters.");
                 }
-                else if (indSeason < 1)
+                else if (context.Show.Where(x => x.Title.ToUpper() == title.ToUpper().Trim()).Count() > 0)
                 {
-                    messages = ("Seasons can only be positive numbers");
+                    messages = ($"{title} already exists.");
+                }
+               
+                else if (indSeason < 1 || indSeason > 50)
+                {
+                    messages = ("Seasons must be between 1 and 50.");
                 }
                 else if (episodes < 1)
                 {
-                    messages = ("Episodes can only be positive numbers");
+                    messages = ("Episodes must be between 1 and 50.");
                 }
 
                 else
                 {
-
                     Show newShow = new Show() { Title = title.Trim() };
                     context.Show.Add(newShow);
                     context.SaveChanges();
-                    int showID = context.Show.Where(x => x.Title == title).Single().ShowID;
+                    int showID = context.Show.Where(x => x.Title == title.Trim()).Single().ShowID;
                     ShowSeason newSeason = new ShowSeason() { ShowID = showID, IndividualSeason = indSeason, SeasonEpisodes = episodes };
                     context.ShowSeason.Add(newSeason);
                     context.SaveChanges();
-                    messages = ("Successfully added Program");
+                    messages = ($"Successfully added {newShow.Title}");
                 }
             }
 
@@ -103,12 +112,12 @@ namespace we_watch.Controllers
             {
                 string tempTitle;
                 if (deleteSeason == 0)
-                { messages = "Cannot delete unknown show. Please refresh and try again"; }
+                { messages = "Cannot delete unknown program. Please refresh and try again."; }
                 else
                 {
                     ShowSeason season = context.ShowSeason.Where(x => x.ShowSeasonID == deleteSeason).SingleOrDefault();
                     if (season == null)
-                    { messages = "Cannot find show. Please refresh and try again"; }
+                    { messages = "Cannot find program. Please refresh and try again."; }
                     else
                     {
                         tempTitle = context.Show.Where(x => x.ShowID == season.ShowID).Select(y => y.Title).SingleOrDefault().ToString();
@@ -132,12 +141,12 @@ namespace we_watch.Controllers
             {
                 string tempTitle = context.Show.Where(x => x.ShowID == showID).Select(y => y.Title).Single().ToString();
                 if (showID == 0)
-                { message = "No show was provided."; }
+                { message = "No program was provided."; }
                 else
                 {
                     Show show = context.Show.Where(x => x.ShowID == showID).SingleOrDefault();
                     if (show == null)
-                    { message = "Cannot delete show. Please try again later"; }
+                    { message = "Cannot delete program. Please try again later."; }
                     else
                     {
                         context.Show.Remove(show);
@@ -158,20 +167,26 @@ namespace we_watch.Controllers
             string message;
             using (WeWatchContext context = new WeWatchContext())
             {
-                string tempTitle;
+                string tempTitle =title.Trim();
                 if (showID == 0)
-                { message = "No show was provided."; }
+                { message = "No program was provided."; }
                 else
                 {
                     Show show = context.Show.Where(x => x.ShowID == showID).SingleOrDefault();
                     if (show == null)
-                    { message = "Cannot delete show. Please refresh and try again"; }
+                    { message = "Program not found. Please refresh and try again."; }
+                    else if (title.Count() > 50)
+                    { message = "Program name cannot be more than 50 characters."; }
+                    else if (show.Title == title)
+                    { message = $"No changes were made to program {title}."; }
+                    else if (context.Show.Where(x => x.Title.ToUpper() == title.ToUpper()).Count() > 0)
+                    { message = $"{title} already exists."; }
                     else
                     {
                         tempTitle = show.Title;
                         show.Title = title;
                         context.SaveChanges();
-                        message = $"Successfully updated '{tempTitle}' to '{title}'";
+                        message = $"Successfully updated '{tempTitle}' to '{title}'.";
                     }
                 }
             }
@@ -191,20 +206,19 @@ namespace we_watch.Controllers
 
                 if (!int.TryParse(newSeason, out int parsedNewSeason))
                 {
-                    //ViewBag.Message = "No";
-                    message = "Seasons must be positive valid numbers";
+                    message = "Seasons must be positive valid numbers.";
                 }
                 else if (parsedNewSeason < 1 || parsedNewSeason > 50)
                 {
-                    message = "Season must be between 1 and 50";
+                    message = "Season must be between 1 and 50.";
                 }
                 else if (!int.TryParse(newEpisodes, out int parsedNewEpisodes))
                 {
-                    message = "Episodes must be positive valid numbers";
+                    message = "Episodes must be positive valid numbers.";
                 }
                 else if (parsedNewEpisodes < 1 || parsedNewEpisodes > 50)
                 {
-                    message = "Episodes must be between 1 and 50";
+                    message = "Episodes must be between 1 and 50.";
                 }
 
                 else if (context.ShowSeason.Where(x => x.ShowID == showID).Where(x => x.IndividualSeason == parsedNewSeason).SingleOrDefault() != null)
@@ -230,8 +244,6 @@ namespace we_watch.Controllers
 
             using (WeWatchContext context = new WeWatchContext())
             {
-             
-
                 string message;
                 int tempSeason;
                 int tempEpisodes;
@@ -253,7 +265,7 @@ namespace we_watch.Controllers
 
                         if (show == null)
                         {
-                            message = "Cannot find that show. Please refresh and try again.";
+                            message = "Cannot find that program. Please refresh and try again.";
                         }
                         else
                         {

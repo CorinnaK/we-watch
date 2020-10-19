@@ -33,9 +33,6 @@ namespace we_watch.Models
         [Required]
         public int WatcherID { get; set; }        
 
-        [Column("Platform", TypeName = "varchar(20)")]        
-        public string Platform { get; set; }
-
         [Column("CurrentSeason", TypeName = "smallint(2)")]
         [Required]
         public int CurrentSeason { get; set; }

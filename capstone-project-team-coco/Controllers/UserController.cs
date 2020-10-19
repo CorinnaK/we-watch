@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.Net.Mail;
 using we_watch.Models;
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 using System.Text;
 
@@ -20,8 +13,10 @@ namespace we_watch.Controllers
         {
 
             // For Testing purposes - remove start
+
             HttpContext.Session.SetString("isLoggedIn", "true");
             HttpContext.Session.SetInt32("User", 1);
+
             // end remove
 
             //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-3.1
@@ -64,7 +59,7 @@ namespace we_watch.Controllers
 
 
                         // checking the inputted email against what's in our db
-                        User potentialUser = context.User.Where(x => x.Email == email).SingleOrDefault();
+                        User potentialUser = context.User.Where(x => x.Email == email.Trim().ToLower()).SingleOrDefault();
                         // grab the salt value from that specific user
                         if (potentialUser != null)
                         {
@@ -79,8 +74,6 @@ namespace we_watch.Controllers
                             }
 
                             ViewBag.errorwronglogin = "The e-mail and/or password entered is incorrect. Please try again.";
-                            ViewBag.Email = email;
-                            ViewBag.HashPassword = password;
 
                             return View(); // change to show page
 
@@ -114,7 +107,7 @@ namespace we_watch.Controllers
 
                 using (WeWatchContext context = new WeWatchContext())
                 {
-                    if (context.User.Where(x => x.Email.ToUpper() == email.Trim().ToUpper()).Count() > 0)
+                    if (context.User.Where(x => x.Email.Trim().ToLower() == email.Trim().ToLower()).Count() > 0)
                     {
                         ViewBag.usedemail = "This email has already been used. Please log in.";
                         return View();
@@ -125,7 +118,7 @@ namespace we_watch.Controllers
                         Random r = new Random();
                         string Salt = Convert.ToString(r.Next());
 
-                        User newUser = new User() { Email = email, HashPassword = Hash(password + Salt), Salt = Salt };
+                        User newUser = new User() { Email = email.Trim().ToLower(), HashPassword = Hash(password + Salt), Salt = Salt };
 
                         context.User.Add(newUser);
 
@@ -160,7 +153,7 @@ namespace we_watch.Controllers
                 ViewBag.errorconfirmedemail = "Please confirm your email.";
             }
 
-            else if (email != confirmedemail)
+            else if (email.Trim().ToLower() != confirmedemail.Trim().ToLower())
             {
                 isValid = false;
                 ViewBag.errormatchingemail = "These emails do not match. Please try again.";

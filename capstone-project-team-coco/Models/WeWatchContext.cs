@@ -10,13 +10,11 @@ namespace we_watch.Models
     public partial class WeWatchContext : DbContext
     {
         public WeWatchContext()
-        {
-        }
+        { }
 
         public WeWatchContext(DbContextOptions<WeWatchContext> options)
             : base(options)
-        {
-        }
+        { }
 
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Show> Show { get; set; }
@@ -42,7 +40,7 @@ namespace we_watch.Models
                 entity.Property(e => e.Title)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
-                
+
                 entity.HasData(
                    new Show()
                    {
@@ -59,19 +57,12 @@ namespace we_watch.Models
                         ShowID = -3,
                         Title = "Fringe"
                     }
-
-                   );
-
+                );
             });
 
 
             modelBuilder.Entity<ShowCard>(entity =>
             {
-                entity.Property(e => e.Platform)
-                    .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_general_ci");
-
-
                 entity.HasIndex(e => e.ShowID)
                     .HasName("FK_" + nameof(ShowCard) + "_" + nameof(Show));
 
@@ -79,8 +70,6 @@ namespace we_watch.Models
                 entity.HasOne(child => child.Show)
                     .WithMany(parent => parent.ShowCards)
                     .HasForeignKey(child => child.ShowID)
-
-                    // Currently set to restrict until CRUD functionality on USER page
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_" + nameof(ShowCard) + "_" + nameof(Show));
 
@@ -92,8 +81,6 @@ namespace we_watch.Models
                 entity.HasOne(child => child.Watcher)
                     .WithMany(parent => parent.ShowCards)
                     .HasForeignKey(child => child.WatcherID)
-
-                    // Currently set to restrict until CRUD functionality on USER page
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_" + nameof(ShowCard) + "_" + nameof(Watcher));
 
@@ -101,10 +88,48 @@ namespace we_watch.Models
                 entity.HasOne(child => child.User)
                     .WithMany(parent => parent.ShowCards)
                     .HasForeignKey(child => child.UserID)
-
-                    // Currently set to restrict until CRUD functionality on USER page
-                    .OnDelete(DeleteBehavior.Restrict)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_" + nameof(ShowCard) + "_" + nameof(User));
+
+                entity.HasData(
+                    new ShowCard()
+                    {
+                        ShowCardID = -1,
+                        UserID = -2,
+                        ShowID = -1,
+                        WatcherID = -2,
+                        CurrentSeason = -2,
+                        CurrentEpisode = 1,
+                    },
+                    new ShowCard()
+                    {
+                        ShowCardID = -2,
+                        UserID = -2,
+                        ShowID = -1,
+                        WatcherID = -3,
+                        CurrentSeason = -2,
+                        CurrentEpisode = 10,
+                    },
+                    new ShowCard()
+                    {
+                        ShowCardID = -3,
+                        UserID = -3,
+                        ShowID = -2,
+                        WatcherID = -3,
+                        CurrentSeason = -4,
+                        CurrentEpisode = 12,
+                    },
+                    new ShowCard()
+                    {
+                        ShowCardID = -4,
+                        UserID = -3,
+                        ShowID = -2,
+                        WatcherID = -1,
+                        CurrentSeason = -5,
+                        CurrentEpisode = 30,
+                    }
+                    );
+
             });
 
 
@@ -119,6 +144,53 @@ namespace we_watch.Models
 
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_" + nameof(ShowSeason) + "_" + nameof(Show));
+
+                entity.HasData(
+
+                    new ShowSeason()
+                    {
+                        ShowSeasonID = -1,
+                        ShowID = -1,
+                        IndividualSeason = 1,
+                        SeasonEpisodes = 10
+                    },
+                    new ShowSeason()
+                    {
+                        ShowSeasonID = -2,
+                        ShowID = -1,
+                        IndividualSeason = 2,
+                        SeasonEpisodes = 10,
+                    },
+                    new ShowSeason()
+                    {
+                        ShowSeasonID = -3,
+                        ShowID = -1,
+                        IndividualSeason = 3,
+                        SeasonEpisodes = 10
+                    },
+                    new ShowSeason()
+                    {
+                        ShowSeasonID = -4,
+                        ShowID = -2,
+                        IndividualSeason = 1,
+                        SeasonEpisodes = 25
+                    },
+                    new ShowSeason()
+                    {
+                        ShowSeasonID = -5,
+                        ShowID = -2,
+                        IndividualSeason = 8,
+                        SeasonEpisodes = 40
+                    },
+                    new ShowSeason()
+                    {
+                        ShowSeasonID = -6,
+                        ShowID = -3,
+                        IndividualSeason = 5,
+                        SeasonEpisodes = 13
+                    }
+
+                    );
 
             });
 
