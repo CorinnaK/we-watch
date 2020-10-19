@@ -25,6 +25,18 @@ body {
     position: fixed;*/
 }
 
+input,
+input:hover,
+input:focus,
+textarea,
+textarea:hover,
+textarea:focus,
+select,
+select:hover,
+select:focus {    
+    transition: background-color 5000s;
+}
+
 label {
     color: #0A9eB0;
     font-weight: bold;
@@ -66,9 +78,9 @@ label {
     overflow: hidden;
     background-color: #072F34;
     width: 100%;
-    /*display: flex;
-    justify-content: center;*/
-    /*padding: 10px;*/
+    display: flex;
+    justify-content: center;
+   
 }
 
 #dropdowns {
@@ -81,11 +93,6 @@ label {
     justify-content: center;
     text-align: center;
 }
-
-    #dropdowns #title {
-        color: red;
-    }
-
 
 .seasonEpisodes {
 }
@@ -124,6 +131,7 @@ label {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding-bottom: 10px;
    
 }
 
