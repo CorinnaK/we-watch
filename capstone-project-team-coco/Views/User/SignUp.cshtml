@@ -5,22 +5,23 @@
 <p>
     This is the splash page for We Watch if the isloggedIn is false;
 </p>
-@*<div class="text-center">
-    <h1></h1>*@
+<div id="signupBackground">
+    <div class="text-center">
+        <h1></h1>
 
-    <form action="SignUp" id="loginsignupform" method="post">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-        <label for="confirmedemail">Confirm Email:</label>
-        <input type="email" id="email" name="confirmedemail" required />
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required />
-        <label for="confirmedpassword">Confirm Password:</label>
-        <input type="password" id="password" name="confirmedpassword" required />
-        <input type="submit" id="signupbutton" value="Sign Up" />
+        <form action="SignUp" id="loginsignupform" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+            <label for="confirmedemail">Confirm Email:</label>
+            <input type="email" id="email" name="confirmedemail" required />
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+            <label for="confirmedpassword">Confirm Password:</label>
+            <input type="password" id="password" name="confirmedpassword" required />
+            <input type="submit" id="signupbutton" value="Sign Up" />
 
-    </form>
-
+        </form>
+    </div>
     <p> Once you are successfully signed up, you will be redirected to the login page.</p>
 
     <p>@ViewBag.Count</p>
@@ -38,4 +39,4 @@
     <p>@ViewBag.errormatchingpassword</p>
 
 
-@*</div>*@
+</div>

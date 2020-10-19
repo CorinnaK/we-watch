@@ -18,3 +18,19 @@ for (i = 0; i < programTitle.length; i++) {
         }
     });
 }
+
+let addNewProgramTitle = document.getElementsByClassName("addNewProgramTitle");
+let p;
+
+for (p = 0; p < addNewProgramTitle.length; p++) {
+    addNewProgramTitle[p].addEventListener("click", function () {
+        this.classList.toggle("active");
+
+        let content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    });
+}
