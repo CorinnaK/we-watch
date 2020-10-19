@@ -27,7 +27,7 @@ namespace we_watch.Controllers
             { HttpContext.Session.SetString("isLoggedIn", "false"); }
             else if (HttpContext.Session.GetString("isLoggedIn") == "true")
             {
-                return RedirectToAction("Index", "ShowCard");
+                return RedirectToAction("Shows", "ShowCard");
             }
             return View();
         }
@@ -70,7 +70,7 @@ namespace we_watch.Controllers
                             {
                                 HttpContext.Session.SetString("isLoggedIn", "true");
                                 HttpContext.Session.SetInt32("User", potentialUser.UserID);
-                                return RedirectToAction("Index", "ShowCard");
+                                return RedirectToAction("Shows", "ShowCard");
                             }
 
                             ViewBag.errorwronglogin = "The e-mail and/or password entered is incorrect. Please try again.";

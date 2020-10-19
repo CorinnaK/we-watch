@@ -1,10 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@{
-    ViewData["Title"] = "Edit ShowCards";
+﻿@{
+    ViewData["Title"] = "Edit ShowCards By Watcher";
 
 }
 
@@ -13,41 +8,18 @@
     //SelectList overload (data, value, text)
 *@
 <h3>@ViewBag.Message</h3>
-@if (ViewBag.DisplayCards.Count == 0)
-{
-        <div class="text-center">
-        <h1 class="display-4">List of All Programs</h1>
-        @if (ViewBag.AllShowCardWatchers == null)
-        {
-            <h2>Looks like you are not watching anything. </h2>
-            <h2><a class="nav-link text-dark" asp-area="" asp-controller="ShowCard" asp-action="CreateCard">Add a connection</a></h2>
-        }
-        else
-        {
-            @foreach (Watcher watcher in ViewBag.AllShowCardWatchers)
-            {
-                <h3>@Html.ActionLink(watcher.Name, "ByWatcher", new { watcherID = watcher.WatcherID })</h3>
-            }
-        }
 
-    </div>
-
-}
-else 
-{
-
-{Html.BeginForm("ByWatcher", "ShowCard");}
+@{Html.BeginForm("ByWatcher", "ShowCard");}
 <p>Choose a Different Watcher</p>
-    { Html.DropDownList("watcherID", new SelectList(ViewBag.AllUserWatchers, "WatcherID", "Name"), "Choose a Watcher"); }
-<button type = "submit" value = "Submit" />
-    { Html.EndForm();}
+@Html.DropDownList("watcherID", new SelectList(ViewBag.AllUserWatchers, "WatcherID", "Name"), "Choose a Watcher");
+<button type="submit" value="Submit">Select</button>
+@{ Html.EndForm();}
 
 <div class="text-center">
     <h1 class="display-4">ShowCards</h1>
 
     @foreach (DisplayCard card in ViewBag.DisplayCards)
     {
-
         <dl style="border: solid black 2px; width:150px">
             <dt>Show</dt>
             <dd>@card.ShowTitle</dd>
@@ -65,4 +37,4 @@ else
         </dl>
     }
 </div>
-}
+

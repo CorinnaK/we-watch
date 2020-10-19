@@ -9,8 +9,11 @@ namespace we_watch.Controllers
 {
     public class ShowCardController : Controller
     {
-
         public IActionResult Index()
+        {
+            return Redirect("Shows");
+        }
+        public IActionResult Shows()
         {
             int userID = GetUserID();
 
@@ -21,7 +24,6 @@ namespace we_watch.Controllers
             List<Show> allShowCardShows = new List<Show>();
             using (WeWatchContext context = new WeWatchContext())
             {
-
                 allShowCardShows = context.ShowCard.Include(x => x.Show).Where(x => x.UserID == userID).Select(x => x.Show).Distinct().ToList();
 
             }
@@ -185,24 +187,24 @@ namespace we_watch.Controllers
 
         }
 
-        /*        public IActionResult ByWatcher ()
-                {
-                    int userID = GetUserID();
+        public IActionResult Watchers()
+        {
+            int userID = GetUserID();
 
-                    // If the userId was not found(0) redirect to the login page
-                    if (userID == 0)
-                    { return RedirectToAction("Login", "User"); }
+            // If the userId was not found(0) redirect to the login page
+            if (userID == 0)
+            { return RedirectToAction("Login", "User"); }
 
-                    List<Watcher> allShowCardWatchers = new List<Watcher>();
-                    using (WeWatchContext context = new WeWatchContext())
-                    {
+            List<Watcher> allShowCardWatchers = new List<Watcher>();
+            using (WeWatchContext context = new WeWatchContext())
+            {
 
-                        allShowCardWatchers = context.ShowCard.Include(x => x.Watcher).Where(x => x.UserID == userID).Select(x => x.Watcher).Distinct().ToList();
+                allShowCardWatchers = context.ShowCard.Include(x => x.Watcher).Where(x => x.UserID == userID).Select(x => x.Watcher).Distinct().ToList();
 
-                    }
-                    ViewBag.AllShowCardWatchers = allShowCardWatchers;
-                    return View();
-                }*/
+            }
+            ViewBag.AllShowCardWatchers = allShowCardWatchers;
+            return View();
+        }
 
         public IActionResult ByWatcher(int watcherID)
         {
@@ -213,16 +215,12 @@ namespace we_watch.Controllers
 
             List<DisplayCard> displayCards = new List<DisplayCard>();
             List<Watcher> allUserWatchers = new List<Watcher>();
-            List<Watcher> allShowCardWatchers = new List<Watcher>();
-
 
             using (WeWatchContext context = new WeWatchContext())
             {
                 if (watcherID == 0)
                 {
-                    allShowCardWatchers = context.ShowCard.Include(x => x.Watcher).Where(x => x.UserID == userID).Select(x => x.Watcher).Distinct().ToList();
-
-                ViewBag.AllShowCardWatchers = allShowCardWatchers;
+                    message = "Unable to find that Watcher.";
                 }
                 else
                 {

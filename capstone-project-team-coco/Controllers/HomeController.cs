@@ -22,7 +22,7 @@ namespace we_watch.Controllers
 
         public IActionResult Index()
         {
-            return (isLoggedIn() ?  Redirect("/User/Login") :  Redirect("/ShowCard"));
+            return (isLoggedIn() ?  Redirect("/User/Login") :  Redirect("/ShowCard/Shows"));
         }
 
         public IActionResult Privacy()
