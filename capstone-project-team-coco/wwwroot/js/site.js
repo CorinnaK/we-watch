@@ -14,7 +14,7 @@ for (i = 0; i < programTitle.length; i++) {
         if (content.style.maxHeight) {
             content.style.maxHeight = null;
         } else {
-            content.style.maxHeight = content.scrollHeight + "px";
+            content.style.maxHeight = content.scrollHeight + 10 + "px";
         }
     });
 }
@@ -30,7 +30,23 @@ for (p = 0; p < addNewProgramTitle.length; p++) {
         if (content.style.maxHeight) {
             content.style.maxHeight = null;
         } else {
-            content.style.maxHeight = content.scrollHeight + "px";
+            content.style.maxHeight = content.scrollHeight + 10 + "px";
         }
     });
 }
+
+/*let addNewProgramTitle = document.getElementsByClassName("addNewProgramTitle");
+let w;
+
+for (w = 0; p < addNewProgramTitle.length; w++) {
+    addNewProgramTitle[w].addEventListener("click", function () {
+        this.classList.toggle("active");
+
+        let content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    });
+}*/

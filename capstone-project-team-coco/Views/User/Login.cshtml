@@ -2,29 +2,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Login";
 }
-    <div class="text-center">
-        <h1></h1>
-        
-        <form action="Login" id="loginsignupform" method="post">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email"  />
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password"  />
-            <input type="submit" id="loginbutton" value="Log In" />
+    <div id="loginBackground">
+        <div class="text-center">
+            <h1></h1>
 
-        </form>
+            <form action="Login" id="loginsignupform" method="post">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" />
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" />
+                <input type="submit" id="loginbutton" value="Log In" />
 
-        <p>@ViewBag.Count</p>
+            </form>
 
-        <div id="errormessage">
-            <p>@ViewBag.errorwronglogin</p>
-            <p>@ViewBag.erroremailpassword</p>
-            <p>@ViewBag.erroremail</p>
-            <p>@ViewBag.errorpassword</p>
+            <p>@ViewBag.Count</p>
+
+            <div id="errormessage">
+                <p>@ViewBag.errorwronglogin</p>
+                <p>@ViewBag.erroremailpassword</p>
+                <p>@ViewBag.erroremail</p>
+                <p>@ViewBag.errorpassword</p>
+            </div>
+
+
+
+
         </div>
 
-
-
-
     </div>
-

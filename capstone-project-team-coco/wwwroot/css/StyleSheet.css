@@ -56,23 +56,23 @@ label {
     
 }
 
-#signupBackground {
+/*#signupBackground {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
     background-size: 455px;
     height: 100%;
     background-image: url(../img/signupbackground.png);
-}
+}*/
 
-#loginBackground {
+/*#loginBackground {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
     background-size: 455px;
     height: 100%;
     background-image: url(../img/loginbackground.png);
-}
+}*/
 
 .addShow, .displayShowCard {
     text-align: center;
@@ -287,7 +287,7 @@ label {
     justify-content: space-evenly;
     align-items: center;
     margin-bottom: 10px;
-    padding: 10px 60px 10px 60px;
+    padding: 0 40px 0 40px;
     background-color: #0A9EB0;
     border-radius: 20px;
 }
@@ -296,7 +296,7 @@ label {
     background-color: #001517;
     color: #F56960;
     padding: 5px 10px;
-    margin: 18px 0 0 10px;
+    margin: 18px 0 0 0;
     border-radius: 30px;
     border: 3px solid #F56960;
     font-weight: bold;
@@ -309,6 +309,7 @@ label {
     font-weight: bold;
     font-size: 12px;
     padding-bottom: 5px;
+    padding-top: 10px;
 }
 
 #newSeason, #newEpisodes {
@@ -325,6 +326,7 @@ label {
     width: 30px;
     height: 13px;
     text-align: center;
+    margin-bottom: 10px;
     /* display: inline;
     justify-content: flex-start;*/
 }
@@ -344,11 +346,18 @@ label {
     position: absolute;
 }*/
 #loginsignupform {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /*margin-right: 500px;*/
+   
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    /* background-color: red; */
+    background-image: url(../img/signupbackground.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding: 6rem 0;
 }
 
 #email, #password {
