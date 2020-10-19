@@ -20,7 +20,7 @@ namespace we_watch.Controllers
         {
 
             // For Testing purposes - remove start
-            HttpContext.Session.SetString("isLoggedIn", "false");
+            HttpContext.Session.SetString("isLoggedIn", "true");
             HttpContext.Session.SetInt32("User", 1);
             // end remove
 
