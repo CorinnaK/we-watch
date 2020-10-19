@@ -11,20 +11,7 @@ namespace we_watch.Controllers
         // Index lists all the shows in the database
         public IActionResult Index()
         {
-            // Ensure user is logged in
-            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
-
-            // Initialize empty List
-            List<string> allShowTitles = new List<string>();
-
-            // Search for a list of all shows in Db
-            using (WeWatchContext context = new WeWatchContext())
-            {
-                allShowTitles = context.Show.Select(x=> x.Title).ToList();
-            }
-
-            ViewBag.AllShows = allShowTitles;
-            return View();
+            return Redirect("ManageShows");
         }
 
         // Central View for CRUD relating to shows or seasons
@@ -178,7 +165,7 @@ namespace we_watch.Controllers
                     else if (title.Count() > 50)
                     { message = "Program name cannot be more than 50 characters."; }
                     else if (show.Title == title)
-                    { message = $"No changes were made to program {title}."; }
+                    { message = $"No changes were detect for program title {title}."; }
                     else if (context.Show.Where(x => x.Title.ToUpper() == title.ToUpper()).Count() > 0)
                     { message = $"{title} already exists."; }
                     else
@@ -289,6 +276,10 @@ namespace we_watch.Controllers
                             else if (parsedNewSeason != targetSeason.IndividualSeason && context.ShowSeason.Where(x => x.ShowID == targetSeason.ShowID).Where(x => x.IndividualSeason == parsedNewSeason).SingleOrDefault() != null)
                             {
                                 message = $"Season already exists in {show.Title}";
+                            }
+                            else if (parsedNewSeason == targetSeason.IndividualSeason && parsedNewEpisodes == targetSeason.SeasonEpisodes)
+                            {
+                                message = $"No Changes were detected for {show.Title} - Season {targetSeason.IndividualSeason}.";
                             }
                             else
                             {

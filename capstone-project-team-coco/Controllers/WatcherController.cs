@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using we_watch.Models;
 using Microsoft.AspNetCore.Http;
 
@@ -13,34 +10,25 @@ namespace we_watch.Controllers
     {
         public IActionResult Index()
         {
-            List<Watcher> watchers;
-            using (WeWatchContext context = new WeWatchContext())
-            {
-                watchers = context.Watcher.ToList();
-            }
-
-            ViewBag.AllWatchers = watchers;
-            return View();
+            return RedirectToAction("ManageWatchers");
         }
-        public IActionResult ManageWatcher(string message)
+        public IActionResult ManageWatchers()
         {
-            
+
             List<Watcher> watchers;
             using (WeWatchContext context = new WeWatchContext())
             {
-                watchers = context.Watcher.ToList();
+                watchers = context.Watcher.OrderBy(x=>x.Name).ToList();
             }
             ViewBag.AllWatchers = watchers;
-            ViewBag.Message = message;
-   
-
+            ViewBag.messages = TempData["message"]?.ToString();
             return View();
         }
 
         [HttpPost]
         public IActionResult AddWatcher(string name)
         {
-            
+
             string message = null;
             using (WeWatchContext context = new WeWatchContext())
             {
@@ -48,13 +36,13 @@ namespace we_watch.Controllers
                 {
                     message = "Please enter a name for the Watcher you want to add.";
                 }
-                else if (name.Length > 50)
+                else if (name.Trim().Length > 50)
                 {
                     message = "Name cannot be more than 50 characters";
                 }
                 else if (context.Watcher.Where(x => x.Name.ToUpper() == name.Trim().ToUpper()).Count() > 0)
                 {
-                    message = "You already have a Watcher with that name.";
+                    message = $"You already have {name} is your list";
                 }
 
                 else
@@ -67,12 +55,12 @@ namespace we_watch.Controllers
 
                 }
             }
-
-            return RedirectToAction("ManageWatcher", new { message});
+            TempData["message"] = message;
+            return RedirectToAction("ManageWatchers");
         }
         [HttpPost]
 
-        public IActionResult EditWatcher(string watcherName, string watcherID, string editWatcher, string deleteWatcher)
+        public IActionResult EditWatcher(string watcherName, string watcherID)
         {
             string message = null;
             using (WeWatchContext context = new WeWatchContext())
@@ -83,46 +71,73 @@ namespace we_watch.Controllers
                 tempName = watcher.Name;
                 if (watcher != null)
                 {
-                    if (deleteWatcher != null)
+                    if (string.IsNullOrWhiteSpace(watcherName))
                     {
-                        context.Watcher.Remove(watcher);
-                        context.SaveChanges();
-                        message = $"You have removed {tempName} from your list.";
-
+                        message = "Name must contain characters";
                     }
-                    else if (editWatcher != null)
+                    else if (watcherName.Trim().Length > 50)
                     {
-                        if (string.IsNullOrWhiteSpace(watcherName))
-                        {
-                            message = "Name must contain characters";
-                        }
-                        else if (watcherName.Length > 50)
-                        {
-                            message = "Name cannot be more than 50 characters";
-                        }
-                        else if (watcher.Name == watcherName)
-                        {
-                            message = "No changes were detected";
-                        }
-                        else if (context.Watcher.Where(x => x.Name == watcherName).Count() != 0)
-                        {
-                            message = "That watcher already exists";
-                        }
-                        else
-                        {
-                            watcher.Name = watcherName;
-                            context.SaveChanges();
-                            message = $"Successfully updated {tempName} to {watcher.Name} ";
-                        }
+                        message = "Name cannot be more than 50 characters";
+                    }
+                    else if (watcher.Name.ToUpper() == watcherName.Trim().ToUpper())
+                    {
+                        message = "No changes were detected";
+                    }
+                    else if (context.Watcher.Where(x => x.Name.ToUpper() == watcherName.Trim().ToUpper()).Count() != 0)
+                    {
+                        message = $"{watcherName} already exists";
+                    }
+                    else
+                    {
+                        watcher.Name = watcherName;
+                        context.SaveChanges();
+                        message = $"Successfully updated {tempName} to {watcher.Name} ";
                     }
                 }
+
                 else
                 {
                     message = "Cannot find watcher. Please refresh and try again.";
 
                 }
             }
-            return RedirectToAction("ManageWatcher", new { message });
+            TempData["message"] = message;
+            return RedirectToAction("ManageWatchers");
+        }
+        public IActionResult DeleteWatcher(int watcherID)
+        {
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+
+            string message = null;
+            if (watcherID == 0)
+            { message = "No program was provided."; }
+            else
+            {
+                using (WeWatchContext context = new WeWatchContext())
+                {
+                    string tempName = context.Watcher.Where(x => x.WatcherID == watcherID).Select(y => y.Name).Single().ToString();
+
+
+                    Watcher watcher = context.Watcher.Where(x => x.WatcherID == watcherID).SingleOrDefault();
+                    if (watcher == null)
+                    { message = "Cannot delete watcher. Please try again later."; }
+                    else
+                    {
+                        context.Watcher.Remove(watcher);
+                        context.SaveChanges();
+                        message = $"Successfully deleted {tempName}";
+                    }
+                }
+            }
+
+            TempData["message"] = message;
+            return RedirectToAction("ManageWatchers");
+        }
+
+        public bool isLoggedIn()
+        {
+            return (HttpContext.Session.GetString("isLoggedIn") == "true");
         }
     }
 }
+

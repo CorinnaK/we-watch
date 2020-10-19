@@ -4,15 +4,20 @@
 
 <div class="text-center">
     <h1 class="display-4">Watchers</h1>
-    <p>
-        This is the page that we get to when Clicking Watchers;
-    </p>
-     <h2>   @ViewBag.usedemail</h2>
-    <ul style="list-style: none">
-    @foreach (Watcher watcher in ViewBag.AllWatchers)
-    { 
-        <li>@watcher.Name</li>
+
+    @if (ViewBag.AllWatchers == null)
+    {
+        <h2>No watchers to display </h2>
+        <h2><a class="nav-link text-dark" asp-area="" asp-controller="Watcher" asp-action="ManageWatchers">Add a Watcher</a></h2>
     }
-        </ul>
+    else 
+    {
+    <ul style="list-style: none">
+        @foreach (Watcher watcher in ViewBag.AllWatchers)
+        {
+            <li>@watcher.Name</li>
+        }
+    </ul>
     <a href="watcher/ManageWatcher" class="btn-outline-info">Manage</a>
+    }
 </div>
