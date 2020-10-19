@@ -16,18 +16,27 @@
     @*<div class="addShow">*@
     <button class="programTitle"> Add New Program</button>
 
-    <section class="dropdowns">
+    <section class="dropdownContainer">
+        <div id="dropdowns">
 
-        <form action="AddShow" method="post">
-            <label for="title">Program Name</label>
-            <input type="text" id="title" name="title" required />
-            <label for="indSeason">Season</label>
-            <input type="number" id="indSeason" name="indSeason" required />
-            <label for="episodes">Episodes</label>
-            <input type="number" id="episodes" name="episodes" required />
-            <input type="submit" value="Add Program" />
+            <form action="AddShow" method="post">
+                <label for="title">Program Name:</label>
+                <input type="text" id="title" name="title" required />
+                <div id="seasonEpisodeContainer">
+                    <div id="seasonContainer">
+                        <label for="season">Season:</label>
+                        <input type="number" id="season" name="season" required />
+                    </div>
+                    <div id="episodeContainer">
+                        <label for="episodes">Episodes:</label>
+                        <input type="number" id="episodes" name="episodes" required />
+                    </div>
+                </div>
+                    <input type="submit" id="saveButtons" value="Add Program" />
 
-        </form>
+
+            </form>
+        </div>
     </section>
     @*</div>*@
 </div>
@@ -44,7 +53,7 @@
                 <input type="hidden" name="showID" value="@show.ShowID">
                 <input type="text" name="title" id="title" value="@show.Title" required />
                 <button type="submit" name="editProgram[]" formaction=@Url.Action("EditTitle") formmethod="post">Save</button>
-                <button type="submit" name="deleteProgram[]" formaction=@Url.Action("DeleteProgram") formmethod="post">DELETE</button>
+                <button type="submit" id="deleteButtons" name="deleteProgram[]" formaction=@Url.Action("DeleteProgram") formmethod="post">DELETE</button>
             </form>
 
 
@@ -57,9 +66,9 @@
                         <input type="text" id="season" name="season[]" value="@seasons.IndividualSeason" />
                         <label for="episodes">Episodes</label>
                         <input type="text" id="episodes" name="episodes[]" value="@seasons.SeasonEpisodes" />
-                        <button type="submit" name="editSeason[]" value="@seasons.ShowSeasonID" formaction=@Url.Action("EditSeason") formmethod="post">Save</button>
+                        <button type="submit" id="saveButtons" name="editSeason[]" value="@seasons.ShowSeasonID" formaction=@Url.Action("EditSeason") formmethod="post">Save</button>
 
-                        <button type="submit" name="deleteSeason[]" value="@seasons.ShowSeasonID" formaction=@Url.Action("DeleteSeason") formmethod="post">DELETE</button>
+                        <button type="submit" id="deleteButtons" name="deleteSeason[]" value="@seasons.ShowSeasonID" formaction=@Url.Action("DeleteSeason") formmethod="post">DELETE</button>
                     </form>
                 </div>
             }
@@ -70,7 +79,7 @@
                     <input type="text" id="newSeason" name="newSeason" value="0" />
                     <label for="newEpisodes">Episodes</label>
                     <input type="text" id="newEpisodes" name="newEpisodes" value="0" />
-                    <button type="submit" name="addSeason" formaction=@Url.Action("AddSeason") formmethod="post">+</button>
+                    <button type="submit" id="saveButtons" name="addSeason" formaction=@Url.Action("AddSeason") formmethod="post">+</button>
                 </div>
             </form>
         </section>
