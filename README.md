@@ -13,28 +13,58 @@ We love watching TV and we bet you love watching TV too! **WeWatch** is a fully-
 Just log in, add your favourite shows, add *Watchers* (who you're watching with), and connect them! **WeWatch** takes care of the rest! This app is customizable, so you can add, edit, and delete programs or *Watchers* any time!
 ****
 ## Installation  
-To run this application, you'll need Git and Visual Studio 2019 already installed on your computer. In your terminal:
+To run this application, you'll need the following already installed on your computer. 
+- Git - Installation instructions https://www.atlassian.com/git/tutorials/install-git
+- Visual Studio 2019 - Installation instructions https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2019
+- XAMMP with Apache and MySQL running - Installation instrutions can be found here https://www.c-sharpcorner.com/article/how-to-install-and-configure-xampp-in-windows-10/
 
-**1. Clone this repository from GitHub:**
-\
-*$ git clone https://github.com/TECHCareers-by-Manpower/capstone-project-team-coco.git*
 
-**.......... 2. Launch Visual Studio 2019, install the following packages:
+
+
+**1.  Launch Visual Studio 2019**
 ...........**
-\
-*dotnet add package Microsoft.EntityFrameworkCore.Design*
 
-*dotnet add package Pomelo.EntityFrameworkCore.MySql*
+From the file menu select clone repository
+Use this link in the Repository location 
+*  https://github.com/TECHCareers-by-Manpower/capstone-project-team-coco.git  *
 
-*dotnet add package Microsoft.EntityFrameworkCore.SqlServer*
+In Local path enter a folder on your computer where you'd like the project to live
+eg. C:\Projects
+You can also click on the ... beside the input field to navigate to the correct folder.
 
-**3. ....... :**
-\
-*........*
+Click Clone
+
+
+**2. Install required packages**
+...........**
+
+In the Package Manager Console in Visual Studio
+
+	- Navigate to your project folder
+
+	- Run the following commands:
+
+*  dotnet add package Microsoft.EntityFrameworkCore.Design  *
+
+*  dotnet add package Pomelo.EntityFrameworkCore.MySql  *
+
+*  dotnet add package Microsoft.EntityFrameworkCore.SqlServer  *
+
+**3. Create Database**
+..........**
+
+In the Package Manager Console run:
+
+*  dotnet ef database update  *
+
 
 **4. Run our app!**
-\
-**
+........**
+
+Click the IIS Express button in the Visual Studio toolbar
+
+A new browser window should appear 
+
 
 **5. In your browser's Developer Tools, change the view to mobile-device of your choice or desktop view & enjoy!**
 
