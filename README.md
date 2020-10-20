@@ -1,5 +1,5 @@
 <div align = center>
-<img src="/wwwroot/img/wewatchlogo.png" alt="WeWatch logo" style="width: 200px;"/>
+<img src="/capstone-project-team-coco/wwwroot/img/wewatchlogo.png" alt="WeWatch logo" style="width: 200px;"/>
 
 ##### *A quick app to keep track of the watched shows on any platform and friends you watch them with!* 
 ##### *Created by Corinna & Osase from **HotCoCoApps** (HotCoCoApps@gmail.com)*
