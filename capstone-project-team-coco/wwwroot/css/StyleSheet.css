@@ -112,6 +112,13 @@ label {
     margin: 10px;
 }
 
+.watcherContainer {
+    background-color: #072F34;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 /*END of Watchers Page*/
 .listOfShowsWatchers {
     text-align: center;
@@ -161,7 +168,7 @@ label {
     background-image: url(../img/loginbackground.png);
 }*/
 
-.addShow, .displayShowCard {
+.addShow, .displayShowCard, .watchersList, .showsList {
     text-align: center;
 }
 
@@ -216,6 +223,8 @@ label {
     display: flex;
     justify-content: center;
 }
+
+
 /*#dropdowns {
     background-color: #001517;
     width: 300px;
