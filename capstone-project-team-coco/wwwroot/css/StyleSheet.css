@@ -1,4 +1,4 @@
-﻿/*
+﻿/*seasoncontainer
     Colour Hex Codes:
     Rich Black: #001517
     Midnight Teal: #072F34
@@ -13,16 +13,41 @@
     background-color: aqua;
 }*/
 body {
-    background-color: greenyellow;
+    background-color: #001517;
     font-family: Arial, Verdana;
-    background-image: url(../img/loginbackground.png);
-    background-repeat: no-repeat;
+    /*background-image: url(../img/loginbackground.png);*/
+    /*   background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
     background-size: 455px;
-    height: 100%;
+    height: 100%;*/
     /*   background-position-x: -23%;
     position: fixed;*/
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    margin-top: -5rem;
+}
+
+
+#bg {
+    display: flex;
+    justify-content: center;
+    padding-left: 10rem;
+}
+
+#bg img {
+    height: 550px;/*
+    position: fixed;*/
+    z-index: -1;
+}
+
+img {
+    border: 0;
+    height: 6rem;
 }
 
 input,
@@ -41,11 +66,66 @@ label {
     color: #0A9eB0;
     font-weight: bold;
     font-size: 12px;
+    padding-bottom: 5px;
+    width: 10rem;
 }
 
 *:focus {
     outline: none;
 }
+
+/*START of Shows Index page*/
+.showTitle {
+    background-color: #F0A202;
+    color: #072F34;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    width: 200px;
+    height: 30px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+/*START of Watchers Page*/
+.watcherName {
+    background-color: #F0A202;
+    color: #072F34;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    width: 200px;
+    height: 30px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+#editWatcherName{
+    margin: 10px;
+}
+
+.watcherContainer {
+    background-color: #072F34;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/*END of Watchers Page*/
+.listOfShowsWatchers {
+    text-align: center;
+}
+
+
+/*END of Shows Index page*/
 
 /*START of Manage Shows*/
 .text-center {
@@ -54,12 +134,68 @@ label {
     width: 100%;
 }
 
-.addShow, .displayShowCard {
+/*#signupBackground {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 455px;
+    height: 100%;
+    background-image: url(../img/signupbackground.png);
+}*/
+
+/*#signUpBackground {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 7rem 0;*/
+/*background-color: red;
+    background-image: url(../img/signupbackground.png);
+    background-repeat: no-repeat;
+    background-position: 80% 10%;
+    background-size: contain;
+    background-position: 60% 20%;
+    background-attachment: fixed;
+    background-size: 500px;*/
+/*}*/
+
+/*#loginBackground {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 455px;
+    height: 100%;
+    background-image: url(../img/loginbackground.png);
+}*/
+
+.addShow, .displayShowCard, .watchersList, .showsList {
     text-align: center;
 }
 
-.programTitle {
+.addWatcher {
+    text-align: center;
+}
+
+
+
+.programTitle, .showTitle {
     background-color: #F0A202;
+    color: #072F34;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    width: 200px;
+    height: 30px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+.addNewProgramTitle {
+    background-color: #F56960;
     color: #072F34;
     cursor: pointer;
     padding: 5px;
@@ -87,6 +223,8 @@ label {
     display: flex;
     justify-content: center;
 }
+
+
 /*#dropdowns {
     background-color: #001517;
     width: 300px;
@@ -94,7 +232,7 @@ label {
     margin: 10px;
     padding: 10px;
     align-content: center;*/
-    /*display: flex;
+/*display: flex;
     justify-content: center;
     text-align: center;*/ /*
     flex-direction: column;*/
@@ -110,20 +248,58 @@ label {
     text-align: center;
 }
 
-/*#addProgramContainer {
-    background-color: red;*/
+#addProgramContainer {
+    position: relative;
+    /*background-color: red;*/
     /*margin-bottom: 50px;*/
     /*display: flex;
     flex-direction: column;
-    align-items: center;
-}*/
+    align-items: center;*/
+}
+
+#addProgramTitle, #addwatcherName {
+    background-color: #FEE2E0;
+    color: #00454E;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 8px 20px;
+    /*margin: 4px 0 15px 0;*/
+    /*display: flex;*/
+    line-height: 25px;
+    border-radius: 20px;
+    border: none;
+    width: 275px;
+    height: 15px;
+}
 
 #editShowTitleContainer {
     display: flex;
     justify-content: space-around;
     align-items: center;
     text-align: center;
-    background-color: red;
+    padding-bottom: 10px;
+}
+
+#saveButtonEditShowTitle {
+    background-color: #001517;
+    color: #F56960;
+    padding: 5px 10px;
+    border-radius: 30px;
+    border: 3px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    height: 30px;
+}
+
+#deleteButtonnEditShowTitle {
+    background-color: #F56960;
+    color: #FEE2E0;
+    padding: 5px 10px;
+    border-radius: 30px;
+    border: 3px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    height: 30px;
 }
 
 #title {
@@ -131,13 +307,13 @@ label {
     color: #00454E;
     font-weight: bold;
     font-size: 12px;
-    padding: 8px 15px;
-    margin: 4px 0 15px 0;
+    padding: 8px 20px;
+    /*margin: 4px 0 15px 0;*/
     /*display: flex;*/
     line-height: 25px;
     border-radius: 20px;
     border: none;
-    width: 275px;
+    width: 200px;
     height: 15px;
 }
 
@@ -147,13 +323,14 @@ label {
     font-weight: bold;
     font-size: 12px;
     padding: 8px 15px;
-    margin: 4px 0 15px 0;
+    margin-top: 5px;
     display: flex;
     line-height: 25px;
     border-radius: 20px;
     border: none;
     width: 30px;
-    height: 15px;
+    height: 13px;
+    text-align: center;
     /* display: inline;
     justify-content: flex-start;*/
 }
@@ -162,24 +339,31 @@ label {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    /*margin-bottom: 10px;*/
+    padding: 0 40px 0 40px;
 }
 
 #seasonContainer, #episodeContainer {
     text-align: center;
+    /* display: flex;*/
+    flex-direction: column;
+    align-items: center;
 }
 
 #programNameContainer {
-    /*text-align: center;*/
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 10px;
+    
 }
 
 #saveButtons {
     background-color: #001517;
     color: #F56960;
     padding: 5px 10px;
-    margin: 15px 0 10px 0;
+    margin-top: 18px;
     border-radius: 30px;
     border: 3px solid #F56960;
     font-weight: bold;
@@ -187,10 +371,74 @@ label {
     height: 30px;
 }
 
+
+
 #deleteButtons {
-    background-color: red;
+    background-color: #F56960;
+    color: #FEE2E0;
+    padding: 5px 10px;
+    margin-top: 18px;
+    border-radius: 30px;
+    border: 3px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    height: 30px;
+}
+
+#addSeasonEpisodeContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 40px 0 40px;
+    background-color: #0A9EB0;
     border-radius: 20px;
 }
+
+#addSeasonEpisodeSaveButton {
+    background-color: #001517;
+    color: #F56960;
+    padding: 5px 10px;
+    margin: 11px 0 0 0;
+    border-radius: 30px;
+    border: 3px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    height: 30px;
+}
+
+#addSeasonEpisodeLabel {
+    color: #001517;
+    font-weight: bold;
+    font-size: 12px;
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+
+#newSeason, #newEpisodes {
+    background-color: #FEE2E0;
+    color: #00454E;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 8px 15px;
+    /*margin: 4px 0 15px 0;*/
+    display: flex;
+    line-height: 25px;
+    border-radius: 20px;
+    border: none;
+    width: 30px;
+    height: 13px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    /* display: inline;
+    justify-content: flex-start;*/
+}
+
+#deleteButtonAddSeason {
+    display: none
+}
+
 
 /*END of Manage Shows Page*/
 
@@ -202,13 +450,22 @@ label {
     position: absolute;
 }*/
 
+/*.user-loggedin {
+    background-image: url(../img/wewatchlogo.png);
+}*/
 
 #loginsignupform {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /*margin-right: 500px;*/
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(../img/signupbackground.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32rem;
+    padding: 13rem 0rem;
+    margin-top: -13rem;
+    text-align: center;
 }
 
 #email, #password {
@@ -245,15 +502,15 @@ label {
     background-color: #F56960;
     color: #FEE2E0;
     padding: 5px 10px;
-    margin: 15px 0 10px 0;
+    /* margin: 15px 0 10px 0;*/
     border-radius: 30px;
     border: 2px solid #F56960;
     font-weight: bold;
     font-size: 12px;
-    position: absolute;
+    /*position: absolute;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);*/
 }
 
 #errormessage {
