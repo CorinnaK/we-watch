@@ -1,5 +1,5 @@
 <div align = center>
-<img src="/capstone-project-team-coco/wwwroot/img/wewatchlogo.png" alt="WeWatch logo" style="width: 200px;"/>
+![WeWatch Logo](capstone-project-team-coco/wwwroot/img/wewatchlogo.png)
 
 ##### *A quick app to keep track of the watched shows on any platform and friends you watch them with!* 
 ##### *Created by Corinna & Osase from **HotCoCoApps** (HotCoCoApps@gmail.com)*
@@ -26,14 +26,13 @@ To run this application, you'll need the following already installed on your com
 
 From the file menu select clone repository
 copy this link to the Repository location 
-*$  https://github.com/TECHCareers-by-Manpower/capstone-project-team-coco.git  *
+\  https://github.com/TECHCareers-by-Manpower/capstone-project-team-coco.git 
 \
 In Local path enter a folder on your computer where you'd like the project to live
-eg. C:\Projects
-You can also click on the ... beside the input field to navigate to the correct folder.
+\eg. C:\Projects
+\You can also click on the ... beside the input field to navigate to the correct folder.
 \
 Click Clone
-
 
 **2. Install required packages**
 **...........**
@@ -44,11 +43,11 @@ Navigate to your project folder
 
 Run the following commands:
 
-//  - dotnet add package Microsoft.EntityFrameworkCore.Design  *
+' dotnet add package Microsoft.EntityFrameworkCore.Design  
 
-*  - dotnet add package Pomelo.EntityFrameworkCore.MySql  *
+' dotnet add package Pomelo.EntityFrameworkCore.MySql  
 
-*  dotnet add package Microsoft.EntityFrameworkCore.SqlServer  //
+' dotnet add package Microsoft.EntityFrameworkCore.SqlServer  //
 
 **3. Create Database**
 /
