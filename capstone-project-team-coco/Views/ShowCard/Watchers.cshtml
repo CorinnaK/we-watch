@@ -4,18 +4,26 @@
 
 <h3>@ViewBag.Message</h3>
 <div class="text-center">
-    <h1 class="display-4">List of All Programs</h1>
-    @if (ViewBag.AllShowCardWatchers == null)
-    {
-        <h2>Looks like you are not watching anything. </h2>
-        <h2><a class="nav-link text-dark" asp-area="" asp-controller="ShowCard" asp-action="CreateCard">Add a connection</a></h2>
-    }
-    else
-    {
-        @foreach (Watcher watcher in ViewBag.AllShowCardWatchers)
-        {
-            <h3>@Html.ActionLink(watcher.Name, "ByWatcher", new { watcherID = watcher.WatcherID })</h3>
-        }
-    }
+    <div class="displayShowCard">
+        <section class="watcherContainer">
+            <section id="dropdowns">
+                <h1 class="display-4">List of All Programs</h1>
+                @if (ViewBag.AllShowCardWatchers == null)
+                {
+                    <h2>Looks like you are not watching anything. </h2>
+                    <h2><a class="nav-link text-dark" asp-area="" asp-controller="ShowCard" asp-action="CreateCard">Add a connection</a></h2>
+                }
+                else
+                {
+                    @foreach (Watcher watcher in ViewBag.AllShowCardWatchers)
+                    {
+                        <h3>@Html.ActionLink(watcher.Name, "ByWatcher", new { watcherID = watcher.WatcherID }, new { @class = "showTitle" })</h3>
+                    }
+                }
+            </section>
+        </section>
+    </div>
 
 </div>
+
+
