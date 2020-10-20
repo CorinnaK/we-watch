@@ -7,31 +7,36 @@
     <h1 class="display-4">Here is the Manage Watcher page</h1>
     <h2>   @ViewBag.usedemail</h2>
 
-    <div class="addWatcher">
-        <form action="AddWatcher" method="post">
-            <div id="programNameContainer">
-                <label for="title">Watcher Name:</label>
-                <input type="text" id="addProgramTitle" name="name" required />
-                @ViewBag.nameError
-                <input type="submit" id="saveButtons" value="Add a Watcher" />
+    <div class="addShow">
+        <button class="addNewProgramTitle"> Add New Watcher</button>
+        <section class="dropdownContainer">
+            <div id="dropdowns">
+                <form action="AddWatcher" method="post">
+                    <div id="programNameContainer">
+                        <label for="title">Watcher Name:</label>
+                        <input type="text" id="addProgramTitle" name="name" required />
+                        @ViewBag.nameError
+                        <input type="submit" id="saveButtons" value="Add a Watcher" />
+                    </div>
+
+                </form>
+                </div>
+            </section>
             </div>
 
-        </form>
-    </div>
+            <div class="displayShowCard">
+                @foreach (Watcher watcher in ViewBag.AllWatchers)
+                {
+                    <form action="EditWatcher" id="editWatcherName" method="post">
+                        <input type="hidden" name="watcherID" value="@watcher.WatcherID" />
+                        <input type="text" name="watcherName" id="title" value="@(watcher.Name)" />
 
-    <div class="displayShowCard">
-        @foreach (Watcher watcher in ViewBag.AllWatchers)
-        {
-            <form action="EditWatcher" id="editWatcherName" method="post">
-                <input type="hidden" name="watcherID" value="@watcher.WatcherID" />
-                <input type="text" name="watcherName" id="title" value="@(watcher.Name)" />
+                        <input type="submit" id="saveButtonEditShowTitle" name="editWatcher" value="Save" />
 
-                <input type="submit" id="saveButtonEditShowTitle" name="editWatcher" value="Save" />
-
-                <input type="submit" id="deleteButtonnEditShowTitle" name="deleteWatcher" value="X" />
-            </form>
-        }
-    </div>
+                        <input type="submit" id="deleteButtonnEditShowTitle" name="deleteWatcher" value="X" />
+                    </form>
+                }
+            </div>
 
 
 
