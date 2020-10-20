@@ -1,11 +1,6 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace we_watch.Models
 {
@@ -23,8 +18,9 @@ namespace we_watch.Models
         [Required]
         public string Name { get; set; }
 
+        // Watcher can have a collection of multiple show cards (one watcher to many show cards)
        [InverseProperty(nameof(Models.ShowCard.Watcher))]
-        public virtual ICollection<ShowCard> ShowCards { get; set; } // Watcher can have a collection of multiple show cards (one watcher to many show cards)
+        public virtual ICollection<ShowCard> ShowCards { get; set; } 
 
     }
 }

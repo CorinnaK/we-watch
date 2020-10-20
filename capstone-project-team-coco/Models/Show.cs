@@ -28,7 +28,9 @@ namespace we_watch.Models
 
 
         [InverseProperty(nameof(Models.ShowSeason.Show))]
-        public virtual ICollection<ShowSeason> ShowSeasons { get; set; } // ICollection is an object with lists within it
+        
+        // ICollection is an object with lists within it
+        public virtual ICollection<ShowSeason> ShowSeasons { get; set; } 
 
         [InverseProperty(nameof(Models.ShowCard.Show))]
         public virtual ICollection<ShowCard> ShowCards { get; set; }

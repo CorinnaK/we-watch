@@ -12,13 +12,6 @@ namespace we_watch.Controllers
         public IActionResult Login()
         {
 
-            // For Testing purposes - remove start
-
-            HttpContext.Session.SetString("isLoggedIn", "true");
-            HttpContext.Session.SetInt32("User", 1);
-
-            // end remove
-
             //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-3.1
             // ASP.NET 3.1 set up instructions for creating a session state
             // Used to pass information of whether a user is logged in or not and their userID.

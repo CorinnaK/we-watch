@@ -11,8 +11,9 @@ namespace we_watch.Controllers
         // Index lists all the shows in the database
         public IActionResult Index()
         {
-            return Redirect("ManageShows");
+            return RedirectToAction("ManageShows");
         }
+
 
         // Central View for CRUD relating to shows or seasons
         public IActionResult ManageShows()
@@ -20,7 +21,7 @@ namespace we_watch.Controllers
             // Ensure user is logged in
             if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
 
-                List<ShowSeason> Seasons;
+            List<ShowSeason> Seasons;
             using (WeWatchContext context = new WeWatchContext())
             {
                 List<Show> allShows = new List<Show>();
@@ -40,7 +41,7 @@ namespace we_watch.Controllers
 
             ViewBag.messages = TempData["message"]?.ToString();
 
-          
+
 
             return View();
         }
@@ -62,7 +63,7 @@ namespace we_watch.Controllers
                 {
                     messages = ($"{title} already exists.");
                 }
-               
+
                 else if (indSeason < 1 || indSeason > 50)
                 {
                     messages = ("Seasons must be between 1 and 50.");
@@ -98,13 +99,26 @@ namespace we_watch.Controllers
             using (WeWatchContext context = new WeWatchContext())
             {
                 string tempTitle;
+
+                // Make sure a value was passed for the seasonID
                 if (deleteSeason == 0)
                 { messages = "Cannot delete unknown program. Please refresh and try again."; }
+
                 else
                 {
+                    // Check to see if the passed value matches a seasonID
                     ShowSeason season = context.ShowSeason.Where(x => x.ShowSeasonID == deleteSeason).SingleOrDefault();
+
                     if (season == null)
                     { messages = "Cannot find program. Please refresh and try again."; }
+
+                    // Check that if there is a show card with that season referenced as watching
+                    else if (context.ShowCard.Where(x => x.CurrentSeason == season.ShowSeasonID).Count() > 0)
+                    {
+                        messages = "Cannot delete a season with a Show Card reference.";
+                    }
+
+                    // We can delete the season
                     else
                     {
                         tempTitle = context.Show.Where(x => x.ShowID == season.ShowID).Select(y => y.Title).SingleOrDefault().ToString();
@@ -114,10 +128,13 @@ namespace we_watch.Controllers
                     }
                 }
             }
+
+            // Return messages
             TempData["message"] = messages;
             return Redirect("ManageShows");
 
         }
+
         [HttpPost]
         public IActionResult DeleteProgram(int showID)
         {
@@ -126,16 +143,19 @@ namespace we_watch.Controllers
             string message;
             using (WeWatchContext context = new WeWatchContext())
             {
-                string tempTitle = context.Show.Where(x => x.ShowID == showID).Select(y => y.Title).Single().ToString();
                 if (showID == 0)
                 { message = "No program was provided."; }
+
                 else
                 {
                     Show show = context.Show.Where(x => x.ShowID == showID).SingleOrDefault();
                     if (show == null)
-                    { message = "Cannot delete program. Please try again later."; }
+                    { message = "Cannot delete program. Please refresh and try again."; }
+
                     else
                     {
+                        // Store the title in a temp variable to reference in messages to the user
+                        string tempTitle = show.Title;
                         context.Show.Remove(show);
                         context.SaveChanges();
                         message = $"Successfully deleted {tempTitle}";
@@ -144,43 +164,57 @@ namespace we_watch.Controllers
             }
             TempData["message"] = message;
             return Redirect("ManageShows");
-
         }
 
+        [HttpPost]
         public IActionResult EditTitle(string title, int showID)
         {
             if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             string message;
+
             using (WeWatchContext context = new WeWatchContext())
             {
-                string tempTitle =title.Trim();
                 if (showID == 0)
                 { message = "No program was provided."; }
+
+                else if (title == null)
+                { message = "No title was provided."; }
+
                 else
                 {
+                    title = title.Trim();
+
                     Show show = context.Show.Where(x => x.ShowID == showID).SingleOrDefault();
+
                     if (show == null)
                     { message = "Program not found. Please refresh and try again."; }
+
                     else if (title.Count() > 50)
                     { message = "Program name cannot be more than 50 characters."; }
-                    else if (show.Title == title)
+
+                    else if (show.Title.ToUpper() == title.ToUpper())
                     { message = $"No changes were detect for program title {title}."; }
+
                     else if (context.Show.Where(x => x.Title.ToUpper() == title.ToUpper()).Count() > 0)
                     { message = $"{title} already exists."; }
+
                     else
                     {
-                        tempTitle = show.Title;
+                        string tempTitle = show.Title;
                         show.Title = title;
                         context.SaveChanges();
                         message = $"Successfully updated '{tempTitle}' to '{title}'.";
                     }
                 }
             }
+
             TempData["message"] = message;
             return Redirect("ManageShows");
 
         }
+
+        [HttpPost]
         public IActionResult AddSeason(int showID, string newSeason, string newEpisodes)
         {
             if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
@@ -214,15 +248,24 @@ namespace we_watch.Controllers
                 }
                 else
                 {
-                    ShowSeason showSeason = new ShowSeason() { ShowID = showID, IndividualSeason = parsedNewSeason, SeasonEpisodes = parsedNewEpisodes };
+                    ShowSeason showSeason = new ShowSeason()
+                    {
+                        ShowID = showID,
+                        IndividualSeason =
+                      parsedNewSeason,
+                        SeasonEpisodes = parsedNewEpisodes
+                    };
+
                     context.ShowSeason.Add(showSeason);
                     context.SaveChanges();
                     message = $"Successfully added season { parsedNewSeason } to {show.Title}";
                 }
             }
+
             TempData["message"] = message;
             return Redirect("ManageShows");
         }
+
         [HttpPost]
         public IActionResult EditSeason(int editSeason, string season, string episodes)
         {
@@ -235,12 +278,14 @@ namespace we_watch.Controllers
                 int tempSeason;
                 int tempEpisodes;
                 if (editSeason == 0)
-                { 
-                    message = "Cannot edit unknown season. Please refresh and try again"; 
+                {
+                    message = "Cannot edit unknown season. Please refresh and try again";
                 }
+
                 else
                 {
                     ShowSeason targetSeason = context.ShowSeason.Where(x => x.ShowSeasonID == editSeason).SingleOrDefault();
+
                     if (season == null)
                     {
                         message = "Cannot find that season. Please refresh and try again";
@@ -254,33 +299,46 @@ namespace we_watch.Controllers
                         {
                             message = "Cannot find that program. Please refresh and try again.";
                         }
+
                         else
                         {
                             if (!int.TryParse(season, out int parsedNewSeason))
                             {
                                 message = "Seasons must be positive valid numbers";
                             }
+
                             else if (parsedNewSeason < 1 || parsedNewSeason > 50)
                             {
                                 message = "Season must be between 1 and 50";
                             }
+
                             else if (!int.TryParse(episodes, out int parsedNewEpisodes))
                             {
                                 message = "Episodes must be positive valid numbers";
                             }
+
                             else if (parsedNewEpisodes < 1 || parsedNewEpisodes > 50)
                             {
                                 message = "Episodes must be between 1 and 50";
                             }
 
+                            // To avoid giving a false error when applying the no season duplicate constraint if the user is only editting the episodes, we must first check that the new season and the season that they are attempting to submit are not the same. If they are not we can continue to check if there is a duplicate.
+
                             else if (parsedNewSeason != targetSeason.IndividualSeason && context.ShowSeason.Where(x => x.ShowID == targetSeason.ShowID).Where(x => x.IndividualSeason == parsedNewSeason).SingleOrDefault() != null)
                             {
                                 message = $"Season already exists in {show.Title}";
                             }
+
                             else if (parsedNewSeason == targetSeason.IndividualSeason && parsedNewEpisodes == targetSeason.SeasonEpisodes)
                             {
                                 message = $"No Changes were detected for {show.Title} - Season {targetSeason.IndividualSeason}.";
                             }
+
+                            else if (context.ShowCard.Where(x => x.CurrentSeason == targetSeason.ShowSeasonID).Count() > 0)
+                            {
+                                message = "Cannot edit a season with a Show Card reference.";
+                            }
+
                             else
                             {
                                 tempSeason = targetSeason.IndividualSeason;
@@ -288,21 +346,22 @@ namespace we_watch.Controllers
                                 targetSeason.IndividualSeason = parsedNewSeason;
                                 targetSeason.SeasonEpisodes = parsedNewEpisodes;
                                 context.SaveChanges();
-                                message = $"Successfully changed {show.Title} from season {tempSeason} having {tempEpisodes} episodes to season {parsedNewSeason} having {parsedNewEpisodes} ";
+                                message = $"Successfully changed {show.Title} from season {tempSeason} having {tempEpisodes} episodes to season {parsedNewSeason} having {parsedNewEpisodes} episodes.";
                             }
                         }
                     }
                 }
-                
+
                 TempData["message"] = message;
                 return Redirect("ManageShows");
 
             }
         }
 
+        [HttpPost]
         public bool isLoggedIn()
         {
-            return (HttpContext.Session.GetString("isLoggedIn") == "true" );
+            return (HttpContext.Session.GetString("isLoggedIn") == "true");
         }
     }
 }
