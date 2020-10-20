@@ -74,22 +74,6 @@ label {
     outline: none;
 }
 
-/*START of Shows Index page*/
-.showTitle {
-    background-color: #F0A202;
-    color: #072F34;
-    cursor: pointer;
-    padding: 5px;
-    margin: 5px;
-    width: 200px;
-    height: 30px;
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 20px;
-}
 
 /*START of Watchers Page*/
 .watcherName {
@@ -124,7 +108,10 @@ label {
     text-align: center;
 }
 
-
+/*START of Shows Index page*/
+.showCard{
+    margin: 10px;
+}
 /*END of Shows Index page*/
 
 /*START of Manage Shows*/
@@ -178,7 +165,7 @@ label {
 
 
 
-.programTitle, .showTitle {
+.programTitle {
     background-color: #F0A202;
     color: #072F34;
     cursor: pointer;
@@ -192,6 +179,31 @@ label {
     font-size: 12px;
     font-weight: bold;
     border-radius: 20px;
+}
+
+.showTitle, .watcher {
+    background-color: #F0A202;
+    color: #072F34;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    width: 200px;
+    height: 30px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+}
+a {
+    text-decoration: none;
+    color: #072F34;
+}
+
+
+.allShowsSection{
+    text-align: center;
 }
 
 .addNewProgramTitle {
