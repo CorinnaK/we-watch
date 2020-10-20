@@ -11,7 +11,7 @@ Just log in, add your favourite shows, add *Watchers* (who you're watching with)
 
 ****
 ## Features & Functionality (By Page)
-#
+
 **Sign Up & Log In & Log Out**  
 Users must first create an account, then log in to begin using **WeWatch**. Emails and passwords are safely hashed for an added layer of security.
 
@@ -91,15 +91,38 @@ A new browser window should appear
 This entire project relied on teachings by the TechCareers instructors - Video Recording, GitHub examples and HomeWork Help sessions.
 **Thank You** James, Warren, Aaron, Bo, and Tammy.
 
-*Controllers > UserController.cs*
+*Controllers > UserController.cs 
+- Citation 1 - line 15
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-3.1
+ASP.NET 3.1 set up instructions for creating a session state
+Used to pass information of whether a user is logged in or not and their userID.
 
-citation 1 - line #
+-Citation 2 - line 190
+Https://www.youtube.com/watch?v=gSJFjuWFTdA&list=PLgX_X6wpWU2RZ12GQnTBhVH3DmuTiFwm_&index=1&t=3171s&ab_channel=souravmondal
+SHA256 is a hashing algorithm used to secure passwords
+The build in Crytography includes this method
 
-citation 2 - line #
+*Controllers > ShowController.cs
+- Citation 1 - line 24
+https://docs.microsoft.com/en-us/dotnet/api/system.web.mvc.controller.redirecttoaction?view=aspnet-mvc-5.2
+Redirect to Action in different Controllers        
 
-*Models > Watcher.cs*
+*Models > All*
+- Citation 1
+https://github.com/TECHCareers-by-Manpower/4.1-MVC/tree/Sep22Practice/MVC_4Point1/Models
+Used in class practice coded by James as reference for Model Creation
 
-citation 1 - line #
+*Views > ShowCard > ByShows.cshtml & ByWatcher.cshtml
+- Citation 1 - line 6
+https://stackoverflow.com/questions/16636448/dropdownlist-from-objects-mvc
+SelectList overload (data, value, text)
+
+*Views > Shows > ManageShows.cshtml
+-Citation 1 - line 4
+https://www.sitepoint.com/using-the-html5-constraint-api-for-form-validation/
+Restricting title length to a max of 50 characters*
+
+
 ****
 ## Test Cases & Testing Instructions 
 Please refer to detailed Testing Plan located in the Planning folder of this repository.

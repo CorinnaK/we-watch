@@ -14,7 +14,7 @@ namespace we_watch.Controllers
             return Redirect("Shows");
         }
        
-
+        // Display a list of Shows that this specific user has ShowCards for
         public IActionResult Shows()
         {
             int userID = GetUserID();
@@ -34,7 +34,7 @@ namespace we_watch.Controllers
             return View();
         }
 
-
+        // Ensure all the neccessary information to  create a show card is received
         public IActionResult CreateCard(int showID, int watcherID, int seasonID, int episode)
         {
             string message = TempData["message"]?.ToString();
@@ -99,7 +99,7 @@ namespace we_watch.Controllers
             return View();
         }
 
-
+        // Create the show card
         public IActionResult Connect(int showID, int watcherID, int seasonID, int episode)
         {
             int userID = GetUserID();
@@ -153,7 +153,7 @@ namespace we_watch.Controllers
             return Redirect("CreateCard");
         }
      
-        
+     // Displays a list of ShowCards for this specific user and the provided show    
         public IActionResult ByShow(int showID)
         {
             string message = TempData["message"]?.ToString();
@@ -196,7 +196,7 @@ namespace we_watch.Controllers
 
         }
 
-
+        // Display a list of all watchers that this specific user has showcards with
         public IActionResult Watchers()
         {
             int userID = GetUserID();
@@ -216,7 +216,7 @@ namespace we_watch.Controllers
             return View();
         }
 
-
+        // Displays a list of all watchers this specific user has showcards with 
         public IActionResult ByWatcher(int watcherID)
         {
             string message = TempData["message"]?.ToString();
@@ -235,13 +235,17 @@ namespace we_watch.Controllers
                 }
                 else
                 {
+
+                    // A list of all Show Cards with this Specific User and Watcher
                     List<ShowCard> showCardsByWatcher = context.ShowCard.Include(x => x.Watcher).Where(x => x.WatcherID == watcherID && x.UserID == userID).ToList();
 
-
+                    // A list of all Watchers that this Specific User has ShowCards with
                     allUserWatchers = context.ShowCard.Include(x => x.Watcher).Where(x => x.UserID == userID).Select(x => x.Watcher).Distinct().ToList();
+
                     if (showCardsByWatcher == null)
                     { message = "Looks like you are not watching a show with that Watcher"; }
 
+                    // If this User has ShowCards with this Watcher add them to the list of display cards
                     if (showCardsByWatcher != null)
                     {
                         foreach (ShowCard showCard in showCardsByWatcher)
@@ -265,7 +269,7 @@ namespace we_watch.Controllers
 
         }
 
-
+        // Increases the Episode number on a specific showcard
         public IActionResult AddEpisode(int showCardID)
         {
             int userID = GetUserID();
@@ -303,7 +307,7 @@ namespace we_watch.Controllers
             return RedirectToAction("ByShow", new { showID = show.ShowID });
         }
 
-
+        // Decreases the episode number for this specific showcard
         public IActionResult MinusEpisode(int showCardID)
         {
             int userID = GetUserID();
@@ -314,14 +318,23 @@ namespace we_watch.Controllers
             ShowCard show = new ShowCard();
             using (WeWatchContext context = new WeWatchContext())
             {
+                // Get the show that the showcard is referencing
                 show = context.ShowCard.Include(x => x.Show).Where(x => x.ShowCardID == showCardID).Single();
+                
+                // Get the show season attached to that card 
                 ShowSeason currentSeason = context.ShowSeason.Where(x => x.ShowID == show.ShowID && x.ShowSeasonID == show.CurrentSeason).Single();
+
+                // Check if we are at the minimum episode of any season
                 if (show.CurrentEpisode == 1)
                 {
-
+                    // Check to see if there is a lower season recorded for this show
                     ShowSeason pastSeason = context.ShowSeason.Include(x => x.Show).Where(x => x.ShowID == show.ShowID && x.IndividualSeason < currentSeason.IndividualSeason).OrderBy(x => x.IndividualSeason).FirstOrDefault();
+
+                    // Prompt user to add a season to the list if there is no lower season
                     if (pastSeason == null)
                     { message = "Sorry you no season to go back to. Would you like to add a season to the list?"; }
+                    
+                    // Roll back to the next lowest season, max episode
                     else
                     {
                         show.CurrentEpisode = pastSeason.SeasonEpisodes;
@@ -329,6 +342,8 @@ namespace we_watch.Controllers
                         message = "You went back a SEASON";
                     }
                 }
+
+                // Can simply minus one episode from the episode number
                 else
                 {
                     show.CurrentEpisode--;
@@ -337,8 +352,11 @@ namespace we_watch.Controllers
 
                 context.SaveChanges();
             }
+
             TempData["message"] = message;
+
             return RedirectToAction("ByShow", new { showID = show.ShowID });
+
         }
 
 
