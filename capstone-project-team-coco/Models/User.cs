@@ -1,6 +1,4 @@
-﻿
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,7 +21,7 @@ namespace we_watch.Models
 
         [Column("Email", TypeName = "varchar(30)")]
         [Required(AllowEmptyStrings = false)]
-        [EmailAddress(ErrorMessage ="need email!")] //error message not working?
+        [EmailAddress(ErrorMessage ="Please enter an email")]
         public string Email { get; set; }
 
         [Column("Salt", TypeName = "varchar(10)")]

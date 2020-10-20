@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using we_watch.Models;
+
 
 namespace we_watch.Models
 {
@@ -31,6 +27,7 @@ namespace we_watch.Models
                 optionsBuilder.UseMySql("server=localhost;port=3306;user=root;database=We_Watch", x => x.ServerVersion("10.4.13-mariadb"));
             }
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -90,6 +87,7 @@ namespace we_watch.Models
                     .HasForeignKey(child => child.UserID)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_" + nameof(ShowCard) + "_" + nameof(User));
+
 
                 entity.HasData(
                     new ShowCard()
@@ -201,13 +199,16 @@ namespace we_watch.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
 
+
                 entity.Property(e => e.Salt)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
 
+
                 entity.Property(e => e.HashPassword)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
+
 
                 entity.HasData(
                     new User()
@@ -231,11 +232,9 @@ namespace we_watch.Models
                         Salt = "1859530424",
                         HashPassword = "3/H/c1lljJe2l9+DQCsr3NSSPhFyj/SZV7hA5wUQxnI="
                     }
+            );
+         });
 
-                    );
-
-
-            });
 
             modelBuilder.Entity<Watcher>(entity =>
             {
@@ -263,8 +262,11 @@ namespace we_watch.Models
                    );
             });
 
+
+
             OnModelCreatingPartial(modelBuilder);
         }
+
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

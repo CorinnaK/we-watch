@@ -72,6 +72,10 @@ Once you've added a program and a Watcher, this is where you connect the two! Ju
 Users can click here to read more about the app and to contact us!
 ****
 ## Code Citations
+
+Entire Project relied on teachings by the TechCareers instructors - Video Recording, GitHub examples and HomeWork Help sessions
+Thank you James, Tammy, Warren, Aaron, and Bo.
+
 *Controllers > UserController.cs*
 
 citation 1 - line #

@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
-
 namespace we_watch.Models
 {
     [Table("WatchHistory")]
@@ -33,7 +31,6 @@ namespace we_watch.Models
         [ForeignKey(nameof(ShowCardID))]
         [InverseProperty(nameof(Models.ShowCard.WatchHistories))]
         public virtual ShowCard ShowCard { get; set; }
-
 
     }
 }

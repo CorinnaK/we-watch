@@ -26,7 +26,7 @@ namespace we_watch.Models
                 }
             }
 
-            }
+        }
         public int CurrentSeason { get; private set; }
         public int Episodes { get; private set; }
         public int CurrentEpisode { get; set; }

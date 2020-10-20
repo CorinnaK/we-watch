@@ -13,6 +13,8 @@ namespace we_watch.Controllers
         {
             return Redirect("Shows");
         }
+       
+
         public IActionResult Shows()
         {
             int userID = GetUserID();
@@ -27,6 +29,7 @@ namespace we_watch.Controllers
                 allShowCardShows = context.ShowCard.Include(x => x.Show).Where(x => x.UserID == userID).Select(x => x.Show).Distinct().ToList();
 
             }
+
             ViewBag.AllShowCardShows = allShowCardShows;
             return View();
         }
@@ -72,6 +75,7 @@ namespace we_watch.Controllers
                         }
                     }
                 }
+                // If we were passed a ShowCardID  from another action, create a displayCard
                 if (TempData["showCardID"] != null)
                 {
                     int showCardID = int.Parse(TempData["showCardID"].ToString());
@@ -81,35 +85,34 @@ namespace we_watch.Controllers
                     card.CurrentEpisode = show.CurrentEpisode;
 
                 }
+
                 ViewBag.Card = card;
                 List<Show> allShows = context.Show.OrderBy(x => x.Title).ToList();
                 List<Watcher> allWatchers = context.Watcher.OrderBy(x => x.Name).ToList();
 
                 ViewBag.Message = message;
-                ViewBag.SelectedShow = selectedShow;
-                ViewBag.SelectedWatcher = selectedWatcher;
                 ViewBag.AllShows = allShows;
                 ViewBag.AllWatchers = allWatchers;
                 ViewBag.Seasons = seasons;
-                ViewBag.SelectedSeason = selectedSeason;
-                ViewBag.Episode = episode;
 
                 return View();
             }
         }
+
 
         public IActionResult Connect(int showID, int watcherID, int seasonID, int episode)
         {
             int userID = GetUserID();
             if (userID == 0)
             { return RedirectToAction("Login", "User"); }
+
             string message = "";
 
+            // If we are missing any fields, redirect the user to the CreateCard Action
             if (showID == 0 || watcherID == 0 || seasonID == 0 || episode == 0)
             {
-                return RedirectToAction("CreateCard");
+                return RedirectToAction("CreateCard", new { showID, watcherID, seasonID, episode});
             }
-
 
             using (WeWatchContext context = new WeWatchContext())
             {
@@ -121,6 +124,7 @@ namespace we_watch.Controllers
                     return Redirect("CreateCard");
                 }
 
+                // Create the card with 
                 ShowCard newShowCard = new ShowCard()
                 {
                     ShowID = showID,
@@ -129,12 +133,14 @@ namespace we_watch.Controllers
                     CurrentEpisode = episode,
                     UserID = userID,
                 };
+
                 try
                 {
                     context.ShowCard.Add(newShowCard);
                     context.SaveChanges();
                     message = "Success";
                 }
+
                 catch
                 {
                     message = "Something went wrong. Your connection was not saved. Please refresh and try again.";
@@ -143,8 +149,11 @@ namespace we_watch.Controllers
                 TempData["showCardID"] = (int)context.ShowCard.Where(x => x.ShowID == showID && x.UserID == userID && x.WatcherID == watcherID).Select(x => x.ShowCardID).Single();
                 TempData["message"] = message;
             }
+
             return Redirect("CreateCard");
         }
+     
+        
         public IActionResult ByShow(int showID)
         {
             string message = TempData["message"]?.ToString();
@@ -185,6 +194,7 @@ namespace we_watch.Controllers
 
         }
 
+
         public IActionResult Watchers()
         {
             int userID = GetUserID();
@@ -203,6 +213,7 @@ namespace we_watch.Controllers
             ViewBag.AllShowCardWatchers = allShowCardWatchers;
             return View();
         }
+
 
         public IActionResult ByWatcher(int watcherID)
         {
@@ -250,6 +261,7 @@ namespace we_watch.Controllers
 
         }
 
+
         public IActionResult AddEpisode(int showCardID)
         {
             int userID = GetUserID();
@@ -286,6 +298,7 @@ namespace we_watch.Controllers
             TempData["message"] = message;
             return RedirectToAction("ByShow", new { showID = show.ShowID });
         }
+
 
         public IActionResult minusEpisode(int showCardID)
         {
@@ -324,10 +337,10 @@ namespace we_watch.Controllers
             return RedirectToAction("ByShow", new { showID = show.ShowID });
         }
 
+
         // Method to check whether the user is logged in and if so, return the user ID.
         public int GetUserID()
         {
-
             int userID = 0;
 
             // Check if there is a isLoggedIn session cookie and it is set to true
