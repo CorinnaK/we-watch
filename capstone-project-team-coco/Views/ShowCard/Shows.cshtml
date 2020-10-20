@@ -4,18 +4,25 @@
 
 
 <div class="text-center">
-    <h1 class="display-4">List of All Programs</h1>
-    @if (ViewBag.AllShowCardShows == null)
-    {
-        <h2>Looks like you are not watching anything. </h2>
-        <h2><a class="nav-link text-dark" asp-area="" asp-controller="ShowCard" asp-action="CreateCard">Add a connection</a></h2>
-    }
-    else
-    {
-        @foreach (Show show in ViewBag.AllShowCardShows)
-        {
-            <h3>@Html.ActionLink(show.Title, "ByShow", new { showID = show.ShowID })</h3>
-        }
-    }
+    <div class="displayShowCard">
+        <section class="watcherContainer">
+            <section id="dropdowns">
+                <h1 class="display-4">List of All Shows</h1>
+                @if (ViewBag.AllShowCardShows == null)
+                {
+                    <h2>Looks like you have no shows. </h2>
+                    <h2><a class="nav-link text-dark" asp-area="" asp-controller="Show" asp-action="ManageShows">Add a Show</a></h2>
+                }
+                else
+                {
+                    
+                    @foreach (Show show in ViewBag.AllShowCardShows)
+                    {
+                        <h3>@Html.ActionLink(show.Title, "ByShow", new { showID = show.ShowID}, new { @class = "showTitle" })</h3>
+                    }
 
+                }
+            </section>
+        </section>
+    </div>
 </div>
