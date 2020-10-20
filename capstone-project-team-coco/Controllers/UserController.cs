@@ -14,9 +14,9 @@ namespace we_watch.Controllers
 
             // For Testing purposes - remove start
 
-            HttpContext.Session.SetString("isLoggedIn", "true");
+/*            HttpContext.Session.SetString("isLoggedIn", "true");
             HttpContext.Session.SetInt32("User", 1);
-
+*/
             // end remove
 
             //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-3.1

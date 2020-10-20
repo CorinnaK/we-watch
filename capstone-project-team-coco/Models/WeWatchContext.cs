@@ -95,7 +95,7 @@ namespace we_watch.Models
                     new ShowCard()
                     {
                         ShowCardID = -1,
-                        UserID = -2,
+                        UserID = -3,
                         ShowID = -1,
                         WatcherID = -2,
                         CurrentSeason = -2,
@@ -104,7 +104,7 @@ namespace we_watch.Models
                     new ShowCard()
                     {
                         ShowCardID = -2,
-                        UserID = -2,
+                        UserID = -3,
                         ShowID = -1,
                         WatcherID = -3,
                         CurrentSeason = -2,
@@ -228,8 +228,8 @@ namespace we_watch.Models
                     {
                         UserID = -3,
                         Email = "goaspin@gmail.com",
-                        Salt = "Yes",
-                        HashPassword = "2334814362998297759587574090140267323532918138392977707124924545"
+                        Salt = "1859530424",
+                        HashPassword = "3/H/c1lljJe2l9+DQCsr3NSSPhFyj/SZV7hA5wUQxnI="
                     }
 
                     );

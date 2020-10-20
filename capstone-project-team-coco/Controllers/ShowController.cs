@@ -288,7 +288,7 @@ namespace we_watch.Controllers
                                 targetSeason.IndividualSeason = parsedNewSeason;
                                 targetSeason.SeasonEpisodes = parsedNewEpisodes;
                                 context.SaveChanges();
-                                message = $"Successfully changed {show.Title} from season {tempSeason} having {tempEpisodes} episodes to season {parsedNewSeason} having {parsedNewEpisodes} ";
+                                message = $"Successfully changed {show.Title} from season {tempSeason} having {tempEpisodes} episodes to season {parsedNewSeason} having {parsedNewEpisodes} episodes.";
                             }
                         }
                     }

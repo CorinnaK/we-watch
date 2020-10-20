@@ -41,10 +41,6 @@ namespace we_watch.Models
         [Required]
         public int CurrentEpisode { get; set; }
 
-        [Column("Status", TypeName = "varchar(20)")]
-        [Required]
-        // To set a default value of "current" for Status column
-        public string Status { get; set; } = "Current";
 
         [ForeignKey(nameof(ShowID))]
         // InverseProperty links the two virtual properties together.

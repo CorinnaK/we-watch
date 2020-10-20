@@ -38,10 +38,9 @@ namespace we_watch.Controllers
             int userID = GetUserID();
             if (userID == 0)
             { return RedirectToAction("Login", "User"); }
+            
             using (WeWatchContext context = new WeWatchContext())
             {
-
-
                 Show selectedShow = new Show();
                 ShowSeason selectedSeason = new ShowSeason();
                 Watcher selectedWatcher = new Watcher();
@@ -129,7 +128,6 @@ namespace we_watch.Controllers
                     CurrentSeason = seasonID,
                     CurrentEpisode = episode,
                     UserID = userID,
-                    Status = "Current"
                 };
                 try
                 {
@@ -254,6 +252,10 @@ namespace we_watch.Controllers
 
         public IActionResult AddEpisode(int showCardID)
         {
+            int userID = GetUserID();
+            if (userID == 0)
+            { return RedirectToAction("Login", "User"); }
+
             string message = null;
             ShowCard show = new ShowCard();
             using (WeWatchContext context = new WeWatchContext())
@@ -287,6 +289,10 @@ namespace we_watch.Controllers
 
         public IActionResult minusEpisode(int showCardID)
         {
+            int userID = GetUserID();
+            if (userID == 0)
+            { return RedirectToAction("Login", "User"); }
+
             string message = null;
             ShowCard show = new ShowCard();
             using (WeWatchContext context = new WeWatchContext())

@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using we_watch.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace we_watch.Controllers
 {
@@ -12,22 +13,30 @@ namespace we_watch.Controllers
         {
             return RedirectToAction("ManageWatchers");
         }
+
+        // Central view for CRUD actions on Watcher 
         public IActionResult ManageWatchers()
         {
+            // Ensure user is logged in
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             List<Watcher> watchers;
             using (WeWatchContext context = new WeWatchContext())
             {
+                //List of all watchers in the Db
                 watchers = context.Watcher.OrderBy(x=>x.Name).ToList();
             }
+
             ViewBag.AllWatchers = watchers;
-            ViewBag.messages = TempData["message"]?.ToString();
+            ViewBag.Message = TempData["message"]?.ToString();
             return View();
         }
 
         [HttpPost]
         public IActionResult AddWatcher(string name)
         {
+            // Ensure user is logged in
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             string message = null;
             using (WeWatchContext context = new WeWatchContext())
@@ -62,6 +71,9 @@ namespace we_watch.Controllers
 
         public IActionResult EditWatcher(string watcherName, string watcherID)
         {
+            // Ensure user is logged in
+            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+
             string message = null;
             using (WeWatchContext context = new WeWatchContext())
             {
