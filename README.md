@@ -35,8 +35,6 @@ Once you've added a Program and a Watcher, this is where you connect the two! Ju
 
 **[|Keep and eye on our futrure features on Trello |](https://trello.com/b/IE59VJK5/we-watch)**
 
-Created by HotCoCoApps (Osasanega Emokpae & Corinna Kelly)
-
 Have a suggestion or want to collabrate on future projects contact us at hotcocoapps@gmail.com
 
 ****
@@ -92,7 +90,8 @@ This entire project relied on teachings by the TechCareers instructors - Video R
 **Thank You** James, Warren, Aaron, Bo, and Tammy.
 
 *Controllers > UserController.cs 
-- Citation 1 - line 15
+
+-Citation 1 - line 15
 https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-3.1
 ASP.NET 3.1 set up instructions for creating a session state
 Used to pass information of whether a user is logged in or not and their userID.
@@ -103,17 +102,18 @@ SHA256 is a hashing algorithm used to secure passwords
 The build in Crytography includes this method
 
 *Controllers > ShowController.cs
-- Citation 1 - line 24
+
+-Citation 1 - line 24
 https://docs.microsoft.com/en-us/dotnet/api/system.web.mvc.controller.redirecttoaction?view=aspnet-mvc-5.2
 Redirect to Action in different Controllers        
 
 *Models > All*
-- Citation 1
+-Citation 1
 https://github.com/TECHCareers-by-Manpower/4.1-MVC/tree/Sep22Practice/MVC_4Point1/Models
 Used in class practice coded by James as reference for Model Creation
 
 *Views > ShowCard > ByShows.cshtml & ByWatcher.cshtml
-- Citation 1 - line 6
+-Citation 1 - line 6
 https://stackoverflow.com/questions/16636448/dropdownlist-from-objects-mvc
 SelectList overload (data, value, text)
 
