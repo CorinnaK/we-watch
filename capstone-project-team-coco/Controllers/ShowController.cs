@@ -19,7 +19,7 @@ namespace we_watch.Controllers
         public IActionResult ManageShows()
         {
             // Ensure user is logged in
-            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+            if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             List<ShowSeason> Seasons;
             using (WeWatchContext context = new WeWatchContext())
@@ -50,7 +50,7 @@ namespace we_watch.Controllers
         // This action Adds a show to the database
         public IActionResult AddShow(string title, int indSeason, int episodes)
         {
-            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+            if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             string messages;
             using (WeWatchContext context = new WeWatchContext())
@@ -93,7 +93,7 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult DeleteSeason(int deleteSeason)
         {
-            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+            if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             string messages;
             using (WeWatchContext context = new WeWatchContext())
@@ -138,7 +138,7 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult DeleteProgram(int showID)
         {
-            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+            if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             string message;
             using (WeWatchContext context = new WeWatchContext())
@@ -169,7 +169,7 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult EditTitle(string title, int showID)
         {
-            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+            if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             string message;
 
@@ -217,7 +217,7 @@ namespace we_watch.Controllers
         [HttpPost]
         public IActionResult AddSeason(int showID, string newSeason, string newEpisodes)
         {
-            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+            if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             string message = null;
 
@@ -270,96 +270,93 @@ namespace we_watch.Controllers
         public IActionResult EditSeason(int editSeason, string season, string episodes)
         {
 
-            if (!isLoggedIn()) { return RedirectToAction("Login", "User"); }
+            if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
 
-            using (WeWatchContext context = new WeWatchContext())
+            using WeWatchContext context = new WeWatchContext();
+            string message;
+            int tempSeason;
+            int tempEpisodes;
+            if (editSeason == 0)
             {
-                string message;
-                int tempSeason;
-                int tempEpisodes;
-                if (editSeason == 0)
+                message = "Cannot edit unknown season. Please refresh and try again";
+            }
+
+            else
+            {
+                ShowSeason targetSeason = context.ShowSeason.Where(x => x.ShowSeasonID == editSeason).SingleOrDefault();
+
+                if (season == null)
                 {
-                    message = "Cannot edit unknown season. Please refresh and try again";
+                    message = "Cannot find that season. Please refresh and try again";
                 }
 
                 else
                 {
-                    ShowSeason targetSeason = context.ShowSeason.Where(x => x.ShowSeasonID == editSeason).SingleOrDefault();
+                    Show show = context.Show.Where(x => x.ShowID == targetSeason.ShowID).SingleOrDefault();
 
-                    if (season == null)
+                    if (show == null)
                     {
-                        message = "Cannot find that season. Please refresh and try again";
+                        message = "Cannot find that program. Please refresh and try again.";
                     }
 
                     else
                     {
-                        Show show = context.Show.Where(x => x.ShowID == targetSeason.ShowID).SingleOrDefault();
-
-                        if (show == null)
+                        if (!int.TryParse(season, out int parsedNewSeason))
                         {
-                            message = "Cannot find that program. Please refresh and try again.";
+                            message = "Seasons must be positive valid numbers";
+                        }
+
+                        else if (parsedNewSeason < 1 || parsedNewSeason > 50)
+                        {
+                            message = "Season must be between 1 and 50";
+                        }
+
+                        else if (!int.TryParse(episodes, out int parsedNewEpisodes))
+                        {
+                            message = "Episodes must be positive valid numbers";
+                        }
+
+                        else if (parsedNewEpisodes < 1 || parsedNewEpisodes > 50)
+                        {
+                            message = "Episodes must be between 1 and 50";
+                        }
+
+                        // To avoid giving a false error when applying the no season duplicate constraint if the user is only editting the episodes, we must first check that the new season and the season that they are attempting to submit are not the same. If they are not we can continue to check if there is a duplicate.
+
+                        else if (parsedNewSeason != targetSeason.IndividualSeason && context.ShowSeason.Where(x => x.ShowID == targetSeason.ShowID).Where(x => x.IndividualSeason == parsedNewSeason).SingleOrDefault() != null)
+                        {
+                            message = $"Season already exists in {show.Title}";
+                        }
+
+                        else if (parsedNewSeason == targetSeason.IndividualSeason && parsedNewEpisodes == targetSeason.SeasonEpisodes)
+                        {
+                            message = $"No Changes were detected for {show.Title} - Season {targetSeason.IndividualSeason}.";
+                        }
+
+                        else if (context.ShowCard.Where(x => x.CurrentSeason == targetSeason.ShowSeasonID).Count() > 0)
+                        {
+                            message = "Cannot edit a season with a Show Card reference.";
                         }
 
                         else
                         {
-                            if (!int.TryParse(season, out int parsedNewSeason))
-                            {
-                                message = "Seasons must be positive valid numbers";
-                            }
-
-                            else if (parsedNewSeason < 1 || parsedNewSeason > 50)
-                            {
-                                message = "Season must be between 1 and 50";
-                            }
-
-                            else if (!int.TryParse(episodes, out int parsedNewEpisodes))
-                            {
-                                message = "Episodes must be positive valid numbers";
-                            }
-
-                            else if (parsedNewEpisodes < 1 || parsedNewEpisodes > 50)
-                            {
-                                message = "Episodes must be between 1 and 50";
-                            }
-
-                            // To avoid giving a false error when applying the no season duplicate constraint if the user is only editting the episodes, we must first check that the new season and the season that they are attempting to submit are not the same. If they are not we can continue to check if there is a duplicate.
-
-                            else if (parsedNewSeason != targetSeason.IndividualSeason && context.ShowSeason.Where(x => x.ShowID == targetSeason.ShowID).Where(x => x.IndividualSeason == parsedNewSeason).SingleOrDefault() != null)
-                            {
-                                message = $"Season already exists in {show.Title}";
-                            }
-
-                            else if (parsedNewSeason == targetSeason.IndividualSeason && parsedNewEpisodes == targetSeason.SeasonEpisodes)
-                            {
-                                message = $"No Changes were detected for {show.Title} - Season {targetSeason.IndividualSeason}.";
-                            }
-
-                            else if (context.ShowCard.Where(x => x.CurrentSeason == targetSeason.ShowSeasonID).Count() > 0)
-                            {
-                                message = "Cannot edit a season with a Show Card reference.";
-                            }
-
-                            else
-                            {
-                                tempSeason = targetSeason.IndividualSeason;
-                                tempEpisodes = targetSeason.SeasonEpisodes;
-                                targetSeason.IndividualSeason = parsedNewSeason;
-                                targetSeason.SeasonEpisodes = parsedNewEpisodes;
-                                context.SaveChanges();
-                                message = $"Successfully changed {show.Title} from season {tempSeason} having {tempEpisodes} episodes to season {parsedNewSeason} having {parsedNewEpisodes} episodes.";
-                            }
+                            tempSeason = targetSeason.IndividualSeason;
+                            tempEpisodes = targetSeason.SeasonEpisodes;
+                            targetSeason.IndividualSeason = parsedNewSeason;
+                            targetSeason.SeasonEpisodes = parsedNewEpisodes;
+                            context.SaveChanges();
+                            message = $"Successfully changed {show.Title} from season {tempSeason} having {tempEpisodes} episodes to season {parsedNewSeason} having {parsedNewEpisodes} episodes.";
                         }
                     }
                 }
-
-                TempData["message"] = message;
-                return Redirect("ManageShows");
-
             }
+
+            TempData["message"] = message;
+            return Redirect("ManageShows");
         }
 
         [HttpPost]
-        public bool isLoggedIn()
+        public bool IsLoggedIn()
         {
             return (HttpContext.Session.GetString("isLoggedIn") == "true");
         }

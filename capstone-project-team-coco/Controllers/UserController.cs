@@ -47,31 +47,29 @@ namespace we_watch.Controllers
                 }
                 else
                 {
-                    using (WeWatchContext context = new WeWatchContext())
+                    using WeWatchContext context = new WeWatchContext();
+
+
+                    // checking the inputted email against what's in our db
+                    User potentialUser = context.User.Where(x => x.Email == email.Trim().ToLower()).SingleOrDefault();
+                    // grab the salt value from that specific user
+                    if (potentialUser != null)
                     {
+                        string Salt = potentialUser.Salt;
 
-
-                        // checking the inputted email against what's in our db
-                        User potentialUser = context.User.Where(x => x.Email == email.Trim().ToLower()).SingleOrDefault();
-                        // grab the salt value from that specific user
-                        if (potentialUser != null)
+                        // we need to check the password that they have inputted + salt value matches what's in their hashpassword in the db
+                        if (Hash(password + Salt) == potentialUser.HashPassword)
                         {
-                            string Salt = potentialUser.Salt;
-
-                            // we need to check the password that they have inputted + salt value matches what's in their hashpassword in the db
-                            if (Hash(password + Salt) == potentialUser.HashPassword)
-                            {
-                                HttpContext.Session.SetString("isLoggedIn", "true");
-                                HttpContext.Session.SetInt32("User", potentialUser.UserID);
-                                return RedirectToAction("Shows", "ShowCard");
-                            }
-
-                            ViewBag.errorwronglogin = "The e-mail and/or password entered is incorrect. Please try again.";
-
-                            return View(); // change to show page
-
-
+                            HttpContext.Session.SetString("isLoggedIn", "true");
+                            HttpContext.Session.SetInt32("User", potentialUser.UserID);
+                            return RedirectToAction("Shows", "ShowCard");
                         }
+
+                        ViewBag.errorwronglogin = "The e-mail and/or password entered is incorrect. Please try again.";
+
+                        return View(); // change to show page
+
+
                     }
                 }
             }
@@ -95,30 +93,28 @@ namespace we_watch.Controllers
 
         public IActionResult SignUp(string email, string confirmedemail, string password, string confirmedpassword)
         {
-            if (validateEmailPassword(email, password, confirmedemail, confirmedpassword))
+            if (ValidateEmailPassword(email, password, confirmedemail, confirmedpassword))
             {
 
-                using (WeWatchContext context = new WeWatchContext())
+                using WeWatchContext context = new WeWatchContext();
+                if (context.User.Where(x => x.Email.Trim().ToLower() == email.Trim().ToLower()).Count() > 0)
                 {
-                    if (context.User.Where(x => x.Email.Trim().ToLower() == email.Trim().ToLower()).Count() > 0)
-                    {
-                        ViewBag.usedemail = "This email has already been used. Please log in.";
-                        return View();
-                    }
+                    ViewBag.usedemail = "This email has already been used. Please log in.";
+                    return View();
+                }
 
-                    else
-                    {
-                        Random r = new Random();
-                        string Salt = Convert.ToString(r.Next());
+                else
+                {
+                    Random r = new Random();
+                    string Salt = Convert.ToString(r.Next());
 
-                        User newUser = new User() { Email = email.Trim().ToLower(), HashPassword = Hash(password + Salt), Salt = Salt };
+                    User newUser = new User() { Email = email.Trim().ToLower(), HashPassword = Hash(password + Salt), Salt = Salt };
 
-                        context.User.Add(newUser);
+                    context.User.Add(newUser);
 
-                        context.SaveChanges();
-                        return Redirect("Login");
+                    context.SaveChanges();
+                    return Redirect("Login");
 
-                    }
                 }
             }
 
@@ -129,7 +125,7 @@ namespace we_watch.Controllers
         }
 
         // method to validate email & password
-        bool validateEmailPassword(string email, string password, string confirmedemail, string confirmedpassword)
+        bool ValidateEmailPassword(string email, string password, string confirmedemail, string confirmedpassword)
 
         {
             bool isValid = true;

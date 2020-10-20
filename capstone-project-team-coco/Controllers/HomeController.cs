@@ -22,7 +22,7 @@ namespace we_watch.Controllers
 
         public IActionResult Index()
         {
-            return (isLoggedIn() ?  Redirect("/User/Login") :  Redirect("/ShowCard/Shows"));
+            return (IsLoggedIn() ?  Redirect("/User/Login") :  Redirect("/ShowCard/Shows"));
         }
 
         public IActionResult Privacy()
@@ -35,7 +35,7 @@ namespace we_watch.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public bool isLoggedIn()
+        public bool IsLoggedIn()
         {
             return (HttpContext.Session.GetString("isLoggedIn") == "true");
         }
