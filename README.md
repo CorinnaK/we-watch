@@ -16,42 +16,42 @@ Just log in, add your favourite shows, add *Watchers* (who you're watching with)
 To run this application, you'll need the following already installed on your computer. 
 - Git - Installation instructions https://www.atlassian.com/git/tutorials/install-git
 - Visual Studio 2019 - Installation instructions https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2019
-- XAMMP with Apache and MySQL running - Installation instrutions can be found here https://www.c-sharpcorner.com/article/how-to-install-and-configure-xampp-in-windows-10/
+- XAMMP with Apache and MySQL running - Installation instrutions https://www.c-sharpcorner.com/article/how-to-install-and-configure-xampp-in-windows-10/
 
-
+**[| Installation Instructions|](https://www.atlassian.com/git/tutorials/install-git)**
 
 
 **1.  Launch Visual Studio 2019**
-...........**
+
 
 From the file menu select clone repository
-Use this link in the Repository location 
-*  https://github.com/TECHCareers-by-Manpower/capstone-project-team-coco.git  *
-
+copy this link to the Repository location 
+*$  https://github.com/TECHCareers-by-Manpower/capstone-project-team-coco.git  *
+\
 In Local path enter a folder on your computer where you'd like the project to live
 eg. C:\Projects
 You can also click on the ... beside the input field to navigate to the correct folder.
-
+\
 Click Clone
 
 
 **2. Install required packages**
-...........**
+**...........**
 
 In the Package Manager Console in Visual Studio
 
-	- Navigate to your project folder
+Navigate to your project folder
 
-	- Run the following commands:
+Run the following commands:
 
-*  dotnet add package Microsoft.EntityFrameworkCore.Design  *
+//  - dotnet add package Microsoft.EntityFrameworkCore.Design  *
 
-*  dotnet add package Pomelo.EntityFrameworkCore.MySql  *
+*  - dotnet add package Pomelo.EntityFrameworkCore.MySql  *
 
-*  dotnet add package Microsoft.EntityFrameworkCore.SqlServer  *
+*  dotnet add package Microsoft.EntityFrameworkCore.SqlServer  //
 
 **3. Create Database**
-..........**
+/
 
 In the Package Manager Console run:
 
