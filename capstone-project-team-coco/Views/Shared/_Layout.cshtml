@@ -14,13 +14,21 @@
 </head>
 <body>
     <header class="user-loggedin">
-        <img id="logohead" src="~/img/wewatchlogo.png"/>
+        <img id="logohead" src="~/img/wewatchlogo.png" />
 
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div id="programWatchersNav">
+            <div id="programsNav"> </div><a href="@Url.Action("Shows", "ShowCard")">PROGRAMS</a>
+        <div id="watchersNav"> </div><a href="@Url.Action("Watchers", "ShowCard")">WATACHERS</a>
+    </div>
+        </div>
+
+    </div>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
     </div>
 
     <footer>
@@ -35,8 +43,8 @@
 
             <div id="logoutDiv"><button id="logoutbutton" onclick="location.href='/User/LogOut'" value="LogOut">LogOut</button></div>
         </div>
-     
-        
+
+
 
     </footer>
     @*  <script src="~/lib/jquery/dist/jquery.min.js"></script>
