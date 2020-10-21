@@ -25,8 +25,8 @@ body {
     position: fixed;*/
 }
 #logohead {
-    width:auto;
-
+    width: auto;
+    height: 4rem;
 }
 
 .user-loggedin {
@@ -172,14 +172,9 @@ label {
 }
 
 #showcardDropDownButton {
-    background-color: #001517;
-    color: #F56960;
-    padding: 5px 10px;
-    border-radius: 30px;
-    border: 3px solid #F56960;
     font-weight: bold;
     font-size: 12px;
-    width: 120px;
+    margin-bottom: 10px;
 }
 
 #selectWatcher {
@@ -195,10 +190,44 @@ label {
     outline: none;
 }
 
+#programWatchersNav {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    background-color: #001517;
+    color: #001517;
+    font-weight: bold;
+    font-size: 12px;
+    align-items: center;
+}
+
+    #programsNav a:hover {
+        color: #FEE2E0;
+        text-decoration: none;
+        background-color: #00454E;
+    }
+
+#watchersNav a:hover {
+    color: #FEE2E0;
+    text-decoration: none;
+    background-color: #00454E;
+}
+
+#programsNav {
+    display: flex;
+    justify-content: center;
+  
+}
+
+#watchersNav {
+    display: flex;
+    justify-content: center;
+    margin-left: 30px;
+}
+
+
 /*START of Connect Page*/
-
 #chooseShowWatcherContainer {
-
     display: flex;
     justify-content: center;
     margin-top: 10px;
@@ -686,7 +715,7 @@ a {
     background-position: center;
     background-size: 32rem;
     padding: 13rem 0rem;
-    margin-top: -13rem;
+    margin-top: -6rem;
     text-align: center;
 }
 
@@ -752,11 +781,44 @@ a {
     transform: translate(-50%, -50%);*/
 }
 
+#orSignUp {
+    margin: 30px;
+    background-color: #F56960;
+    color: #FEE2E0;
+    padding: 5px 10px;
+    /* margin: 15px 0 10px 0;*/
+    border-radius: 30px;
+    border: 2px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#orLogIn {
+    margin: 30px;
+    background-color: #001517;
+    color: #FEE2E0;
+    padding: 5px 10px;
+    /* margin: 15px 0 10px 0;*/
+    border-radius: 30px;
+    border: 2px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
 #errormessage {
     color: #F56960;
     font-weight: bold;
     font-size: 12px;
 }
+
+#signUpBackground p {
+    color: #F56960;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
 /*END of log in & sign up pages*/
 footer {
     height: 1.5em;
