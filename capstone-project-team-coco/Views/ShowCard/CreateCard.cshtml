@@ -7,124 +7,142 @@
 
 
 <div class="text-center">
-    <h1 class="display-4">Here is the Make a Connection page</h1>
+    <div class="displayShowCard">
+        <section class="watcherContainer">
+            <section id="dropdowns">
+                <h1 class="display-4">Here is the Make a Connection page</h1>
 
 
-    <form>
-        <div id="chooseShowWatcherContainer">
+                <form>
+                    <div id="chooseShowWatcherContainer">
 
-            <div id="connectLabelsContainer">
-                <label for="show">Choose a show</label>
-                <label for="watcher">Choose a Watcher</label>
-            </div>
-
-
-            <div id="connectDropdownsContainer">
-                <div id="dropdownChoose">
-                    <select id="show" name="showID" required>
-                        <option></option>
-                        @foreach (Show show in ViewBag.AllShows)
-                        {
-                            <option value="@show.ShowID">@show.Title</option>
-                        }
-
-                    </select>
-                </div>
-
-                <div id="dropdownChooseWatcher">
+                        <div id="connectLabelsContainer">
+                            <div id="chooseShow" for="show">Choose a show</div>
+                            <label for="watcher">Choose a Watcher</label>
+                        </div>
 
 
-                    <select id="watcher" name="watcherID" required>
-                        <option></option>
-                        @foreach (Watcher watcher in ViewBag.AllWatchers)
-                        {
-                            <option value="@watcher.WatcherID">@watcher.Name</option>
-                        }
-                    </select>
-                </div>
-            </div>
+                        <div id="connectDropdownsContainer">
+                            <div id="dropdownChoose">
+                                <select id="show" name="showID" required>
+                                    <option></option>
+                                    @foreach (Show show in ViewBag.AllShows)
+                                    {
+                                        <option value="@show.ShowID">@show.Title</option>
+                                    }
+
+                                </select>
+                            </div>
+
+                            <div id="dropdownChooseWatcher">
+                                <select id="watcher" name="watcherID" required>
+                                    <option></option>
+                                    @foreach (Watcher watcher in ViewBag.AllWatchers)
+                                    {
+                                        <option value="@watcher.WatcherID">@watcher.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
 
 
-            <div id="dropdownChooseWatcher">
+                    </div>
+                    <div id="dropdownSelectButton">
 
-                <button type="submit" formaction=@Url.Action("CreateCard") formmethod="post">Select</button>
+                        <button type="submit" id="saveButtonEditShowTitle" formaction=@Url.Action("CreateCard") formmethod="post">Select</button>
 
-            </div>
-    </form>
-    @if (ViewBag.Card.ShowTitle != null && ViewBag.Card.WatcherName != null)
-    {
-        <form>
-            <div>
+                    </div>
+                </form>
 
-
-                @if (ViewBag.Seasons != null)
+                @if (ViewBag.Card.ShowTitle != null && ViewBag.Card.WatcherName != null)
                 {
-                    <label for="season">What Season are you on?</label>
-                    <select id="season" name="seasonID" required>
-                        <option></option>
-                        @foreach (ShowSeason seasons in ViewBag.Seasons)
+                    <form>
+
+
+                        @if (ViewBag.Seasons != null)
                         {
-                            <option value="@seasons.ShowSeasonID">@seasons.IndividualSeason</option>
+                            <div id="chooseShowWatcherContainer">
+                                <label for="season">What Season are you on?</label>
 
+                                <select id="episode" name="seasonID" required>
+                                    <option></option>
+                                    @foreach (ShowSeason seasons in ViewBag.Seasons)
+                                    {
+                                        <option value="@seasons.ShowSeasonID">@seasons.IndividualSeason</option>
+
+                                    }
+                                </select>
+                                <input hidden name="showID" value="@ViewBag.Card.ShowID">
+                                <input hidden name="watcherID" value="@ViewBag.Card.WatcherID">
+                            </div>
+                            <div id="dropdownSelectButton">
+                                <button type="submit" id="saveButtonEditShowTitle" formaction=@Url.Action("CreateCard") formmethod="post">Select</button>
+                            </div>
                         }
-                    </select>
-                    <input hidden name="showID" value="@ViewBag.Card.ShowID">
-                    <input hidden name="watcherID" value="@ViewBag.Card.WatcherID">
-                    <button type="submit" formaction=@Url.Action("CreateCard") formmethod="post">Select</button>
+
+                    </form>
                 }
-            </div>
-        </form>
-    }
-    @if (ViewBag.Card.Episodes != 0)
-    {
-        <form>
-            <label for="episodes">What Episode are you on?</label>
-            <select id="episode" name="episode" required>
-                <option></option>
-                @for (int i = 1; i < ViewBag.Card.Episodes; i++)
+                @if (ViewBag.Card.Episodes != 0)
                 {
-                    <option value="@i">@i</option>
+                    <form>
+                        <div id="chooseShowWatcherContainer">
+
+                            <label for="episodes">What Episode are you on?</label>
+                            <select id="episode" name="episode" required>
+                                <option></option>
+                                @for (int i = 1; i < ViewBag.Card.Episodes; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                            <input hidden name="showID" value="@ViewBag.Card.ShowID">
+                            <input hidden name="watcherID" value="@ViewBag.Card.WatcherID">
+                            <input hidden name="seasonID" value="@ViewBag.Card.SeasonID">
+                        </div>
+
+                        <div id="dropdownSelectButton">
+                            <button type="submit" id="saveButtonEditShowTitle" formaction=@Url.Action("CreateCard") formmethod="post">Select</button>
+                        </div>
+
+                    </form>
                 }
-            </select>
-            <input hidden name="showID" value="@ViewBag.Card.ShowID">
-            <input hidden name="watcherID" value="@ViewBag.Card.WatcherID">
-            <input hidden name="seasonID" value="@ViewBag.Card.SeasonID">
 
-            <button type="submit" formaction=@Url.Action("CreateCard") formmethod="post">Select</button>
-        </form>
-    }
+                <form>
+                    <div class="showCardByShowContainer">
+                        <div id="connectShow">
+
+                            <label id="indShowCardLabel"> @ViewBag.Card.ShowTitle </label>
+
+                            <label id="indShowCardLabel"> @ViewBag.Card.WatcherName </label>
+                            <p></p>
+
+                            @if (ViewBag.Card.CurrentSeason != 0)
+                            {
+                                <label id="indShowCardLabel"> + Season @ViewBag.Card.CurrentSeason </label>
+                            }
+
+                            @if (ViewBag.Card.CurrentEpisode != 0)
+                            {
+                                <label id="indShowCardLabel"> & Episode @ViewBag.Card.CurrentEpisode </label>
+                            }
 
 
-    <form style="border:solid black 2px; width:25%">
-        <dl>
-            <dt>Show</dt>
-            <dd>@ViewBag.Card.ShowTitle</dd>
-            <dt>Watcher</dt>
-            <dd>@ViewBag.Card.WatcherName</dd>
-            <dt>Season</dt>
-            @if (ViewBag.Card.CurrentSeason != 0)
-            {
-                <dd>@ViewBag.Card.CurrentSeason</dd>
-            }
-            <dt>Episode</dt>
-            @if (ViewBag.Card.CurrentEpisode != 0)
-            {
-                <dd>@ViewBag.Card.CurrentEpisode</dd>
-            }
-        </dl>
-        <input hidden name="card" value="@ViewBag.Card">
-        <input hidden name="showID" value="@ViewBag.Card.ShowID">
-        <input hidden name="watcherID" value="@ViewBag.Card.WatcherID">
-        <input hidden name="seasonID" value="@ViewBag.Card.SeasonID">
-        <input hidden name="episode" value="@ViewBag.Card.CurrentEpisode">
-        <button type="submit" formaction=@Url.Action("Connect") formmethod="post">Let's Watch</button>
-
-    </form>
-
-    <h3>@ViewBag.Message </h3>
+                            <input hidden name="card" value="@ViewBag.Card">
+                            <input hidden name="showID" value="@ViewBag.Card.ShowID">
+                            <input hidden name="watcherID" value="@ViewBag.Card.WatcherID">
+                            <input hidden name="seasonID" value="@ViewBag.Card.SeasonID">
+                            <input hidden name="episode" value="@ViewBag.Card.CurrentEpisode">
+                        </div>
+                            <button type="submit" id="connectButton" formaction=@Url.Action("Connect") formmethod="post">Connect</button>
+                    </div>
+                </form>
+                <h3 id="connectSuccess">@ViewBag.Message </h3>
 
 
 
 
 
+            </section>
+        </section>
+    </div>
 </div>
