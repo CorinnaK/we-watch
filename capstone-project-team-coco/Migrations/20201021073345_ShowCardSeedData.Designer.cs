@@ -8,8 +8,8 @@ using we_watch.Models;
 namespace we_watch.Migrations
 {
     [DbContext(typeof(WeWatchContext))]
-    [Migration("20201019024300_seedShowCard")]
-    partial class seedShowCard
+    [Migration("20201021073345_ShowCardSeedData")]
+    partial class ShowCardSeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,11 +73,6 @@ namespace we_watch.Migrations
                         .HasColumnName("ShowID")
                         .HasColumnType("int(10)");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnName("Status")
-                        .HasColumnType("varchar(20)");
-
                     b.Property<int>("UserID")
                         .HasColumnName("UserID")
                         .HasColumnType("int(10)");
@@ -105,8 +100,7 @@ namespace we_watch.Migrations
                             CurrentEpisode = (short)1,
                             CurrentSeason = (short)-2,
                             ShowID = -1,
-                            Status = "Current",
-                            UserID = -2,
+                            UserID = -3,
                             WatcherID = -2
                         },
                         new
@@ -115,8 +109,7 @@ namespace we_watch.Migrations
                             CurrentEpisode = (short)10,
                             CurrentSeason = (short)-2,
                             ShowID = -1,
-                            Status = "Current",
-                            UserID = -2,
+                            UserID = -3,
                             WatcherID = -3
                         },
                         new
@@ -125,7 +118,6 @@ namespace we_watch.Migrations
                             CurrentEpisode = (short)12,
                             CurrentSeason = (short)-4,
                             ShowID = -2,
-                            Status = "Current",
                             UserID = -3,
                             WatcherID = -3
                         },
@@ -135,7 +127,6 @@ namespace we_watch.Migrations
                             CurrentEpisode = (short)30,
                             CurrentSeason = (short)-5,
                             ShowID = -2,
-                            Status = "Current",
                             UserID = -3,
                             WatcherID = -1
                         });
@@ -263,39 +254,9 @@ namespace we_watch.Migrations
                         {
                             UserID = -3,
                             Email = "goaspin@gmail.com",
-                            HashPassword = "2334814362998297759587574090140267323532918138392977707124924545",
-                            Salt = "Yes"
+                            HashPassword = "3/H/c1lljJe2l9+DQCsr3NSSPhFyj/SZV7hA5wUQxnI=",
+                            Salt = "1859530424"
                         });
-                });
-
-            modelBuilder.Entity("we_watch.Models.WatchHistory", b =>
-                {
-                    b.Property<int>("WatchHistoryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("WatchHistoryID")
-                        .HasColumnType("int(10)");
-
-                    b.Property<sbyte>("Episode_Num")
-                        .HasColumnName("EpisodeNum")
-                        .HasColumnType("tinyint(2)");
-
-                    b.Property<string>("Platform")
-                        .HasColumnName("Platform")
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<sbyte>("SeasonNum")
-                        .HasColumnName("SeasonNum")
-                        .HasColumnType("tinyint(2)");
-
-                    b.Property<int>("ShowCardID")
-                        .HasColumnName("ShowCardID")
-                        .HasColumnType("int(10)");
-
-                    b.HasKey("WatchHistoryID");
-
-                    b.HasIndex("ShowCardID");
-
-                    b.ToTable("WatchHistory");
                 });
 
             modelBuilder.Entity("we_watch.Models.Watcher", b =>
@@ -364,15 +325,6 @@ namespace we_watch.Migrations
                         .WithMany("ShowSeasons")
                         .HasForeignKey("ShowID")
                         .HasConstraintName("FK_ShowSeason_Show")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("we_watch.Models.WatchHistory", b =>
-                {
-                    b.HasOne("we_watch.Models.ShowCard", "ShowCard")
-                        .WithMany("WatchHistories")
-                        .HasForeignKey("ShowCardID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

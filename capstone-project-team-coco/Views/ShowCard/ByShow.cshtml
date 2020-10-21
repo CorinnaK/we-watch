@@ -14,11 +14,9 @@
     <div class="displayShowCard">
         <section class="watcherContainer">
             <section id="dropdowns">
-                <h1 class="display-4">ShowCards</h1>
                 <div id="selectWatcher">
 
                     @{Html.BeginForm("ByShow", "ShowCard");}
-                    <p>Choose a Different Show</p>
                     <div id="showcardDropDownButton">
                         @Html.DropDownList("showID", new SelectList(ViewBag.AllUserShows, "ShowID", "Title"), "Choose a new Show")
                         </div>
@@ -47,10 +45,10 @@
                                         @*<dt>Episode</dt>*@
                                         <div class="byShowEpisode"> E @card.CurrentEpisode</div>
                                         <button id="plus">
-                                            @Html.ActionLink("++++", "AddEpisode", "ShowCard", new { showCardID = card.ShowCardID })
+                                            @Html.ActionLink("ò", "AddEpisode", "ShowCard", new { showCardID = card.ShowCardID })
                                         </button>
                                         <button id="minus">
-                                            @Html.ActionLink("----", "MinusEpisode", "ShowCard", new { showCardID = card.ShowCardID })
+                                            @Html.ActionLink("û", "MinusEpisode", "ShowCard", new { showCardID = card.ShowCardID })
                                         </button>
 
                                     </div>

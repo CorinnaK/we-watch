@@ -8,8 +8,8 @@ using we_watch.Models;
 namespace we_watch.Migrations
 {
     [DbContext(typeof(WeWatchContext))]
-    [Migration("20201017022222_seedshowwatcher")]
-    partial class seedshowwatcher
+    [Migration("20201021073120_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,20 +69,9 @@ namespace we_watch.Migrations
                         .HasColumnName("CurrentSeason")
                         .HasColumnType("smallint(2)");
 
-                    b.Property<string>("Platform")
-                        .HasColumnName("Platform")
-                        .HasColumnType("varchar(20)")
-                        .HasAnnotation("MySql:CharSet", "utf8mb4")
-                        .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
-
                     b.Property<int>("ShowID")
                         .HasColumnName("ShowID")
                         .HasColumnType("int(10)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnName("Status")
-                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("UserID")
                         .HasColumnName("UserID")
@@ -103,6 +92,44 @@ namespace we_watch.Migrations
                         .HasName("FK_ShowCard_Watcher");
 
                     b.ToTable("ShowCard");
+
+                    b.HasData(
+                        new
+                        {
+                            ShowCardID = -1,
+                            CurrentEpisode = (short)1,
+                            CurrentSeason = (short)-2,
+                            ShowID = -1,
+                            UserID = -3,
+                            WatcherID = -2
+                        },
+                        new
+                        {
+                            ShowCardID = -2,
+                            CurrentEpisode = (short)10,
+                            CurrentSeason = (short)-2,
+                            ShowID = -1,
+                            UserID = -3,
+                            WatcherID = -3
+                        },
+                        new
+                        {
+                            ShowCardID = -3,
+                            CurrentEpisode = (short)12,
+                            CurrentSeason = (short)-4,
+                            ShowID = -2,
+                            UserID = -3,
+                            WatcherID = -3
+                        },
+                        new
+                        {
+                            ShowCardID = -4,
+                            CurrentEpisode = (short)30,
+                            CurrentSeason = (short)-5,
+                            ShowID = -2,
+                            UserID = -3,
+                            WatcherID = -1
+                        });
                 });
 
             modelBuilder.Entity("we_watch.Models.ShowSeason", b =>
@@ -130,6 +157,50 @@ namespace we_watch.Migrations
                         .HasName("FK_ShowSeason_Show");
 
                     b.ToTable("ShowSeason");
+
+                    b.HasData(
+                        new
+                        {
+                            ShowSeasonID = -1,
+                            IndividualSeason = (short)1,
+                            SeasonEpisodes = (short)10,
+                            ShowID = -1
+                        },
+                        new
+                        {
+                            ShowSeasonID = -2,
+                            IndividualSeason = (short)2,
+                            SeasonEpisodes = (short)10,
+                            ShowID = -1
+                        },
+                        new
+                        {
+                            ShowSeasonID = -3,
+                            IndividualSeason = (short)3,
+                            SeasonEpisodes = (short)10,
+                            ShowID = -1
+                        },
+                        new
+                        {
+                            ShowSeasonID = -4,
+                            IndividualSeason = (short)1,
+                            SeasonEpisodes = (short)25,
+                            ShowID = -2
+                        },
+                        new
+                        {
+                            ShowSeasonID = -5,
+                            IndividualSeason = (short)8,
+                            SeasonEpisodes = (short)40,
+                            ShowID = -2
+                        },
+                        new
+                        {
+                            ShowSeasonID = -6,
+                            IndividualSeason = (short)5,
+                            SeasonEpisodes = (short)13,
+                            ShowID = -3
+                        });
                 });
 
             modelBuilder.Entity("we_watch.Models.User", b =>
@@ -183,39 +254,9 @@ namespace we_watch.Migrations
                         {
                             UserID = -3,
                             Email = "goaspin@gmail.com",
-                            HashPassword = "2334814362998297759587574090140267323532918138392977707124924545",
-                            Salt = "Yes"
+                            HashPassword = "3/H/c1lljJe2l9+DQCsr3NSSPhFyj/SZV7hA5wUQxnI=",
+                            Salt = "1859530424"
                         });
-                });
-
-            modelBuilder.Entity("we_watch.Models.WatchHistory", b =>
-                {
-                    b.Property<int>("WatchHistoryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("WatchHistoryID")
-                        .HasColumnType("int(10)");
-
-                    b.Property<sbyte>("Episode_Num")
-                        .HasColumnName("EpisodeNum")
-                        .HasColumnType("tinyint(2)");
-
-                    b.Property<string>("Platform")
-                        .HasColumnName("Platform")
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<sbyte>("SeasonNum")
-                        .HasColumnName("SeasonNum")
-                        .HasColumnType("tinyint(2)");
-
-                    b.Property<int>("ShowCardID")
-                        .HasColumnName("ShowCardID")
-                        .HasColumnType("int(10)");
-
-                    b.HasKey("WatchHistoryID");
-
-                    b.HasIndex("ShowCardID");
-
-                    b.ToTable("WatchHistory");
                 });
 
             modelBuilder.Entity("we_watch.Models.Watcher", b =>
@@ -267,7 +308,7 @@ namespace we_watch.Migrations
                         .WithMany("ShowCards")
                         .HasForeignKey("UserID")
                         .HasConstraintName("FK_ShowCard_User")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("we_watch.Models.Watcher", "Watcher")
@@ -284,15 +325,6 @@ namespace we_watch.Migrations
                         .WithMany("ShowSeasons")
                         .HasForeignKey("ShowID")
                         .HasConstraintName("FK_ShowSeason_Show")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("we_watch.Models.WatchHistory", b =>
-                {
-                    b.HasOne("we_watch.Models.ShowCard", "ShowCard")
-                        .WithMany("WatchHistories")
-                        .HasForeignKey("ShowCardID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

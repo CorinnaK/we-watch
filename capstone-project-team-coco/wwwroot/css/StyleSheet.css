@@ -24,9 +24,16 @@ body {
     /*   background-position-x: -23%;
     position: fixed;*/
 }
+#logohead {
+    width:auto;
 
+}
 
+.user-loggedin {
+    text-align:center;
+  
 
+}
 #logo {
     display: flex;
     justify-content: center;
@@ -772,6 +779,7 @@ footer  a{
     position: relative;
     top: -45px;
 }
+
 
 footer  a:hover {
     top: -65px;
