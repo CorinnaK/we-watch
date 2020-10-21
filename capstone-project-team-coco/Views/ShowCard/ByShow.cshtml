@@ -7,49 +7,58 @@
     //https://stackoverflow.com/questions/16636448/dropdownlist-from-objects-mvc
     //SelectList overload (data, value, text)
 *@
-<h3>@ViewBag.Message</h3>
+                    <h3>@ViewBag.Message</h3>
 
-@{Html.BeginForm("ByShow", "ShowCard");}
-<p>Choose a Different Show</p>
-@Html.DropDownList("showID", new SelectList(ViewBag.AllUserShows, "ShowID", "Title"), "Choose a new Show")
-<button type="submit" value="Submit">Select</button>
-@{ Html.EndForm();}
 
 <div class="text-center">
     <div class="displayShowCard">
         <section class="watcherContainer">
             <section id="dropdowns">
                 <h1 class="display-4">ShowCards</h1>
+                <div id="selectWatcher">
 
-                @foreach (DisplayCard card in ViewBag.DisplayCards)
-                {
-                    <div class="showCardByShowContainer">
-                        <div id="showCardLabel">
-                            <label id ="indShowCardLabel">Watching: </label>
-                            <label id="indShowCardLabel">With: </label>
-                            <label id ="indShowCardLabel">Season & Episode: </label>
+                    @{Html.BeginForm("ByShow", "ShowCard");}
+                    <p>Choose a Different Show</p>
+                    <div id="showcardDropDownButton">
+                        @Html.DropDownList("showID", new SelectList(ViewBag.AllUserShows, "ShowID", "Title"), "Choose a new Show")
                         </div>
-                        <div id="showCardDetails">
-                            @*<dt>Show</dt>*@
-                            <div id="byShowTitle">@card.ShowTitle</div>
-                            @*<dt>Watcher</dt>*@
-                            <div id="byShowWatcher">@card.WatcherName</div>
-                            @*<dt>Season</dt>*@
-                            <div class="byShowSeasonEpisodeContainer">
-                                <div class="byShowSeason"> S @card.CurrentSeason</div>
-                                @*<dt>Episode</dt>*@
-                                <div class="byShowEpisode"> E @card.CurrentEpisode</div>
-                                <button id="plus">
-                                    @Html.ActionLink("++++", "AddEpisode", "ShowCard", new { showCardID = card.ShowCardID })</button>
-                                    <button id="minus">@Html.ActionLink("----", "MinusEpisode", "ShowCard", new { showCardID = card.ShowCardID })
-                                </button>
-                                
-                            </div>
-                        </div>
+                    <div>
+                        <button type="submit" id="showCardButton"  value="Submit">Select</button></div>
+                        @{ Html.EndForm();}
                     </div>
 
-                }
-            </section>
+
+                        @foreach (DisplayCard card in ViewBag.DisplayCards)
+                        {
+                            <div class="showCardByShowContainer">
+                                <div id="showCardLabel">
+                                    <label id="indShowCardLabel">Watching: </label>
+                                    <label id="indShowCardLabel">With: </label>
+                                    <label id="indShowCardLabel">Season & Episode: </label>
+                                </div>
+                                <div id="showCardDetails">
+                                    @*<dt>Show</dt>*@
+                                    <div id="byShowTitle">@card.ShowTitle</div>
+                                    @*<dt>Watcher</dt>*@
+                                    <div id="byShowWatcher">@card.WatcherName</div>
+                                    @*<dt>Season</dt>*@
+                                    <div class="byShowSeasonEpisodeContainer">
+                                        <div class="byShowSeason"> S @card.CurrentSeason</div>
+                                        @*<dt>Episode</dt>*@
+                                        <div class="byShowEpisode"> E @card.CurrentEpisode</div>
+                                        <button id="plus">
+                                            @Html.ActionLink("++++", "AddEpisode", "ShowCard", new { showCardID = card.ShowCardID })
+                                        </button>
+                                        <button id="minus">
+                                            @Html.ActionLink("----", "MinusEpisode", "ShowCard", new { showCardID = card.ShowCardID })
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+</section>
         </section>
     </div>
 

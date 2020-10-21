@@ -138,19 +138,64 @@ label {
     margin: 0 5px 0 15px;
 }
 
+#showCardButton {
+    background-color: #001517;
+    color: #F56960;
+    padding: 5px 10px;
+    border-radius: 30px;
+    border: 3px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    height: 30px;
+}
 
+#showcardDropDownButton {
+    background-color: #001517;
+    color: #F56960;
+    padding: 5px 10px;
+    border-radius: 30px;
+    border: 3px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    width: 120px;
+}
 
-
-.byShowSeasonEpisodeContainer{
+#selectWatcher{
     display: flex;
+    justify-content: center;
+}
 
+.byShowSeasonEpisodeContainer {
+    display: flex;
 }
 
 *:focus {
     outline: none;
 }
 
+/*START of Connect Page*/
 
+#chooseShowWatcherContainer{
+
+}
+
+#connectDropdownsContainer{
+
+}
+
+#dropdownChooseShow {
+}
+
+#dropdownChooseWatcher {
+}
+
+#connectLabelsContainer {
+}
+
+
+
+
+/*END of Connect Page*/
 /*START of Watchers Page*/
 .watcherName {
     background-color: #F0A202;
