@@ -13,7 +13,7 @@
     background-color: aqua;
 }*/
 body {
-    background-color: #001517;
+    background-color: #ffffff;
     font-family: Arial, Verdana;
     /*background-image: url(../img/loginbackground.png);*/
     /*   background-repeat: no-repeat;
@@ -39,6 +39,13 @@ body {
     justify-content: center;
     margin-bottom: 2.5rem;
     margin-top: -5rem;
+}
+
+#logoLogin {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 7.9rem;
+    margin-top: -4rem;
 }
 
 
@@ -73,6 +80,14 @@ select:focus {
 
 label {
     color: #0A9eB0;
+    font-weight: bold;
+    font-size: 12px;
+    padding-bottom: 5px;
+    width: 10rem;
+}
+
+#signuplabels {
+    color: #001517;
     font-weight: bold;
     font-size: 12px;
     padding-bottom: 5px;
@@ -194,6 +209,7 @@ label {
     font-weight: bold;
     font-size: 12px;
     padding-bottom: 5px;
+    margin-top: 4px;
 }
 
 #connectDropdownsContainer {
@@ -646,12 +662,26 @@ a {
     background-image: url(../img/wewatchlogo.png);
 }*/
 
-#loginsignupform {
+#signupform {
     background-color: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url(../img/signupbackground.png);
+    background-image: url(../img/largeyellowcircle.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32rem;
+    padding: 13rem 0rem;
+    margin-top: -13rem;
+    text-align: center;
+}
+
+#loginform {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(../img/largedarkcircle.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 32rem;
@@ -674,7 +704,7 @@ a {
     width: 300px;
 }
 
-#loginbutton, #logoutbutton {
+#loginbutton {
     background-color: #001517;
     color: #F56960;
     padding: 5px 10px;
@@ -683,14 +713,31 @@ a {
     border: 3px solid #F56960;
     font-weight: bold;
     font-size: 12px;
-    position: absolute;
+    /*position: absolute;*/
     /*top: 50%;*/
-    left: 50%;
+    /*left: 50%;
     -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);*/
 }
 
-#signupbutton {
+#logoutbutton {
+    background-color: #001517;
+    color: #F56960;
+    padding: 5px 10px;
+    margin: 15px 0 10px 0;
+    border-radius: 30px;
+    border: 3px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#logoutDiv {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+    #signupbutton {
     background-color: #F56960;
     color: #FEE2E0;
     padding: 5px 10px;
@@ -714,8 +761,8 @@ a {
 footer {
     height: 1.5em;
     width: auto;
-    margin-top: 5em;
-    background-color:#F56960
+    /*margin-top: 5em;*/
+    background-color: #F56960;
 }
 
 
@@ -733,15 +780,16 @@ footer  a{
     top: -45px;
 }
 
-#logoutbutton {
-
-margin-top: 7em;
-}
 
 footer  a:hover {
     top: -65px;
 }
 
+
+footer img {
+    border: 0;
+    height: 5rem;
+}
 
 @media (min-width: 700px) {
     footer {
@@ -749,5 +797,7 @@ footer  a:hover {
     }
 }
 
-/*
-https://www.w3schools.com/css/css_tooltip.asp*/
+
+
+
+https://www.w3schools.com/css/css_tooltip.asp

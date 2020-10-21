@@ -35,14 +35,14 @@
                             <label id="indShowCardLabel">Season & Episode: </label>
                         </div>
                         <div id="showCardDetails">
-                            @*<dt>Show</dt>*@
+                            
                             <div id="byShowTitle">@card.ShowTitle</div>
-                            @*<dt>Watcher</dt>*@
+                           
                             <div id="byShowWatcher">@card.WatcherName</div>
-                            @*<dt>Season</dt>*@
+                           
                             <div class="byShowSeasonEpisodeContainer">
                                 <div class="byShowSeason"> S @card.CurrentSeason</div>
-                                @*<dt>Episode</dt>*@
+                               
                                 <div class="byShowEpisode"> E @card.CurrentEpisode</div>
                                 <button id="plus">
                                     @Html.ActionLink("++++", "AddEpisode", "ShowCard", new { showCardID = card.ShowCardID })

@@ -8,16 +8,16 @@
         <img src="../img/signupbackground.png">
     </div>*@
     <div class="text-center">
-        <div id="logo"> <img src="../img/wewatchlogo.png" alt="We Watch Logo"></div>
+    @*    <div id="logo"> <img src="../img/wewatchlogo.png" alt="We Watch Logo"></div>*@
 
-        <form action="SignUp" id="loginsignupform" method="post">
-            <label for="email">Email:</label>
+        <form action="SignUp" id="signupform" method="post">
+            <label id="signuplabels" for="email">Email:</label>
             <input type="email" id="email" name="email" required />
-            <label for="confirmedemail">Confirm Email:</label>
+            <label  id="signuplabels" for="confirmedemail">Confirm Email:</label>
             <input type="email" id="email" name="confirmedemail" required />
-            <label for="password">Password:</label>
+            <label  id="signuplabels" for="password">Password:</label>
             <input type="password" id="password" name="password" required />
-            <label for="confirmedpassword">Confirm Password:</label>
+            <label  id="signuplabels" for="confirmedpassword">Confirm Password:</label>
             <input type="password" id="password" name="confirmedpassword" required />
             <input type="submit" id="signupbutton" value="Sign Up" />
 
