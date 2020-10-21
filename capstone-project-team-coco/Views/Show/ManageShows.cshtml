@@ -1,6 +1,9 @@
 @{
     ViewData["Title"] = "ManageShows";
 }
+@*Citation
+https://www.sitepoint.com/using-the-html5-constraint-api-for-form-validation/
+Restricting title length to a max of 50 characters*@
 
 <div class="text-center">
     <h1 class="display-4">Here is the add a show page</h1>
@@ -20,7 +23,7 @@
                     @*<div id="addProgramContainer">*@
                     <div id="programNameContainer">
                         <label for="title">Program Name:</label>
-                        <input type="text" id="addProgramTitle" name="title" required />
+                        <input type="text" id="addProgramTitle" name="title" required maxlength="50" />
                     </div>
                     <div id="seasonEpisodeContainer">
                         <div id="seasonContainer">
@@ -33,7 +36,7 @@
                         </div>
                         <input type="submit" id="saveButtons" value="Add Program" />
                     </div>
-                        @*</div>*@
+                    @*</div>*@
 
 
                 </form>
@@ -53,7 +56,7 @@
                 <form>
                     <div id="editShowTitleContainer">
                         <input type="hidden" name="showID" value="@show.ShowID">
-                        <input type="text" name="title" id="title" value="@show.Title" required />
+                        <input type="text" name="title" id="title" value="@show.Title" required maxlength="50" />
                         <button type="submit" id="saveButtonEditShowTitle" name="editProgram[]" formaction=@Url.Action("EditTitle") formmethod="post">Save</button>
                         <button type="submit" id="deleteButtonnEditShowTitle" name="deleteProgram[]" formaction=@Url.Action("DeleteProgram") formmethod="post">X</button>
                     </div>
@@ -95,7 +98,7 @@
                         <button type="submit" id="addSeasonEpisodeSaveButton" name="addSeason" formaction=@Url.Action("AddSeason") formmethod="post">Add Season</button>
                         <button type="submit" id="deleteButtonAddSeason">X</button>
                     </div>
-</form>
+                </form>
             </section>
         </section>
     }

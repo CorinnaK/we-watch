@@ -11,14 +11,21 @@ namespace we_watch.Controllers
         // Index lists all the shows in the database
         public IActionResult Index()
         {
+
             return RedirectToAction("ManageShows");
         }
 
 
         // Central View for CRUD relating to shows or seasons
+        // Lists all Shows
         public IActionResult ManageShows()
         {
+
+            // Citation:
+            //https://docs.microsoft.com/en-us/dotnet/api/system.web.mvc.controller.redirecttoaction?view=aspnet-mvc-5.2
+            // Redirect to Action in different Controllers
             // Ensure user is logged in
+
             if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
 
             List<ShowSeason> Seasons;
@@ -91,6 +98,7 @@ namespace we_watch.Controllers
         }
 
         [HttpPost]
+        // Deletes a season from a show
         public IActionResult DeleteSeason(int deleteSeason)
         {
             if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
@@ -136,6 +144,8 @@ namespace we_watch.Controllers
         }
 
         [HttpPost]
+
+        // Deletes a program from the Db
         public IActionResult DeleteProgram(int showID)
         {
             if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
@@ -167,6 +177,8 @@ namespace we_watch.Controllers
         }
 
         [HttpPost]
+
+        // Edits the title of a show
         public IActionResult EditTitle(string title, int showID)
         {
             if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
@@ -215,6 +227,7 @@ namespace we_watch.Controllers
         }
 
         [HttpPost]
+        // Adds a season to a show
         public IActionResult AddSeason(int showID, string newSeason, string newEpisodes)
         {
             if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
@@ -267,6 +280,7 @@ namespace we_watch.Controllers
         }
 
         [HttpPost]
+        // Edits a season 
         public IActionResult EditSeason(int editSeason, string season, string episodes)
         {
 
@@ -356,6 +370,8 @@ namespace we_watch.Controllers
         }
 
         [HttpPost]
+
+        // Checks if user is logged in
         public bool IsLoggedIn()
         {
             return (HttpContext.Session.GetString("isLoggedIn") == "true");
