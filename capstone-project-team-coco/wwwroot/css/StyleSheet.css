@@ -411,12 +411,15 @@ justify-content: center;
 
 a {
     text-decoration: none;
-    color: #072F34;
+    color: #FEE2E0;
+    ;
 }
 
 
 .allShowsSection {
     text-align: center;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .addNewProgramTitle {
@@ -736,7 +739,7 @@ a {
 #loginbutton {
     background-color: #001517;
     color: #F56960;
-    padding: 5px 10px;
+/*    padding: 10px;*/
     margin: 15px 0 10px 0;
     border-radius: 30px;
     border: 3px solid #F56960;
@@ -781,6 +784,11 @@ a {
     transform: translate(-50%, -50%);*/
 }
 
+#dropdowns h2 {
+    color: #FEE2E0;
+}
+
+
 #orSignUp {
     margin: 30px;
     background-color: #F56960;
@@ -804,7 +812,10 @@ a {
     font-size: 12px;
 }
 
-
+#signUpErrors{
+    margin-top: 80px;
+    padding: 0 20px 0 20px;
+}
 
 #errormessage {
     color: #F56960;

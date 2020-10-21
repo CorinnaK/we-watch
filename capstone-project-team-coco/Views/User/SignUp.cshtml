@@ -3,48 +3,47 @@
     ViewData["Title"] = "Sign Up";
 }
 
-    <div id="signUpBackground">
-        @*<div id="bg">
+<div id="signUpBackground">
+    @*<div id="bg">
             <img src="../img/signupbackground.png">
         </div>*@
-        <div class="text-center">
-            @*    <div id="logo"> <img src="../img/wewatchlogo.png" alt="We Watch Logo"></div>*@
+    <div class="text-center">
+        @*    <div id="logo"> <img src="../img/wewatchlogo.png" alt="We Watch Logo"></div>*@
 
-            <form action="SignUp" id="signupform" method="post">
-                <label id="signuplabels" for="email">Email:</label>
-                <input type="email" id="email" name="email" required />
-                <label id="signuplabels" for="confirmedemail">Confirm Email:</label>
-                <input type="email" id="email" name="confirmedemail" required />
-                <label id="signuplabels" for="password">Password:</label>
-                <input type="password" id="password" name="password" required />
-                <label id="signuplabels" for="confirmedpassword">Confirm Password:</label>
-                <input type="password" id="password" name="confirmedpassword" required />
-                <input type="submit" id="signupbutton" value="Sign Up" />
+        <form action="SignUp" id="signupform" method="post">
+            <label id="signuplabels" for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+            <label id="signuplabels" for="confirmedemail">Confirm Email:</label>
+            <input type="email" id="email" name="confirmedemail" required />
+            <label id="signuplabels" for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+            <label id="signuplabels" for="confirmedpassword">Confirm Password:</label>
+            <input type="password" id="password" name="confirmedpassword" required />
+            <input type="submit" id="signupbutton" value="Sign Up" />
 
-                <p> Once you are successfully signed up, you will be redirected to the login page.</p>
-
-                <div id="orLogIn"> <a href="@Url.Action("LogIn", "User")">LOG IN </a></div>
+            <div id="orLogIn"> <a href="@Url.Action("LogIn", "User")">LOG IN </a></div>
 
 
+            <div id="signUpErrors">
+            <p>@ViewBag.Count</p>
 
-                <p>@ViewBag.Count</p>
+            @if (ViewBag.email != null || ViewBag.password != null)
 
-                @if (ViewBag.email != null || ViewBag.password != null)
-
-                {<h3>You have entered:</h3>}
-                <p>@ViewBag.erroremail</p>
-                <p>@ViewBag.errorconfirmedemai</p>
-                <p>@ViewBag.errormatchingemail</p>
-                <p>@ViewBag.errorpassword</p>
-                <p>@ViewBag.errorconfirmedpassword</p>
-                <p>@ViewBag.errorpasswordconstraint</p>
-                <p>@ViewBag.usedemail</p>
-                <p>@ViewBag.errormatchingpassword</p>
-
-               
-            </form>
-        </div>
+            {<h3>You have entered:</h3>}
+            <p>@ViewBag.erroremail</p>
+            <p>@ViewBag.errorconfirmedemai</p>
+            <p>@ViewBag.errormatchingemail</p>
+            <p>@ViewBag.errorpassword</p>
+            <p>@ViewBag.errorconfirmedpassword</p>
+            <p>@ViewBag.errorpasswordconstraint</p>
+            <p>@ViewBag.usedemail</p>
+            <p>@ViewBag.errormatchingpassword</p>
+            </div>
 
 
-
+        </form>
     </div>
+
+
+
+</div>

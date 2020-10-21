@@ -8,7 +8,7 @@
         <section class="watcherContainer">
             <section id="dropdowns">
                 <div class="allShowsSection">
-                    @if (ViewBag.AllShowCardShows == null)
+                    @if ((ViewBag.AllShowCardShows).Count < 1)
                     {
                         <h2>Looks like you have no shows. </h2>
                         <h2><a class="nav-link text-dark" asp-area="" asp-controller="Show" asp-action="ManageShows">Add a Show</a></h2>
