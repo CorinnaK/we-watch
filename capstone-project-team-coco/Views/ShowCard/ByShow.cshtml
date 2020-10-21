@@ -14,11 +14,9 @@
     <div class="displayShowCard">
         <section class="watcherContainer">
             <section id="dropdowns">
-                <h1 class="display-4">ShowCards</h1>
                 <div id="selectWatcher">
 
                     @{Html.BeginForm("ByShow", "ShowCard");}
-                    <p>Choose a Different Show</p>
                     <div id="showcardDropDownButton">
                         @Html.DropDownList("showID", new SelectList(ViewBag.AllUserShows, "ShowID", "Title"), "Choose a new Show")
                         </div>
