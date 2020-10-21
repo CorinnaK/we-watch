@@ -14,47 +14,14 @@
 </head>
 <body>
     <header class="user-loggedin">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">We Watch</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SignUp">SignUp</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Show" asp-action="ManageShows">Show</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Watcher" asp-action="ManageWatchers">Watcher</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ShowCard" asp-action="Shows">ShowCards - Show</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ShowCard" asp-action="Watchers">ShowCards - Watcher</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ShowCard" asp-action="CreateCard">Make a Connection</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <img id="logohead" src="~/img/wewatchlogo.png"/>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
     <footer>
         <div id="footerContainer">
             <div class="footerIcons">
@@ -67,10 +34,6 @@
         </div>
      
         <button id="logoutbutton" onclick="location.href='@Url.Action("LogOut", "User")'" value="LogOut">LogOut</button>
-
-       @* <button type="button" id="logoutbutton" value="logout" formaction='@Url.Action("LogOut", "User")'></button>*@
-
-
 
     </footer>
     @*  <script src="~/lib/jquery/dist/jquery.min.js"></script>

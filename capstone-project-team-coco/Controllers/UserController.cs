@@ -9,7 +9,7 @@ namespace we_watch.Controllers
 {
     public class UserController : Controller
     {
-        // Sets the session, if the user if logged in redirects them to the ShowCards Page
+        // Sets the session
         public IActionResult Login()
         {
 
@@ -19,12 +19,10 @@ namespace we_watch.Controllers
 
             if (HttpContext.Session.GetString("isLoggedIn") == null)
             { HttpContext.Session.SetString("isLoggedIn", "false"); }
-/*            else if (HttpContext.Session.GetString("isLoggedIn") == "true")
-            {
-                return RedirectToAction("Shows", "ShowCard");
-            }*/
+
             return View();
         }
+
         [HttpPost]
 
         // Verifies wether the users name and password match what is stored in the Db
