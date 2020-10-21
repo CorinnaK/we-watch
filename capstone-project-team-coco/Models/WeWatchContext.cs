@@ -3,6 +3,10 @@
 
 namespace we_watch.Models
 {
+
+    // Citation:
+    //https://github.com/TECHCareers-by-Manpower/4.1-MVC/tree/Sep22Practice/MVC_4Point1/Models
+    // Used in class practice coded by James as reference for Model Creation
     public partial class WeWatchContext : DbContext
     {
         public WeWatchContext()

@@ -9,6 +9,7 @@ namespace we_watch.Controllers
 {
     public class UserController : Controller
     {
+        // Sets the session, if the user if logged in redirects them to the ShowCards Page
         public IActionResult Login()
         {
 
@@ -18,13 +19,15 @@ namespace we_watch.Controllers
 
             if (HttpContext.Session.GetString("isLoggedIn") == null)
             { HttpContext.Session.SetString("isLoggedIn", "false"); }
-            else if (HttpContext.Session.GetString("isLoggedIn") == "true")
+/*            else if (HttpContext.Session.GetString("isLoggedIn") == "true")
             {
                 return RedirectToAction("Shows", "ShowCard");
-            }
+            }*/
             return View();
         }
         [HttpPost]
+
+        // Verifies wether the users name and password match what is stored in the Db
         public IActionResult Login(string email, string password)
         {
             if (email == null && password == null)
@@ -77,19 +80,22 @@ namespace we_watch.Controllers
                 return View();
         }
 
+        // Logs the user out by clearing the session data
         public IActionResult LogOut()
         {
             HttpContext.Session.Remove("User");
             HttpContext.Session.Remove("isLoggedIn");
             return Redirect("Login");
         }
+
+        // Displays the Signup form
             public IActionResult SignUp()
         {
             // needed to show our form
             return View();
         }
 
-        [HttpPost] //method runs on submit
+        [HttpPost] //method runs on submit to add user to the Db
 
         public IActionResult SignUp(string email, string confirmedemail, string password, string confirmedpassword)
         {
@@ -105,9 +111,12 @@ namespace we_watch.Controllers
 
                 else
                 {
+
+                    // Creates a random salt value
                     Random r = new Random();
                     string Salt = Convert.ToString(r.Next());
 
+                    // Adds the salt value to the password and feeds that to the Hash method
                     User newUser = new User() { Email = email.Trim().ToLower(), HashPassword = Hash(password + Salt), Salt = Salt };
 
                     context.User.Add(newUser);
@@ -177,6 +186,12 @@ namespace we_watch.Controllers
 
         public static string Hash(string value)
         {
+
+            // Citation
+            //  https://www.youtube.com/watch?v=gSJFjuWFTdA&list=PLgX_X6wpWU2RZ12GQnTBhVH3DmuTiFwm_&index=1&t=3171s&ab_channel=souravmondal
+            // SHA256 is a hashing algorithm used to secure passwords
+            // The build in Crytography includes this method
+           
             return Convert.ToBase64String(
                 System.Security.Cryptography.SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(value))
                 );

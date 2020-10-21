@@ -55,16 +55,29 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - Team CoCo
+    <footer>
+        <div id="footerContainer">
+            <div class="footerIcons">
+
+                <a href="@Url.Action("ManageShows", "Show")"><img src="/img/editprogramicon2.png" alt="Edit Programs"></a>
+                <a href="@Url.Action("ManageWatchers", "Watcher")"><img src="/img/editwatchericon2.png" alt="Edit Wathcer"></a>
+                <a href="@Url.Action("CreateCard", "ShowCard")"><img src="/img/connecticon2.png" alt="Connect"></a>
+
+            </div>
         </div>
+     
+        <button id="logoutbutton" onclick="location.href='@Url.Action("LogOut", "User")'" value="LogOut">LogOut</button>
+
+       @* <button type="button" id="logoutbutton" value="logout" formaction='@Url.Action("LogOut", "User")'></button>*@
+
+
+
     </footer>
-  @*  <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
-    
+    @*  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+
     <script src="~/js/site.js" asp-append-version="true"></script>
-    
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
