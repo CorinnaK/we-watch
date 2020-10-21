@@ -8,6 +8,21 @@ namespace we_watch.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "show",
+                columns: table => new
+                {
+                    ShowID = table.Column<int>(type: "int(10)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(type: "varchar(50)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:Collation", "utf8mb4_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_show", x => x.ShowID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -16,7 +31,7 @@ namespace we_watch.Migrations
                     Email = table.Column<string>(type: "varchar(30)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                         .Annotation("MySql:Collation", "utf8mb4_general_ci"),
-                    Salt = table.Column<string>(type: "varchar(32)", nullable: false)
+                    Salt = table.Column<string>(type: "varchar(10)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                         .Annotation("MySql:Collation", "utf8mb4_general_ci"),
                     HashPassword = table.Column<string>(type: "char(64)", nullable: false)
@@ -29,35 +44,11 @@ namespace we_watch.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "show",
-                columns: table => new
-                {
-                    ShowID = table.Column<int>(type: "int(10)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserID = table.Column<int>(type: "int(10)", nullable: false),
-                    Title = table.Column<string>(type: "varchar(50)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                        .Annotation("MySql:Collation", "utf8mb4_general_ci"),
-                    TotalSeasons = table.Column<short>(type: "smallint(2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_show", x => x.ShowID);
-                    table.ForeignKey(
-                        name: "FK_Show_User",
-                        column: x => x.UserID,
-                        principalTable: "User",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Watcher",
                 columns: table => new
                 {
                     WatcherID = table.Column<int>(type: "int(10)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserID = table.Column<int>(type: "int(10)", nullable: false),
                     Name = table.Column<string>(type: "varchar(30)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                         .Annotation("MySql:Collation", "utf8mb4_general_ci")
@@ -65,12 +56,6 @@ namespace we_watch.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Watcher", x => x.WatcherID);
-                    table.ForeignKey(
-                        name: "FK_Watcher_User",
-                        column: x => x.UserID,
-                        principalTable: "User",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,14 +85,11 @@ namespace we_watch.Migrations
                 {
                     ShowCardID = table.Column<int>(type: "int(10)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserID = table.Column<int>(type: "int(10)", nullable: false),
                     ShowID = table.Column<int>(type: "int(10)", nullable: false),
                     WatcherID = table.Column<int>(type: "int(10)", nullable: false),
-                    Platform = table.Column<string>(type: "varchar(20)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                        .Annotation("MySql:Collation", "utf8mb4_general_ci"),
                     CurrentSeason = table.Column<short>(type: "smallint(2)", nullable: false),
-                    CurrentEpisode = table.Column<short>(type: "smallint(2)", nullable: false),
-                    Status = table.Column<string>(type: "varchar(20)", nullable: false)
+                    CurrentEpisode = table.Column<short>(type: "smallint(2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -119,6 +101,12 @@ namespace we_watch.Migrations
                         principalColumn: "ShowID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_ShowCard_User",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_ShowCard_Watcher",
                         column: x => x.WatcherID,
                         principalTable: "Watcher",
@@ -126,37 +114,69 @@ namespace we_watch.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "WatchHistory",
-                columns: table => new
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "UserID", "Email", "HashPassword", "Salt" },
+                values: new object[,]
                 {
-                    WatchHistoryID = table.Column<int>(type: "int(10)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ShowCardID = table.Column<int>(type: "int(10)", nullable: false),
-                    SeasonNum = table.Column<sbyte>(type: "tinyint(2)", nullable: false),
-                    EpisodeNum = table.Column<sbyte>(type: "tinyint(2)", nullable: false),
-                    Platform = table.Column<string>(type: "varchar(20)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WatchHistory", x => x.WatchHistoryID);
-                    table.ForeignKey(
-                        name: "FK_WatchHistory_ShowCard",
-                        column: x => x.ShowCardID,
-                        principalTable: "ShowCard",
-                        principalColumn: "ShowCardID",
-                        onDelete: ReferentialAction.Cascade);
+                    { -1, "someone@somewhere.something", "2334814362998297759587574090140267323532918138392977707124924545", "wherew" },
+                    { -2, "aspin@go.com", "2334814362998297759587574090140267323532918138392977707124924545", "Yes" },
+                    { -3, "goaspin@gmail.com", "3/H/c1lljJe2l9+DQCsr3NSSPhFyj/SZV7hA5wUQxnI=", "1859530424" }
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "FK_Show_User",
+            migrationBuilder.InsertData(
+                table: "Watcher",
+                columns: new[] { "WatcherID", "Name" },
+                values: new object[,]
+                {
+                    { -1, "Bob Jones" },
+                    { -2, "Sally Jenkins" },
+                    { -3, "Austin Jane" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "show",
-                column: "UserID");
+                columns: new[] { "ShowID", "Title" },
+                values: new object[,]
+                {
+                    { -1, "Game of Thrones" },
+                    { -2, "American Idol" },
+                    { -3, "Fringe" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ShowCard",
+                columns: new[] { "ShowCardID", "CurrentEpisode", "CurrentSeason", "ShowID", "UserID", "WatcherID" },
+                values: new object[,]
+                {
+                    { -4, (short)30, (short)-5, -2, -3, -1 },
+                    { -1, (short)1, (short)-2, -1, -3, -2 },
+                    { -2, (short)10, (short)-2, -1, -3, -3 },
+                    { -3, (short)12, (short)-4, -2, -3, -3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ShowSeason",
+                columns: new[] { "ShowSeasonID", "IndividualSeason", "SeasonEpisodes", "ShowID" },
+                values: new object[,]
+                {
+                    { -1, (short)1, (short)10, -1 },
+                    { -2, (short)2, (short)10, -1 },
+                    { -3, (short)3, (short)10, -1 },
+                    { -4, (short)1, (short)25, -2 },
+                    { -5, (short)8, (short)40, -2 },
+                    { -6, (short)5, (short)13, -3 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "FK_ShowCard_Show",
                 table: "ShowCard",
                 column: "ShowID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShowCard_UserID",
+                table: "ShowCard",
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "FK_ShowCard_Watcher",
@@ -167,37 +187,24 @@ namespace we_watch.Migrations
                 name: "FK_ShowSeason_Show",
                 table: "ShowSeason",
                 column: "ShowID");
-
-            migrationBuilder.CreateIndex(
-                name: "FK_Watcher_User",
-                table: "Watcher",
-                column: "UserID");
-
-            migrationBuilder.CreateIndex(
-                name: "FK_WatchHistory_ShowCard",
-                table: "WatchHistory",
-                column: "ShowCardID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ShowSeason");
-
-            migrationBuilder.DropTable(
-                name: "WatchHistory");
-
-            migrationBuilder.DropTable(
                 name: "ShowCard");
 
             migrationBuilder.DropTable(
-                name: "show");
+                name: "ShowSeason");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Watcher");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "show");
         }
     }
 }

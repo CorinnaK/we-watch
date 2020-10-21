@@ -257,36 +257,6 @@ namespace we_watch.Migrations
                         });
                 });
 
-            modelBuilder.Entity("we_watch.Models.WatchHistory", b =>
-                {
-                    b.Property<int>("WatchHistoryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("WatchHistoryID")
-                        .HasColumnType("int(10)");
-
-                    b.Property<sbyte>("Episode_Num")
-                        .HasColumnName("EpisodeNum")
-                        .HasColumnType("tinyint(2)");
-
-                    b.Property<string>("Platform")
-                        .HasColumnName("Platform")
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<sbyte>("SeasonNum")
-                        .HasColumnName("SeasonNum")
-                        .HasColumnType("tinyint(2)");
-
-                    b.Property<int>("ShowCardID")
-                        .HasColumnName("ShowCardID")
-                        .HasColumnType("int(10)");
-
-                    b.HasKey("WatchHistoryID");
-
-                    b.HasIndex("ShowCardID");
-
-                    b.ToTable("WatchHistory");
-                });
-
             modelBuilder.Entity("we_watch.Models.Watcher", b =>
                 {
                     b.Property<int>("WatcherID")
@@ -353,15 +323,6 @@ namespace we_watch.Migrations
                         .WithMany("ShowSeasons")
                         .HasForeignKey("ShowID")
                         .HasConstraintName("FK_ShowSeason_Show")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("we_watch.Models.WatchHistory", b =>
-                {
-                    b.HasOne("we_watch.Models.ShowCard", "ShowCard")
-                        .WithMany("WatchHistories")
-                        .HasForeignKey("ShowCardID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

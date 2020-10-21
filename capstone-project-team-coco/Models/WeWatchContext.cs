@@ -92,7 +92,6 @@ namespace we_watch.Models
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_" + nameof(ShowCard) + "_" + nameof(User));
 
-
                 entity.HasData(
                     new ShowCard()
                     {
@@ -131,6 +130,8 @@ namespace we_watch.Models
                         CurrentEpisode = 30,
                     }
                     );
+
+
 
             });
 
@@ -194,6 +195,7 @@ namespace we_watch.Models
 
                     );
 
+
             });
 
 
@@ -237,7 +239,7 @@ namespace we_watch.Models
                         HashPassword = "3/H/c1lljJe2l9+DQCsr3NSSPhFyj/SZV7hA5wUQxnI="
                     }
             );
-         });
+            });
 
 
             modelBuilder.Entity<Watcher>(entity =>
