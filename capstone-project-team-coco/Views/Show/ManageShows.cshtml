@@ -19,7 +19,7 @@ Restricting title length to a max of 50 characters*@
             <div id="dropdowns">
 
                 <form action="AddShow" id="addProgramContainer" method="post">
-                    @*<div id="addProgramContainer">*@
+                   
                     <div id="programNameContainer">
                         <label for="title">Program Name:</label>
                         <input type="text" id="addProgramTitle" name="title" required maxlength="50" />
@@ -35,7 +35,7 @@ Restricting title length to a max of 50 characters*@
                         </div>
                         <input type="submit" id="saveButtons" value="Add Program" />
                     </div>
-                    @*</div>*@
+                    
 
 
                 </form>
@@ -45,7 +45,7 @@ Restricting title length to a max of 50 characters*@
 </div>
 
 <div class="displayShowCard">
-    @*<h3>List of all Programs added</h3>*@
+    
     @foreach (Show show in ViewBag.AllShows)
     {
 

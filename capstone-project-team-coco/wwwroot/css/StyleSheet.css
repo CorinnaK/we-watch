@@ -15,14 +15,7 @@
 body {
     background-color: #000000;
     font-family: Arial, Verdana;
-    /*background-image: url(../img/loginbackground.png);*/
-    /*   background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: 455px;
-    height: 100%;*/
-    /*   background-position-x: -23%;
-    position: fixed;*/
+
 }
 #logohead {
     width: auto;
@@ -56,8 +49,7 @@ body {
 }
 
     #bg img {
-        height: 550px; /*
-    position: fixed;*/
+        height: 550px; 
         z-index: -1;
     }
 
@@ -249,17 +241,6 @@ label {
 
 }
 
-#connectDropdownsContainer {
-
-}
-
-#dropdownChooseShow {
-}
-
-#dropdownChooseWatcher {
-}
-
-
 #connectShow{
     margin: 10px;
 }
@@ -333,39 +314,6 @@ justify-content: center;
     width: 100%;
 }
 
-/*#signupBackground {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: 455px;
-    height: 100%;
-    background-image: url(../img/signupbackground.png);
-}*/
-
-/*#signUpBackground {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 7rem 0;*/
-/*background-color: red;
-    background-image: url(../img/signupbackground.png);
-    background-repeat: no-repeat;
-    background-position: 80% 10%;
-    background-size: contain;
-    background-position: 60% 20%;
-    background-attachment: fixed;
-    background-size: 500px;*/
-/*}*/
-
-/*#loginBackground {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: 455px;
-    height: 100%;
-    background-image: url(../img/loginbackground.png);
-}*/
 
 .addShow, .displayShowCard, .watchersList, .showsList {
     text-align: center;
@@ -412,7 +360,7 @@ justify-content: center;
 a {
     text-decoration: none;
     color: #FEE2E0;
-    ;
+    
 }
 
 
@@ -438,9 +386,6 @@ a {
     border-radius: 20px;
 }
 
-/* .active, .programTitle:hover {
-        background-color: #555;
-    }*/
 
 .dropdownContainer {
     max-height: 0;
@@ -453,18 +398,7 @@ a {
 }
 
 
-/*#dropdowns {
-    background-color: #001517;
-    width: 300px;
-    border-radius: 20px;
-    margin: 10px;
-    padding: 10px;
-    align-content: center;*/
-/*display: flex;
-    justify-content: center;
-    text-align: center;*/ /*
-    flex-direction: column;*/
-/*}*/
+
 #dropdowns {
     background-color: #001517;
     width: 350px;
@@ -478,11 +412,6 @@ a {
 
 #addProgramContainer {
     position: relative;
-    /*background-color: red;*/
-    /*margin-bottom: 50px;*/
-    /*display: flex;
-    flex-direction: column;
-    align-items: center;*/
 }
 
 #addProgramTitle, #addwatcherName {
@@ -491,8 +420,6 @@ a {
     font-weight: bold;
     font-size: 12px;
     padding: 8px 20px;
-    /*margin: 4px 0 15px 0;*/
-    /*display: flex;*/
     line-height: 25px;
     border-radius: 20px;
     border: none;
@@ -549,8 +476,6 @@ a {
     font-weight: bold;
     font-size: 12px;
     padding: 8px 20px;
-    /*margin: 4px 0 15px 0;*/
-    /*display: flex;*/
     line-height: 25px;
     border-radius: 20px;
     border: none;
@@ -572,21 +497,17 @@ a {
     width: 30px;
     height: 13px;
     text-align: center;
-    /* display: inline;
-    justify-content: flex-start;*/
 }
 
 #seasonEpisodeContainer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    /*margin-bottom: 10px;*/
     padding: 0 40px 0 40px;
 }
 
 #seasonContainer, #episodeContainer {
     text-align: center;
-    /* display: flex;*/
     flex-direction: column;
     align-items: center;
 }
@@ -661,7 +582,6 @@ a {
     font-weight: bold;
     font-size: 12px;
     padding: 8px 15px;
-    /*margin: 4px 0 15px 0;*/
     display: flex;
     line-height: 25px;
     border-radius: 20px;
@@ -671,8 +591,6 @@ a {
     text-align: center;
     margin-bottom: 10px;
     margin-top: 5px;
-    /* display: inline;
-    justify-content: flex-start;*/
 }
 
 #deleteButtonAddSeason {
@@ -684,15 +602,7 @@ a {
 
 
 /*START of log in & sign up pages*/
-/*.pb-3 {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-}*/
 
-/*.user-loggedin {
-    background-image: url(../img/wewatchlogo.png);
-}*/
 
 #signupform {
     background-color: transparent;
@@ -739,17 +649,11 @@ a {
 #loginbutton {
     background-color: #001517;
     color: #F56960;
-/*    padding: 10px;*/
     margin: 15px 0 10px 0;
     border-radius: 30px;
     border: 3px solid #F56960;
     font-weight: bold;
     font-size: 12px;
-    /*position: absolute;*/
-    /*top: 50%;*/
-    /*left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);*/
 }
 
 #logoutbutton {
@@ -773,15 +677,10 @@ a {
     background-color: #F56960;
     color: #FEE2E0;
     padding: 5px 10px;
-    /* margin: 15px 0 10px 0;*/
     border-radius: 30px;
     border: 2px solid #F56960;
     font-weight: bold;
     font-size: 12px;
-    /*position: absolute;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);*/
 }
 
 #dropdowns h2 {
@@ -794,7 +693,6 @@ a {
     background-color: #F56960;
     color: #FEE2E0;
     padding: 5px 10px;
-    /* margin: 15px 0 10px 0;*/
     border-radius: 30px;
     border: 2px solid #F56960;
     font-weight: bold;
@@ -806,7 +704,6 @@ a {
     background-color: #001517;
     color: #FEE2E0;
     padding: 5px 10px;
-    /* margin: 15px 0 10px 0;*/
     border-radius: 30px;
     font-weight: bold;
     font-size: 12px;
@@ -874,5 +771,5 @@ footer img {
 
 
 
-
-https://www.w3schools.com/css/css_tooltip.asp
+/* https://www.w3schools.com/css/css_tooltip.asp
+*/
