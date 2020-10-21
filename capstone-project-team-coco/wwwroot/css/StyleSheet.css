@@ -176,9 +176,29 @@ label {
 /*START of Connect Page*/
 
 #chooseShowWatcherContainer {
+
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#chooseShow {
+    color: #0A9eB0;
+    font-weight: bold;
+    font-size: 12px;
+    padding-bottom: 5px;
 }
 
 #connectDropdownsContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    text-align: left;
+
+}
+
+#connectDropdownsContainer {
+
 }
 
 #dropdownChooseShow {
@@ -187,11 +207,32 @@ label {
 #dropdownChooseWatcher {
 }
 
-#connectLabelsContainer {
+
+#connectShow{
+    margin: 10px;
 }
 
+#connectSuccess {
+    font-weight: bold;
+    color: #FEE2E0;
+}
 
+#connectLabelsContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    text-align: right;
+}
+#dropdownSelectButton {
+    display: flex;
+    justify-content: center;
+}
 
+#chooseSeasonContainer{
+display: flex;
+justify-content: center;
+
+}
 
 /*END of Connect Page*/
 /*START of Watchers Page*/
@@ -421,6 +462,19 @@ a {
     font-weight: bold;
     font-size: 12px;
     height: 30px;
+}
+
+#connectButton {
+    background-color: #F56960;
+    color: #001517;
+    padding: 5px 10px;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+    font-size: 12px;
+    height: 30px;
+    margin: 10px;
+    width: 120px;
 }
 
 #deleteButtonnEditShowTitle {
