@@ -19,10 +19,10 @@ namespace we_watch.Controllers
 
             if (HttpContext.Session.GetString("isLoggedIn") == null)
             { HttpContext.Session.SetString("isLoggedIn", "false"); }
-            else if (HttpContext.Session.GetString("isLoggedIn") == "true")
+/*            else if (HttpContext.Session.GetString("isLoggedIn") == "true")
             {
                 return RedirectToAction("Shows", "ShowCard");
-            }
+            }*/
             return View();
         }
         [HttpPost]
@@ -191,6 +191,7 @@ namespace we_watch.Controllers
             //  https://www.youtube.com/watch?v=gSJFjuWFTdA&list=PLgX_X6wpWU2RZ12GQnTBhVH3DmuTiFwm_&index=1&t=3171s&ab_channel=souravmondal
             // SHA256 is a hashing algorithm used to secure passwords
             // The build in Crytography includes this method
+           
             return Convert.ToBase64String(
                 System.Security.Cryptography.SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(value))
                 );
