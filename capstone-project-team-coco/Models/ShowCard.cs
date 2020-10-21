@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace we_watch.Models
 {
+    // Citation:
+    //https://github.com/TECHCareers-by-Manpower/4.1-MVC/tree/Sep22Practice/MVC_4Point1/Models
+    // Used in class practice coded by James as reference for Model Creation
+
     [Table("ShowCard")]
     public partial class ShowCard
     {
-        public ShowCard()
-        {
-            WatchHistories = new HashSet<WatchHistory>();
-        }
 
 
         [Key]
@@ -64,10 +64,6 @@ namespace we_watch.Models
         [ForeignKey(nameof(UserID))]
         [InverseProperty(nameof(Models.User.ShowCards))]
         public virtual User User { get; set; }
-
-
-        [InverseProperty(nameof(Models.WatchHistory.ShowCard))]
-        public virtual ICollection<WatchHistory> WatchHistories { get; set; }
 
     }
 }

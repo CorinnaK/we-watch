@@ -14,6 +14,7 @@ namespace we_watch.Controllers
             return RedirectToAction("ManageWatchers");
         }
 
+
         // Central view for CRUD actions on Watcher 
         public IActionResult ManageWatchers()
         {
@@ -32,7 +33,9 @@ namespace we_watch.Controllers
             return View();
         }
 
+
         [HttpPost]
+        // Adds a watcher to the Db
         public IActionResult AddWatcher(string name)
         {
             // Ensure user is logged in
@@ -67,8 +70,10 @@ namespace we_watch.Controllers
             TempData["message"] = message;
             return RedirectToAction("ManageWatchers");
         }
-        [HttpPost]
 
+
+        [HttpPost]
+        // Edits a watcher in the Db
         public IActionResult EditWatcher(string watcherName, string watcherID)
         {
             // Ensure user is logged in
@@ -79,10 +84,16 @@ namespace we_watch.Controllers
             {
                 string tempName;
                 int parsedWatcherID = int.Parse(watcherID);
+
+                // Search for the watcher
                 Watcher watcher = context.Watcher.Where(x => x.WatcherID == parsedWatcherID).SingleOrDefault();
+                
                 tempName = watcher.Name;
+
+                // Validate data
                 if (watcher != null)
                 {
+
                     if (string.IsNullOrWhiteSpace(watcherName))
                     {
                         message = "Name must contain characters";
@@ -99,6 +110,7 @@ namespace we_watch.Controllers
                     {
                         message = $"{watcherName} already exists";
                     }
+                    // Save to Db
                     else
                     {
                         watcher.Name = watcherName;
@@ -113,9 +125,13 @@ namespace we_watch.Controllers
 
                 }
             }
+
             TempData["message"] = message;
             return RedirectToAction("ManageWatchers");
         }
+
+
+        // Deletes a watcher from the Db
         public IActionResult DeleteWatcher(int watcherID)
         {
             if (!IsLoggedIn()) { return RedirectToAction("Login", "User"); }
@@ -126,14 +142,15 @@ namespace we_watch.Controllers
             else
             {
                 using WeWatchContext context = new WeWatchContext();
-                string tempName = context.Watcher.Where(x => x.WatcherID == watcherID).Select(y => y.Name).Single().ToString();
-
 
                 Watcher watcher = context.Watcher.Where(x => x.WatcherID == watcherID).SingleOrDefault();
+                
                 if (watcher == null)
                 { message = "Cannot delete watcher. Please try again later."; }
+                
                 else
                 {
+                    string tempName = watcher.Name;
                     context.Watcher.Remove(watcher);
                     context.SaveChanges();
                     message = $"Successfully deleted {tempName}";
@@ -144,6 +161,7 @@ namespace we_watch.Controllers
             return RedirectToAction("ManageWatchers");
         }
 
+        // Checks if the user is logged in
         public bool IsLoggedIn()
         {
             return (HttpContext.Session.GetString("isLoggedIn") == "true");
