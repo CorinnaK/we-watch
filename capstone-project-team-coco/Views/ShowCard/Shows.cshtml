@@ -8,20 +8,25 @@
         <section class="watcherContainer">
             <section id="dropdowns">
                 <h1 class="display-4">List of All Shows</h1>
-                @if (ViewBag.AllShowCardShows == null)
-                {
-                    <h2>Looks like you have no shows. </h2>
-                    <h2><a class="nav-link text-dark" asp-area="" asp-controller="Show" asp-action="ManageShows">Add a Show</a></h2>
-                }
-                else
-                {
-                    
-                    @foreach (Show show in ViewBag.AllShowCardShows)
+                <div class="allShowsSection">
+                    @if (ViewBag.AllShowCardShows == null)
                     {
-                        <h3>@Html.ActionLink(show.Title, "ByShow", new { showID = show.ShowID}, new { @class = "showTitle" })</h3>
+                        <h2>Looks like you have no shows. </h2>
+                        <h2><a class="nav-link text-dark" asp-area="" asp-controller="Show" asp-action="ManageShows">Add a Show</a></h2>
                     }
+                    else
+                    {
+                        @foreach (Show show in ViewBag.AllShowCardShows)
+                        {
 
-                }
+                            <button class="showTitle">
+                                @Html.ActionLink(show.Title, "ByShow", new { showID = show.ShowID })
+                            </button>
+
+                        }
+
+                    }
+                </div>
             </section>
         </section>
     </div>

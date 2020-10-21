@@ -25,6 +25,8 @@ body {
     position: fixed;*/
 }
 
+
+
 #logo {
     display: flex;
     justify-content: center;
@@ -70,27 +72,130 @@ label {
     width: 10rem;
 }
 
+#indShowCardLabel {
+    color: #0A9eB0;
+    font-weight: bold;
+    font-size: 12px;
+    padding-bottom: 10px;
+    width: 10rem;
+}
+
+#showCardLabel {
+    text-align: right;
+    margin: 10px 10px 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#showCardDetails {
+    text-align: left;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.showCardByShowContainer {
+    background-color: #072F34;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#byShowTitle {
+    color: #F0A202;
+    font-weight: bold;
+    font-size: 12px;
+    padding-bottom: 10px;
+    width: 10rem;
+}
+
+#byShowWatcher {
+    color: #F0A202;
+    font-weight: bold;
+    font-size: 12px;
+    padding-bottom: 10px;
+    width: 10rem;
+}
+
+.byShowSeason, .byShowEpisode {
+    color: #FEE2E0;
+    font-weight: bold;
+    font-size: 12px;
+    margin-right: 5px;
+    padding-bottom: 10px;
+}
+
+#plus, #minus {
+    background-color: #0A9EB0;
+    color: #FEE2E0;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 3px;
+    border: unset;
+    border-radius: 20px;
+    margin: 0 5px 0 15px;
+}
+
+#showCardButton {
+    background-color: #001517;
+    color: #F56960;
+    padding: 5px 10px;
+    border-radius: 30px;
+    border: 3px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    height: 30px;
+}
+
+#showcardDropDownButton {
+    background-color: #001517;
+    color: #F56960;
+    padding: 5px 10px;
+    border-radius: 30px;
+    border: 3px solid #F56960;
+    font-weight: bold;
+    font-size: 12px;
+    width: 120px;
+}
+
+#selectWatcher{
+    display: flex;
+    justify-content: center;
+}
+
+.byShowSeasonEpisodeContainer {
+    display: flex;
+}
+
 *:focus {
     outline: none;
 }
 
-/*START of Shows Index page*/
-.showTitle {
-    background-color: #F0A202;
-    color: #072F34;
-    cursor: pointer;
-    padding: 5px;
-    margin: 5px;
-    width: 200px;
-    height: 30px;
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 20px;
+/*START of Connect Page*/
+
+#chooseShowWatcherContainer{
+
 }
 
+#connectDropdownsContainer{
+
+}
+
+#dropdownChooseShow {
+}
+
+#dropdownChooseWatcher {
+}
+
+#connectLabelsContainer {
+}
+
+
+
+
+/*END of Connect Page*/
 /*START of Watchers Page*/
 .watcherName {
     background-color: #F0A202;
@@ -124,7 +229,10 @@ label {
     text-align: center;
 }
 
-
+/*START of Shows Index page*/
+.showCard{
+    margin: 10px;
+}
 /*END of Shows Index page*/
 
 /*START of Manage Shows*/
@@ -178,7 +286,7 @@ label {
 
 
 
-.programTitle, .showTitle {
+.programTitle {
     background-color: #F0A202;
     color: #072F34;
     cursor: pointer;
@@ -192,6 +300,31 @@ label {
     font-size: 12px;
     font-weight: bold;
     border-radius: 20px;
+}
+
+.showTitle, .watcher {
+    background-color: #F0A202;
+    color: #072F34;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    width: 200px;
+    height: 30px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+}
+a {
+    text-decoration: none;
+    color: #072F34;
+}
+
+
+.allShowsSection{
+    text-align: center;
 }
 
 .addNewProgramTitle {
