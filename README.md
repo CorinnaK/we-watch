@@ -5,7 +5,7 @@
  
 ****
 ## What is WeWatch?
-We love watching TV and we bet you love watching TV too! **WeWatch** is a fully-responsive, one-step applicatin that helps you keep track of all the shows you are watching and who you're watching with, across ANY platform!
+We love watching TV and we bet you love watching TV too! **WeWatch** is a fully-responsive, one-step application that helps you keep track of all the shows you are watching and who you're watching with, across ANY platform!
 
 Just log in, add your favourite shows, add *Watchers* (who you're watching with), and connect them! **WeWatch** takes care of the rest! This app is customizable, so you can add, edit, and delete programs or *Watchers* any time!
 
@@ -33,9 +33,9 @@ Once you've added a Program and a Watcher, this is where you connect the two! Ju
 *****
 ## About
 
-**[|Keep and eye on our futrure features on Trello |](https://trello.com/b/IE59VJK5/we-watch)**
+**[|Keep and eye on our future features on Trello |](https://trello.com/b/IE59VJK5/we-watch)**
 
-Have a suggestion or want to collabrate on future projects contact us at hotcocoapps@gmail.com
+Have a suggestion or want to collaborate on future projects contact us at hotcocoapps@gmail.com
 
 ****
 ## Installation  
@@ -52,7 +52,7 @@ To run this application, you'll need the following already installed on your com
 3. copy this link to the Repository location 
  https://github.com/TECHCareers-by-Manpower/capstone-project-team-coco.git 
 4. In Local path enter a folder on your computer where you'd like the project to live
-    eg. C:\Projects
+    (eg. C:\Projects)
 You can also click on the ... beside the input field to navigate to the correct folder.
 5. Click Clone
 
@@ -151,7 +151,7 @@ Test Case 4 Edit Programs - Add Program
 - Does not allow submission if any field is left blank
 - Error message if Title entered already exsist
 - Error message if Title is > 50 characters
-- Does not alllow non numeric in season or episode fields
+- Does not allow non numeric in season or episode fields
 - Error message if Season or Episode not between 1 and 50
 - Adds Program to list of all Programs in Db
 
