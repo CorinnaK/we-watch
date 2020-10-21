@@ -21,25 +21,30 @@
                 <input type="password" id="password" name="confirmedpassword" required />
                 <input type="submit" id="signupbutton" value="Sign Up" />
 
+                <p> Once you are successfully signed up, you will be redirected to the login page.</p>
+
+                <div id="orLogIn"> <a href="@Url.Action("LogIn", "User")">LOG IN </a></div>
+
+
+
+                <p>@ViewBag.Count</p>
+
+                @if (ViewBag.email != null || ViewBag.password != null)
+
+                {<h3>You have entered:</h3>}
+                <p>@ViewBag.erroremail</p>
+                <p>@ViewBag.errorconfirmedemai</p>
+                <p>@ViewBag.errormatchingemail</p>
+                <p>@ViewBag.errorpassword</p>
+                <p>@ViewBag.errorconfirmedpassword</p>
+                <p>@ViewBag.errorpasswordconstraint</p>
+                <p>@ViewBag.usedemail</p>
+                <p>@ViewBag.errormatchingpassword</p>
+
+               
             </form>
         </div>
-        <p> Once you are successfully signed up, you will be redirected to the login page.</p>
 
-        <p>@ViewBag.Count</p>
-
-        @if (ViewBag.email != null || ViewBag.password != null)
-
-        {<h3>You have entered:</h3>}
-        <p>@ViewBag.erroremail</p>
-        <p>@ViewBag.errorconfirmedemai</p>
-        <p>@ViewBag.errormatchingemail</p>
-        <p>@ViewBag.errorpassword</p>
-        <p>@ViewBag.errorconfirmedpassword</p>
-        <p>@ViewBag.errorpasswordconstraint</p>
-        <p>@ViewBag.usedemail</p>
-        <p>@ViewBag.errormatchingpassword</p>
-
-        <div id="orLogin"> <a href="@Url.Action("LogIn", "User")">LOG IN </a></div>
 
 
     </div>

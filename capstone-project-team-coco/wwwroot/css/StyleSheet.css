@@ -800,10 +800,10 @@ a {
     padding: 5px 10px;
     /* margin: 15px 0 10px 0;*/
     border-radius: 30px;
-    border: 2px solid #F56960;
     font-weight: bold;
     font-size: 12px;
 }
+
 
 
 #errormessage {
@@ -823,8 +823,10 @@ a {
 footer {
     height: 1.5em;
     width: auto;
-    /*margin-top: 5em;*/
+    margin-top: 19rem;
     background-color: #F56960;
+    position: sticky;
+    bottom: 60px;
 }
 
 
