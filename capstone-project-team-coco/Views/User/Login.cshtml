@@ -1,32 +1,45 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Sign Up";
 }
-    <div id="loginBackground">
-        <div class="text-center">
-            <h1></h1>
 
-            <form action="Login" id="loginsignupform" method="post">
+<div id="signUpBackground">
+    <div class="text-center">
+        @*<div id="logoLogin"> <img src="../img/wewatchlogo.png" alt="We Watch Logo"></div>*@
+
+        <form action="LogIn" id="loginform" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />           
+            <input type="submit" id="loginbutton" value="Log In" />
+
+        </form>
+
+        @*<form action="Login" id="loginform" method="post">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" />
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" />
                 <input type="submit" id="loginbutton" value="Log In" />
 
-            </form>
-
-            <p>@ViewBag.Count</p>
-
-            <div id="errormessage">
-                <p>@ViewBag.errorwronglogin</p>
-                <p>@ViewBag.erroremailpassword</p>
-                <p>@ViewBag.erroremail</p>
-                <p>@ViewBag.errorpassword</p>
-            </div>
-
-
-
-
-        </div>
-
+            </form>*@
     </div>
+    <p> Once you are successfully signed up, you will be redirected to the login page.</p>
+
+    <p>@ViewBag.Count</p>
+
+    @if (ViewBag.email != null || ViewBag.password != null)
+
+    {<h3>You have entered:</h3>}
+    <p>@ViewBag.erroremail</p>
+    <p>@ViewBag.errorconfirmedemai</p>
+    <p>@ViewBag.errormatchingemail</p>
+    <p>@ViewBag.errorpassword</p>
+    <p>@ViewBag.errorconfirmedpassword</p>
+    <p>@ViewBag.errorpasswordconstraint</p>
+    <p>@ViewBag.usedemail</p>
+    <p>@ViewBag.errormatchingpassword</p>
+
+
+</div>

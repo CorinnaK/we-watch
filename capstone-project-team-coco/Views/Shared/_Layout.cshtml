@@ -55,18 +55,21 @@
         </main>
     </div>
 
-    <footer>
+    <footer class="footer">
+        
+        
         <div id="footerContainer">
             <div class="footerIcons">
 
                 <a href="@Url.Action("ManageShows", "Show")"><img src="/img/editprogramicon2.png" alt="Edit Programs"></a>
                 <a href="@Url.Action("ManageWatchers", "Watcher")"><img src="/img/editwatchericon2.png" alt="Edit Wathcer"></a>
                 <a href="@Url.Action("CreateCard", "ShowCard")"><img src="/img/connecticon2.png" alt="Connect"></a>
-
             </div>
+
+            <div id="logoutDiv"><button id="logoutbutton" onclick="location.href='/User/LogOut'" value="LogOut">LogOut</button></div>
         </div>
      
-        <button id="logoutbutton" onclick="location.href='@Url.Action("LogOut", "User")'" value="LogOut">LogOut</button>
+        
 
        @* <button type="button" id="logoutbutton" value="logout" formaction='@Url.Action("LogOut", "User")'></button>*@
 
