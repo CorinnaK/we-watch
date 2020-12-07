@@ -27,7 +27,7 @@ namespace we_watch
         {
             services.AddDistributedMemoryCache();
             services.AddControllersWithViews();
-            services.AddDbContext<WeWatchContext>(options => options.UseMySql("server=localhost;port=3306;user=root;database=we_watch", x => x.ServerVersion("10.4.14-mariadb")));
+            services.AddDbContext<WeWatchContext>(options => options.UseMySql(""));
             services.AddSession(options =>
             {
                 options.IdleTimeout = System.TimeSpan.FromSeconds(3600);
