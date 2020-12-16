@@ -33,7 +33,6 @@ Once you've added a Program and a Watcher, this is where you connect the two! Ju
 *****
 ## About
 
-**[|Keep and eye on our future features on Trello |](https://trello.com/b/IE59VJK5/we-watch)**
 
 Have a suggestion or want to collaborate on future projects contact us at hotcocoapps@gmail.com
 
@@ -49,8 +48,7 @@ To run this application, you'll need the following already installed on your com
 
 1. Launch Visual Studio Code
 2. From the file menu select clone repository
-3. copy this link to the Repository location 
- https://github.com/TECHCareers-by-Manpower/capstone-project-team-coco.git 
+3. copy this github link to the Repository location 
 4. In Local path enter a folder on your computer where you'd like the project to live
     (eg. C:\Projects)
 You can also click on the ... beside the input field to navigate to the correct folder.
