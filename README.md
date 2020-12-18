@@ -34,6 +34,7 @@ Once you've added a Program and a Watcher, this is where you connect the two! Ju
 ## About
 
 Check out the live preview at https://wewatchtv.herokuapp.com/
+
 Have a suggestion or want to collaborate on future projects contact us at hotcocoapps@gmail.com
 
 ****
